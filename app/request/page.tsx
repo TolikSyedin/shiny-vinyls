@@ -1,4 +1,4 @@
-import { RequestForm } from '@/components/request-form'
+import { RequestForm } from '@/components/forms'
 
 export const metadata = {
   title: 'Заявка — Shiny Vinyls',

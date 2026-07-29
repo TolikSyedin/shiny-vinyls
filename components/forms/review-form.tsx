@@ -5,10 +5,12 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
-import { FieldError } from '@/components/field-error'
-import { HoneypotField } from '@/components/honeypot-field'
-import { TextField } from '@/components/text-field'
-import { TextAreaField } from '@/components/text-area-field'
+import {
+  FieldError,
+  HoneypotField,
+  TextField,
+  TextAreaField,
+} from '@/components/form-fields'
 
 export function ReviewForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)

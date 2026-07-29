@@ -1,5 +1,5 @@
 import { listApprovedReviews } from '@/lib/repositories/reviews'
-import { ReviewForm } from '@/components/review-form'
+import { ReviewForm } from '@/components/forms'
 
 export const metadata = {
   title: 'Відгуки — Shiny Vinyls',

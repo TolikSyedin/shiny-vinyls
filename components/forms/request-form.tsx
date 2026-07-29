@@ -7,10 +7,12 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
-import { FieldError } from '@/components/field-error'
-import { HoneypotField } from '@/components/honeypot-field'
-import { TextField } from '@/components/text-field'
-import { TextAreaField } from '@/components/text-area-field'
+import {
+  FieldError,
+  HoneypotField,
+  TextField,
+  TextAreaField,
+} from '@/components/form-fields'
 
 export function RequestForm() {
   const router = useRouter()
