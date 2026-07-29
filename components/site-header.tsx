@@ -8,6 +8,7 @@ export function SiteHeader() {
         <Link href="/">Головна</Link>
         <Link href="/contacts">Контакти</Link>
         <Link href="/request">Заявка</Link>
+        <Link href="/reviews">Відгуки</Link>
       </nav>
       <ThemeToggle />
     </header>
