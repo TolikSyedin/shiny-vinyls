@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
+import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 
 export function RequestForm() {
   const router = useRouter()
@@ -29,14 +30,14 @@ export function RequestForm() {
       })
 
       if (!res.ok) {
-        setSubmitError('Щось пішло не так, спробуйте ще раз')
+        setSubmitError(SUBMIT_ERROR_MESSAGE)
         return
       }
 
       const { id } = await res.json()
       router.push(`/request/${id}`)
     } catch {
-      setSubmitError('Щось пішло не так, спробуйте ще раз')
+      setSubmitError(SUBMIT_ERROR_MESSAGE)
     }
   }
 

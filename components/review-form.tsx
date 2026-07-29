@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
+import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 
 export function ReviewForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -28,13 +29,13 @@ export function ReviewForm() {
       })
 
       if (!res.ok) {
-        setSubmitError('Щось пішло не так, спробуйте ще раз')
+        setSubmitError(SUBMIT_ERROR_MESSAGE)
         return
       }
 
       setIsSubmitted(true)
     } catch {
-      setSubmitError('Щось пішло не так, спробуйте ще раз')
+      setSubmitError(SUBMIT_ERROR_MESSAGE)
     }
   }
 
