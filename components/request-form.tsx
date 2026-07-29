@@ -9,6 +9,7 @@ import { requestSchema, type RequestInput } from '@/lib/schemas/request'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 import { FieldError } from '@/components/field-error'
 import { HoneypotField } from '@/components/honeypot-field'
+import { TextField } from '@/components/text-field'
 
 export function RequestForm() {
   const router = useRouter()
@@ -46,25 +47,19 @@ export function RequestForm() {
   return (
     <div className="flex flex-col gap-4">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <label htmlFor="name">Ім&apos;я</label>
-          <input
-            id="name"
-            {...register('name')}
-            className="rounded-md border border-border bg-background p-2"
-          />
-          <FieldError message={errors.name?.message} />
-        </div>
+        <TextField
+          id="name"
+          label="Ім'я"
+          error={errors.name?.message}
+          {...register('name')}
+        />
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="phone">Телефон</label>
-          <input
-            id="phone"
-            {...register('phone')}
-            className="rounded-md border border-border bg-background p-2"
-          />
-          <FieldError message={errors.phone?.message} />
-        </div>
+        <TextField
+          id="phone"
+          label="Телефон"
+          error={errors.phone?.message}
+          {...register('phone')}
+        />
 
         <div className="flex flex-col gap-1">
           <label htmlFor="comment">Коментар (необов&apos;язково)</label>

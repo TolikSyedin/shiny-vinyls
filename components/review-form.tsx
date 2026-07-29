@@ -7,6 +7,7 @@ import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 import { FieldError } from '@/components/field-error'
 import { HoneypotField } from '@/components/honeypot-field'
+import { TextField } from '@/components/text-field'
 
 export function ReviewForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -51,15 +52,12 @@ export function ReviewForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1">
-        <label htmlFor="name">Ім&apos;я</label>
-        <input
-          id="name"
-          {...register('name')}
-          className="rounded-md border border-border bg-background p-2"
-        />
-        <FieldError message={errors.name?.message} />
-      </div>
+      <TextField
+        id="name"
+        label="Ім'я"
+        error={errors.name?.message}
+        {...register('name')}
+      />
 
       <div className="flex flex-col gap-1">
         <span>Оцінка</span>
