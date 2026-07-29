@@ -12,6 +12,7 @@ import {
   HoneypotField,
   TextField,
   TextAreaField,
+  SubmitButton,
 } from '@/components/form-fields'
 
 export function RequestForm() {
@@ -75,19 +76,13 @@ export function RequestForm() {
 
         <FieldError message={submitError ?? undefined} />
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="rounded-md border border-border p-2 disabled:opacity-50"
-        >
-          {isSubmitting ? 'Надсилаємо...' : 'Надіслати заявку'}
-        </button>
+        <SubmitButton isSubmitting={isSubmitting} label="Надіслати заявку" />
       </form>
 
       <p className="text-sm text-muted-foreground">
         Не вдається надіслати заявку?{' '}
         <Link href="/contacts" className="underline">
-          Зв&apos;яжіться з нами напряму
+          Звʼяжіться з нами напряму
         </Link>
       </p>
     </div>

@@ -10,6 +10,7 @@ import {
   HoneypotField,
   TextField,
   TextAreaField,
+  SubmitButton,
 } from '@/components/form-fields'
 
 export function ReviewForm() {
@@ -48,7 +49,7 @@ export function ReviewForm() {
   if (isSubmitted) {
     return (
       <p className="text-muted-foreground">
-        Дякуємо за відгук! Він з&apos;явиться на сайті після модерації.
+        Дякуємо за відгук! Він зʼявиться на сайті після модерації.
       </p>
     )
   }
@@ -97,13 +98,7 @@ export function ReviewForm() {
 
       <FieldError message={submitError ?? undefined} />
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="rounded-md border border-border p-2 disabled:opacity-50"
-      >
-        {isSubmitting ? 'Надсилаємо...' : 'Залишити відгук'}
-      </button>
+      <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
     </form>
   )
 }
