@@ -1,4 +1,4 @@
-import type { RequestStatus } from "@/types/database";
+import type { RequestStatus } from '@/types/database'
 
 /**
  * Дозволені переходи статусу заявки. `cancelled` — термінальний стан,
@@ -6,17 +6,17 @@ import type { RequestStatus } from "@/types/database";
  * усвідомлене рішення, не побічний ефект).
  */
 const ALLOWED_TRANSITIONS: Record<RequestStatus, RequestStatus[]> = {
-  new: ["contacted", "cancelled"],
-  contacted: ["in_progress", "cancelled"],
-  in_progress: ["done", "cancelled"],
+  new: ['contacted', 'cancelled'],
+  contacted: ['in_progress', 'cancelled'],
+  in_progress: ['done', 'cancelled'],
   done: [],
   cancelled: [],
-};
+}
 
 export function isValidStatusTransition(
   from: RequestStatus,
-  to: RequestStatus
+  to: RequestStatus,
 ): boolean {
-  if (from === to) return false; // немає сенсу "переходити" в той самий стан
-  return ALLOWED_TRANSITIONS[from].includes(to);
+  if (from === to) return false // немає сенсу "переходити" в той самий стан
+  return ALLOWED_TRANSITIONS[from].includes(to)
 }
