@@ -6,7 +6,12 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
-import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
+import {
+  SUBMIT_ERROR_MESSAGE,
+  NAME_PLACEHOLDER,
+  PHONE_PLACEHOLDER,
+  COMMENT_PLACEHOLDER,
+} from '@/lib/form-content'
 import {
   FieldError,
   HoneypotField,
@@ -54,6 +59,7 @@ export function RequestForm() {
         <TextField
           id="name"
           label="Ім'я"
+          placeholder={NAME_PLACEHOLDER}
           error={errors.name?.message}
           {...register('name')}
         />
@@ -61,6 +67,7 @@ export function RequestForm() {
         <TextField
           id="phone"
           label="Телефон"
+          placeholder={PHONE_PLACEHOLDER}
           error={errors.phone?.message}
           {...register('phone')}
         />
@@ -68,6 +75,7 @@ export function RequestForm() {
         <TextAreaField
           id="comment"
           label="Коментар (необов'язково)"
+          placeholder={COMMENT_PLACEHOLDER}
           error={errors.comment?.message}
           {...register('comment')}
         />

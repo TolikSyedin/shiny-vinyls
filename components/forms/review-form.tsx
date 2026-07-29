@@ -4,7 +4,11 @@ import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
-import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
+import {
+  SUBMIT_ERROR_MESSAGE,
+  NAME_PLACEHOLDER,
+  REVIEW_TEXT_PLACEHOLDER,
+} from '@/lib/form-content'
 import {
   FieldError,
   HoneypotField,
@@ -59,6 +63,7 @@ export function ReviewForm() {
       <TextField
         id="name"
         label="Ім'я"
+        placeholder={NAME_PLACEHOLDER}
         error={errors.name?.message}
         {...register('name')}
       />
@@ -90,6 +95,7 @@ export function ReviewForm() {
       <TextAreaField
         id="text"
         label="Відгук"
+        placeholder={REVIEW_TEXT_PLACEHOLDER}
         error={errors.text?.message}
         {...register('text')}
       />
