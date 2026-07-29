@@ -8,6 +8,7 @@ import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 import { FieldError } from '@/components/field-error'
 import { HoneypotField } from '@/components/honeypot-field'
 import { TextField } from '@/components/text-field'
+import { TextAreaField } from '@/components/text-area-field'
 
 export function ReviewForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -83,15 +84,12 @@ export function ReviewForm() {
         <FieldError message={errors.rating?.message} />
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="text">Відгук</label>
-        <textarea
-          id="text"
-          {...register('text')}
-          className="rounded-md border border-border bg-background p-2"
-        />
-        <FieldError message={errors.text?.message} />
-      </div>
+      <TextAreaField
+        id="text"
+        label="Відгук"
+        error={errors.text?.message}
+        {...register('text')}
+      />
 
       <HoneypotField register={register} name="website" />
 

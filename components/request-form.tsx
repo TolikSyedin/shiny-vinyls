@@ -10,6 +10,7 @@ import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 import { FieldError } from '@/components/field-error'
 import { HoneypotField } from '@/components/honeypot-field'
 import { TextField } from '@/components/text-field'
+import { TextAreaField } from '@/components/text-area-field'
 
 export function RequestForm() {
   const router = useRouter()
@@ -61,15 +62,12 @@ export function RequestForm() {
           {...register('phone')}
         />
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="comment">Коментар (необов&apos;язково)</label>
-          <textarea
-            id="comment"
-            {...register('comment')}
-            className="rounded-md border border-border bg-background p-2"
-          />
-          <FieldError message={errors.comment?.message} />
-        </div>
+        <TextAreaField
+          id="comment"
+          label="Коментар (необов'язково)"
+          error={errors.comment?.message}
+          {...register('comment')}
+        />
 
         <HoneypotField register={register} name="website" />
 
