@@ -96,6 +96,33 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          rating: number
+          status: Database['public']['Enums']['review_status']
+          text: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          rating: number
+          status?: Database['public']['Enums']['review_status']
+          text: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          rating?: number
+          status?: Database['public']['Enums']['review_status']
+          text?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -105,6 +132,7 @@ export type Database = {
     }
     Enums: {
       request_status: 'new' | 'contacted' | 'in_progress' | 'done' | 'cancelled'
+      review_status: 'pending' | 'approved' | 'rejected'
     }
     CompositeTypes: {
       [_ in never]: never
@@ -233,6 +261,7 @@ export const Constants = {
   public: {
     Enums: {
       request_status: ['new', 'contacted', 'in_progress', 'done', 'cancelled'],
+      review_status: ['pending', 'approved', 'rejected'],
     },
   },
 } as const

@@ -4,3 +4,4 @@ import type { Database } from './database.types'
 // here rather than editing database.types.ts, which gets overwritten on
 // every `supabase gen types` run.
 export type RequestStatus = Database['public']['Enums']['request_status']
+export type ReviewStatus = Database['public']['Enums']['review_status']
