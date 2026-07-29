@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
 import { FieldError } from '@/components/field-error'
+import { HoneypotField } from '@/components/honeypot-field'
 
 export function ReviewForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -94,18 +95,7 @@ export function ReviewForm() {
         <FieldError message={errors.text?.message} />
       </div>
 
-      {/* Honeypot: off-screen so real (including blind) users never see or
-          reach it, but still present in the DOM for bots that don't
-          respect visibility/CSS. */}
-      <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          tabIndex={-1}
-          autoComplete="off"
-          {...register('website')}
-        />
-      </div>
+      <HoneypotField register={register} name="website" />
 
       <FieldError message={submitError ?? undefined} />
 
