@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
+import { FieldError } from '@/components/field-error'
 
 export function RequestForm() {
   const router = useRouter()
@@ -51,9 +52,7 @@ export function RequestForm() {
             {...register('name')}
             className="rounded-md border border-border bg-background p-2"
           />
-          {errors.name && (
-            <p className="text-sm text-red-500">{errors.name.message}</p>
-          )}
+          <FieldError message={errors.name?.message} />
         </div>
 
         <div className="flex flex-col gap-1">
@@ -63,9 +62,7 @@ export function RequestForm() {
             {...register('phone')}
             className="rounded-md border border-border bg-background p-2"
           />
-          {errors.phone && (
-            <p className="text-sm text-red-500">{errors.phone.message}</p>
-          )}
+          <FieldError message={errors.phone?.message} />
         </div>
 
         <div className="flex flex-col gap-1">
@@ -75,9 +72,7 @@ export function RequestForm() {
             {...register('comment')}
             className="rounded-md border border-border bg-background p-2"
           />
-          {errors.comment && (
-            <p className="text-sm text-red-500">{errors.comment.message}</p>
-          )}
+          <FieldError message={errors.comment?.message} />
         </div>
 
         {/* Honeypot: off-screen so real (including blind) users never see or
@@ -96,7 +91,7 @@ export function RequestForm() {
           />
         </div>
 
-        {submitError && <p className="text-sm text-red-500">{submitError}</p>}
+        <FieldError message={submitError ?? undefined} />
 
         <button
           type="submit"

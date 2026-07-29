@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import { SUBMIT_ERROR_MESSAGE } from '@/lib/form-content'
+import { FieldError } from '@/components/field-error'
 
 export function ReviewForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -56,9 +57,7 @@ export function ReviewForm() {
           {...register('name')}
           className="rounded-md border border-border bg-background p-2"
         />
-        {errors.name && (
-          <p className="text-sm text-red-500">{errors.name.message}</p>
-        )}
+        <FieldError message={errors.name?.message} />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -82,9 +81,7 @@ export function ReviewForm() {
             </div>
           )}
         />
-        {errors.rating && (
-          <p className="text-sm text-red-500">{errors.rating.message}</p>
-        )}
+        <FieldError message={errors.rating?.message} />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -94,9 +91,7 @@ export function ReviewForm() {
           {...register('text')}
           className="rounded-md border border-border bg-background p-2"
         />
-        {errors.text && (
-          <p className="text-sm text-red-500">{errors.text.message}</p>
-        )}
+        <FieldError message={errors.text?.message} />
       </div>
 
       {/* Honeypot: off-screen so real (including blind) users never see or
@@ -112,7 +107,7 @@ export function ReviewForm() {
         />
       </div>
 
-      {submitError && <p className="text-sm text-red-500">{submitError}</p>}
+      <FieldError message={submitError ?? undefined} />
 
       <button
         type="submit"
