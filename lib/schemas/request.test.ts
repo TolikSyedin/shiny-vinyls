@@ -52,14 +52,19 @@ describe("requestSchema", () => {
   });
 
   it("схема сама НЕ визначає бот-логіку — заповнене honeypot-поле все ще валідне значення для zod", () => {
-    // Важливо: сама схема пропускає непорожнє значення тільки якщо довжина 0,
-    // тобто z.string().max(0) — це і є перевірка "поле має бути порожнім".
+    // Важливо: сама схема пропускає будь-яке значення website, включно з
+    // непорожнім. Рішення "це бот" ухвалює route-хендлер, а не схема —
+    // інакше заповнений honeypot валив би всю валідацію (400) замість
+    // тихої відповіді боту.
     const result = requestSchema.safeParse({
       name: "Олена",
       phone: "+380501234567",
       website: "http://spam.example",
     });
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.website).toBe("http://spam.example");
+    }
   });
 
   it("обрізає пробіли навколо імені й телефону (trim)", () => {
