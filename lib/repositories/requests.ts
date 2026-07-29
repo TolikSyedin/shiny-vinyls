@@ -1,6 +1,9 @@
+import { z } from 'zod'
 import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import type { RequestStatus } from '@/types/database'
+
+const uuidSchema = z.string().uuid()
 
 type CreateRequestInput = {
   name: string
@@ -34,8 +37,14 @@ export type RequestPublicStatus = {
 }
 
 export async function getRequestStatus(
-  id: string
+  id: string,
 ): Promise<RequestPublicStatus | null> {
+  // A malformed id is indistinguishable from a nonexistent one as far as the
+  // caller is concerned — both mean "no such request." Checking the format
+  // here avoids hitting Postgres with a value it would reject outright
+  // (invalid input syntax for type uuid).
+  if (!uuidSchema.safeParse(id).success) return null
+
   // service-role read, narrowed to safe fields only (id/status/created_at).
   // anon has no select policy on requests, so the public status page
   // deliberately reads through the admin client instead — never
