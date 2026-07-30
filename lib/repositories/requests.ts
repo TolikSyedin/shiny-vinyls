@@ -13,6 +13,7 @@ type CreateRequestInput = {
 
 export async function createRequest(input: CreateRequestInput) {
   const id = crypto.randomUUID()
+  const { name, phone, comment } = input
   const supabase = createAnonClient()
 
   // No .select() here on purpose: anon has no select policy on requests,
@@ -20,9 +21,9 @@ export async function createRequest(input: CreateRequestInput) {
   // generated here, so the caller doesn't need it read back.
   const { error } = await supabase.from('requests').insert({
     id,
-    name: input.name,
-    phone: input.phone,
-    comment: input.comment,
+    name,
+    phone,
+    comment,
   })
 
   if (error) throw error

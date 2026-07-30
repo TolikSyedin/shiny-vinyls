@@ -10,15 +10,16 @@ type CreateReviewInput = {
 
 export async function createReview(input: CreateReviewInput) {
   const id = crypto.randomUUID()
+  const { name, rating, text } = input
   const supabase = createAnonClient()
 
   // Same reasoning as createRequest: anon has no select policy on reviews,
   // so we generate the id ourselves and skip .select() entirely.
   const { error } = await supabase.from('reviews').insert({
     id,
-    name: input.name,
-    rating: input.rating,
-    text: input.text,
+    name,
+    rating,
+    text,
   })
 
   if (error) throw error
