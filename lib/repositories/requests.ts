@@ -1,11 +1,9 @@
-import { z } from 'zod'
 import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createSessionClient } from '@/lib/supabase/session'
 import { isValidStatusTransition } from '@/lib/request-status'
+import { uuidSchema } from '@/lib/uuid'
 import type { RequestStatus } from '@/types/database'
-
-const uuidSchema = z.string().uuid()
 
 type CreateRequestInput = {
   name: string
