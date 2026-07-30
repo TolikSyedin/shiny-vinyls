@@ -12,7 +12,6 @@ const GRAVITY = 0.5
 const DAMPING = 0.993
 const CONSTRAINT_ITERATIONS = 6
 const PULL_THRESHOLD = 30
-const MAX_REACH_Y = SEG_LEN_LIGHT * SEGMENTS * 1.15
 const MAX_REACH_X = 36
 const GRAB_RADIUS = 20
 
@@ -20,8 +19,12 @@ const POINT_COUNT = SEGMENTS + 2 // anchor + links + fob
 const ANCHOR_INDEX = 0
 const FOB_INDEX = POINT_COUNT - 1
 
+// must clear the longest resting length (light theme) plus threshold + slack,
+// otherwise the drag ceiling sits above where the chain already hangs at rest
+const MAX_REACH_Y = SEG_LEN_LIGHT * (POINT_COUNT - 1) + PULL_THRESHOLD + 40
+
 const CANVAS_WIDTH = 140
-const CANVAS_HEIGHT = 160
+const CANVAS_HEIGHT = 220
 const ANCHOR_Y = 4
 const ANCHOR_X = CANVAS_WIDTH / 2
 
@@ -45,13 +48,26 @@ function createAudioContext(): AudioContext | null {
   return Ctor ? new Ctor() : null
 }
 
-function LampShadeIcon() {
+function LampShadeIcon({ isDark }: { isDark: boolean }) {
   return (
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="relative z-10 size-5"
+      className="relative z-10 size-8"
     >
+      <circle
+        cx="12"
+        cy="9"
+        r="1.7"
+        fill={isDark ? '#4a4a4a' : '#ffe066'}
+        opacity={isDark ? 0 : 1}
+        style={{
+          transform: isDark ? 'translateY(0px)' : 'translateY(-6px)',
+          transformOrigin: '12px 9px',
+          transition:
+            'transform 500ms ease-out, opacity 500ms ease-out, fill 500ms ease-out',
+        }}
+      />
       <path d="M9 6h6l5 7H4z" fill="#7a4a24" />
       <line
         x1="12"
@@ -239,17 +255,7 @@ export function ChainToggle() {
   }
 
   return (
-    <div className="relative flex size-9 shrink-0 items-center justify-center">
-      <span
-        aria-hidden="true"
-        className="absolute left-1/2 top-[7px] size-[7px] -translate-x-1/2 rounded-full transition-all duration-500 ease-out"
-        style={{
-          backgroundColor: isDark ? '#4a4a4a' : '#ffe066',
-          boxShadow: isDark ? 'none' : '0 0 8px 3px rgba(255, 220, 90, 0.9)',
-          transform: `translate(-50%, ${isDark ? '8px' : '0px'})`,
-          opacity: isDark ? 0 : 1,
-        }}
-      />
+    <div className="relative flex size-12 shrink-0 items-center justify-center">
       <button
         type="button"
         onClick={() => toggleThemeRef.current()}
@@ -259,9 +265,9 @@ export function ChainToggle() {
             : 'Клікнути на торшер, щоб увімкнути темну тему'
         }
         aria-pressed={isDark}
-        className="relative z-10 flex size-9 items-center justify-center"
+        className="relative z-10 flex size-12 items-center justify-center"
       >
-        <LampShadeIcon />
+        <LampShadeIcon isDark={isDark} />
       </button>
       <canvas
         ref={canvasRef}
