@@ -68,7 +68,7 @@ function LampShadeIcon({ isDark }: { isDark: boolean }) {
       <circle
         cx="12"
         cy={isDark ? 9 : 6}
-        r="1.8"
+        r="3"
         fill={isDark ? '#4a4a4a' : '#ffe066'}
         opacity={isDark ? 0 : 1}
         style={{
