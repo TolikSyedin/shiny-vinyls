@@ -28,6 +28,16 @@ const CANVAS_HEIGHT = 220
 const ANCHOR_Y = 4
 const ANCHOR_X = CANVAS_WIDTH / 2
 
+const WRAPPER_SIZE = 64
+const ICON_SIZE = 48
+const ICON_VIEWBOX = 24
+const ICON_RING_Y = 16.5 // viewBox units — where the mounting ring sits
+
+// lines the chain's anchor up with the icon's ring, minus a couple px so the
+// wire visually continues straight out of the ring with no dead gap
+const CHAIN_TOP =
+  (WRAPPER_SIZE - ICON_SIZE) / 2 + (ICON_RING_Y / ICON_VIEWBOX) * ICON_SIZE - 2
+
 type Point = { x: number; y: number; oldX: number; oldY: number }
 
 function createPoints(): Point[] {
@@ -53,19 +63,17 @@ function LampShadeIcon({ isDark }: { isDark: boolean }) {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="relative z-10 size-8"
+      className="relative z-10 size-12"
     >
       <circle
         cx="12"
-        cy="9"
-        r="1.7"
+        cy={isDark ? 9 : 6}
+        r="1.8"
         fill={isDark ? '#4a4a4a' : '#ffe066'}
         opacity={isDark ? 0 : 1}
         style={{
-          transform: isDark ? 'translateY(0px)' : 'translateY(-6px)',
-          transformOrigin: '12px 9px',
           transition:
-            'transform 500ms ease-out, opacity 500ms ease-out, fill 500ms ease-out',
+            'cy 500ms ease-out, opacity 500ms ease-out, fill 500ms ease-out',
         }}
       />
       <path d="M9 6h6l5 7H4z" fill="#7a4a24" />
@@ -73,12 +81,12 @@ function LampShadeIcon({ isDark }: { isDark: boolean }) {
         x1="12"
         y1="13"
         x2="12"
-        y2="16"
+        y2={ICON_RING_Y - 1}
         stroke="#6b4423"
         strokeWidth={1.4}
         strokeLinecap="round"
       />
-      <circle cx="12" cy="16.5" r="1" fill="#6b4423" />
+      <circle cx="12" cy={ICON_RING_Y} r="1" fill="#6b4423" />
     </svg>
   )
 }
@@ -255,7 +263,7 @@ export function ChainToggle() {
   }
 
   return (
-    <div className="relative flex size-12 shrink-0 items-center justify-center">
+    <div className="relative flex size-16 shrink-0 items-center justify-center">
       <button
         type="button"
         onClick={() => toggleThemeRef.current()}
@@ -265,7 +273,7 @@ export function ChainToggle() {
             : 'Клікнути на торшер, щоб увімкнути темну тему'
         }
         aria-pressed={isDark}
-        className="relative z-10 flex size-12 items-center justify-center"
+        className="relative z-10 flex size-16 items-center justify-center"
       >
         <LampShadeIcon isDark={isDark} />
       </button>
@@ -280,7 +288,8 @@ export function ChainToggle() {
         }
         aria-pressed={isDark}
         suppressHydrationWarning
-        className="absolute left-1/2 top-full -mt-1 -translate-x-1/2 cursor-grab touch-none select-none active:cursor-grabbing"
+        style={{ top: `${CHAIN_TOP}px` }}
+        className="absolute left-1/2 -translate-x-1/2 cursor-grab touch-none select-none active:cursor-grabbing"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={endDrag}
