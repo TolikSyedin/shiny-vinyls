@@ -1,16 +1,16 @@
 import Link from 'next/link'
-import { ThemeToggle } from '@/components/theme'
+import { ChainToggle } from '@/components/theme'
 
 export function SiteHeader() {
   return (
-    <header className="flex items-center justify-between border-b border-border p-4">
+    <header className="relative flex items-center justify-between border-b border-border p-4">
       <nav className="flex gap-4">
         <Link href="/">Головна</Link>
         <Link href="/contacts">Контакти</Link>
         <Link href="/request">Заявка</Link>
         <Link href="/reviews">Відгуки</Link>
       </nav>
-      <ThemeToggle />
+      <ChainToggle />
     </header>
   )
 }
