@@ -35,7 +35,11 @@ export function RequestStatusControl({
       if (res.ok) {
         router.refresh()
       } else {
+        // Re-sync with the server's real state too — a rejected transition
+        // (e.g. someone else already changed the status) means the buttons
+        // shown here are stale, not just that this click failed.
         setError(true)
+        router.refresh()
       }
     } catch {
       setError(true)
