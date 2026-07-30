@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { createSessionClient } from '@/lib/supabase/session'
+import { isValidStatusTransition } from '@/lib/request-status'
 import type { RequestStatus } from '@/types/database'
 
 const uuidSchema = z.string().uuid()
@@ -56,6 +58,65 @@ export async function getRequestStatus(
     .select('id, status, created_at')
     .eq('id', id)
     .maybeSingle()
+
+  if (error) throw error
+
+  return data
+}
+
+export class RequestNotFoundError extends Error {}
+export class InvalidStatusTransitionError extends Error {}
+
+export type AdminRequest = {
+  id: string
+  name: string
+  phone: string
+  comment: string | null
+  status: RequestStatus
+  created_at: string
+}
+
+export async function listRequests(): Promise<AdminRequest[]> {
+  const supabase = await createSessionClient()
+  const { data, error } = await supabase
+    .from('requests')
+    .select('id, name, phone, comment, status, created_at')
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+
+  return data
+}
+
+export async function updateRequestStatus(
+  id: string,
+  status: RequestStatus,
+): Promise<AdminRequest> {
+  const supabase = await createSessionClient()
+
+  // Needed to validate the transition — the update below can't check
+  // "from what" without first reading the current status.
+  const { data: current, error: fetchError } = await supabase
+    .from('requests')
+    .select('status')
+    .eq('id', id)
+    .maybeSingle()
+
+  if (fetchError) throw fetchError
+  if (!current) throw new RequestNotFoundError(`Request ${id} not found`)
+
+  if (!isValidStatusTransition(current.status, status)) {
+    throw new InvalidStatusTransitionError(
+      `Cannot transition from "${current.status}" to "${status}"`,
+    )
+  }
+
+  const { data, error } = await supabase
+    .from('requests')
+    .update({ status })
+    .eq('id', id)
+    .select('id, name, phone, comment, status, created_at')
+    .single()
 
   if (error) throw error
 
