@@ -1,6 +1,7 @@
 import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createSessionClient } from '@/lib/supabase/session'
+import { uuidSchema } from '@/lib/uuid'
 import type { ReviewStatus } from '@/types/database'
 
 type CreateReviewInput = {
@@ -81,6 +82,12 @@ export async function updateReviewStatus(
   id: string,
   status: ReviewStatus,
 ): Promise<AdminReview> {
+  // A malformed id is indistinguishable from a nonexistent one to the
+  // caller — see getRequestStatus's version of this same check.
+  if (!uuidSchema.safeParse(id).success) {
+    throw new ReviewNotFoundError(`Review ${id} not found`)
+  }
+
   const supabase = await createSessionClient()
 
   const { data, error } = await supabase
