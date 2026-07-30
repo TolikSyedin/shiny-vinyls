@@ -28,6 +28,10 @@ const CANVAS_HEIGHT = 220
 const ANCHOR_Y = 4
 const ANCHOR_X = CANVAS_WIDTH / 2
 
+// extra internal resolution beyond the display's own DPR, so the tiny beads
+// and fob get properly anti-aliased instead of looking chunky next to the SVG
+const SUPERSAMPLE = 2
+
 const WRAPPER_SIZE = 64
 const ICON_SIZE = 48
 const ICON_VIEWBOX = 24
@@ -138,9 +142,9 @@ export function ChainToggle() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const dpr = window.devicePixelRatio || 1
-    canvas.width = CANVAS_WIDTH * dpr
-    canvas.height = CANVAS_HEIGHT * dpr
+    const scale = (window.devicePixelRatio || 1) * SUPERSAMPLE
+    canvas.width = CANVAS_WIDTH * scale
+    canvas.height = CANVAS_HEIGHT * scale
     canvas.style.width = `${CANVAS_WIDTH}px`
     canvas.style.height = `${CANVAS_HEIGHT}px`
 
@@ -301,8 +305,8 @@ export function ChainToggle() {
 }
 
 function draw(ctx: CanvasRenderingContext2D, points: Point[], isDark: boolean) {
-  const dpr = window.devicePixelRatio || 1
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  const scale = (window.devicePixelRatio || 1) * SUPERSAMPLE
+  ctx.setTransform(scale, 0, 0, scale, 0, 0)
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
   // thin wire running through every link up to the fob
