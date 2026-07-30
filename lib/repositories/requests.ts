@@ -90,6 +90,12 @@ export async function updateRequestStatus(
   id: string,
   status: RequestStatus,
 ): Promise<AdminRequest> {
+  // A malformed id is indistinguishable from a nonexistent one to the
+  // caller — see getRequestStatus's version of this same check.
+  if (!uuidSchema.safeParse(id).success) {
+    throw new RequestNotFoundError(`Request ${id} not found`)
+  }
+
   const supabase = await createSessionClient()
 
   // Needed to validate the transition — the update below can't check
