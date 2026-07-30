@@ -178,6 +178,16 @@ export function ChainToggle() {
     let rafId = 0
 
     function step() {
+      // scheduled first so one bad frame can't silently kill the whole loop
+      rafId = requestAnimationFrame(step)
+      try {
+        tick()
+      } catch (err) {
+        console.error('[ChainToggle] render error', err)
+      }
+    }
+
+    function tick() {
       const target = isDarkRef.current ? SEG_LEN_DARK : SEG_LEN_LIGHT
       segLenRef.current += (target - segLenRef.current) * SEG_LEN_EASE
       const segLen = segLenRef.current
@@ -234,7 +244,6 @@ export function ChainToggle() {
       }
 
       draw(ctx!, points, isDarkRef.current)
-      rafId = requestAnimationFrame(step)
     }
 
     rafId = requestAnimationFrame(step)
@@ -330,6 +339,24 @@ export function ChainToggle() {
   )
 }
 
+// manual rounded-rect path — CanvasRenderingContext2D.roundRect() only
+// shipped in Safari 16.4 (2023), so older iPhones don't have it at all
+function roundedRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
+) {
+  ctx.moveTo(x + r, y)
+  ctx.arcTo(x + w, y, x + w, y + h, r)
+  ctx.arcTo(x + w, y + h, x, y + h, r)
+  ctx.arcTo(x, y + h, x, y, r)
+  ctx.arcTo(x, y, x + w, y, r)
+  ctx.closePath()
+}
+
 function draw(ctx: CanvasRenderingContext2D, points: Point[], isDark: boolean) {
   const scale = (window.devicePixelRatio || 1) * SUPERSAMPLE
   ctx.setTransform(scale, 0, 0, scale, 0, 0)
@@ -376,7 +403,7 @@ function draw(ctx: CanvasRenderingContext2D, points: Point[], isDark: boolean) {
   // small metal cap connecting chain to wood
   ctx.fillStyle = '#7d8087'
   ctx.beginPath()
-  ctx.roundRect(-3.2, -FOB_RADIUS - 4, 6.4, 7, 3)
+  roundedRectPath(ctx, -3.2, -FOB_RADIUS - 4, 6.4, 7, 3)
   ctx.fill()
 
   // wood body (acorn-ish teardrop)
