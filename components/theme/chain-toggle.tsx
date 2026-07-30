@@ -12,15 +12,16 @@ const GRAVITY = 0.5
 const DAMPING = 0.993
 const CONSTRAINT_ITERATIONS = 6
 const PULL_THRESHOLD = 30
-const MAX_REACH = SEG_LEN_LIGHT * SEGMENTS * 1.3
+const MAX_REACH_Y = SEG_LEN_LIGHT * SEGMENTS * 1.15
+const MAX_REACH_X = 36
 const GRAB_RADIUS = 20
 
 const POINT_COUNT = SEGMENTS + 2 // anchor + links + fob
 const ANCHOR_INDEX = 0
 const FOB_INDEX = POINT_COUNT - 1
 
-const CANVAS_WIDTH = 54
-const CANVAS_HEIGHT = 150
+const CANVAS_WIDTH = 140
+const CANVAS_HEIGHT = 160
 const ANCHOR_Y = 4
 const ANCHOR_X = CANVAS_WIDTH / 2
 
@@ -46,18 +47,22 @@ function createAudioContext(): AudioContext | null {
 
 function LampShadeIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
-      <path d="M7 5h10l-2.5 7h-5z" fill="#7a4a24" />
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="relative z-10 size-5"
+    >
+      <path d="M9 6h6l5 7H4z" fill="#7a4a24" />
       <line
         x1="12"
-        y1="12"
+        y1="13"
         x2="12"
-        y2="15"
+        y2="16"
         stroke="#6b4423"
         strokeWidth={1.4}
         strokeLinecap="round"
       />
-      <circle cx="12" cy="15.5" r="1" fill="#6b4423" />
+      <circle cx="12" cy="16.5" r="1" fill="#6b4423" />
     </svg>
   )
 }
@@ -206,17 +211,10 @@ export function ChainToggle() {
     fob.oldX = fob.x
     fob.oldY = fob.y
 
-    const dx = x - ANCHOR_X
-    const dy = y - ANCHOR_Y
-    const reach = Math.hypot(dx, dy)
-    if (reach > MAX_REACH) {
-      const scale = MAX_REACH / reach
-      fob.x = ANCHOR_X + dx * scale
-      fob.y = ANCHOR_Y + dy * scale
-    } else {
-      fob.x = x
-      fob.y = y
-    }
+    const dx = Math.max(-MAX_REACH_X, Math.min(MAX_REACH_X, x - ANCHOR_X))
+    const dy = Math.max(0, Math.min(MAX_REACH_Y, y - ANCHOR_Y))
+    fob.x = ANCHOR_X + dx
+    fob.y = ANCHOR_Y + dy
   }
 
   function endDrag(e: React.PointerEvent<HTMLCanvasElement>) {
@@ -242,17 +240,29 @@ export function ChainToggle() {
 
   return (
     <div className="relative flex size-9 shrink-0 items-center justify-center">
-      <LampShadeIcon />
       <span
         aria-hidden="true"
-        className="absolute left-1/2 top-[17px] size-[7px] -translate-x-1/2 rounded-full transition-all duration-500 ease-out"
+        className="absolute left-1/2 top-[7px] size-[7px] -translate-x-1/2 rounded-full transition-all duration-500 ease-out"
         style={{
-          backgroundColor: isDark ? '#4a4a4a' : '#ffe9a8',
-          boxShadow: isDark ? 'none' : '0 0 7px 3px rgba(255, 205, 100, 0.85)',
-          transform: `translate(-50%, ${isDark ? '-7px' : '3px'})`,
+          backgroundColor: isDark ? '#4a4a4a' : '#ffe066',
+          boxShadow: isDark ? 'none' : '0 0 8px 3px rgba(255, 220, 90, 0.9)',
+          transform: `translate(-50%, ${isDark ? '8px' : '0px'})`,
           opacity: isDark ? 0 : 1,
         }}
       />
+      <button
+        type="button"
+        onClick={() => toggleThemeRef.current()}
+        aria-label={
+          isDark
+            ? 'Клікнути на торшер, щоб увімкнути світлу тему'
+            : 'Клікнути на торшер, щоб увімкнути темну тему'
+        }
+        aria-pressed={isDark}
+        className="relative z-10 flex size-9 items-center justify-center"
+      >
+        <LampShadeIcon />
+      </button>
       <canvas
         ref={canvasRef}
         role="button"
