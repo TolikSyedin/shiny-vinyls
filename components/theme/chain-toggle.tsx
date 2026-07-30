@@ -95,6 +95,54 @@ function LampShadeIcon({ isDark }: { isDark: boolean }) {
   )
 }
 
+function playNoiseBurst(
+  ctx: AudioContext,
+  startAt: number,
+  duration: number,
+  filterType: BiquadFilterType,
+  frequency: number,
+  q: number,
+  peakGain: number,
+) {
+  const bufferSize = Math.ceil(ctx.sampleRate * duration)
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+  const data = buffer.getChannelData(0)
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize)
+  }
+
+  const source = ctx.createBufferSource()
+  source.buffer = buffer
+  const filter = ctx.createBiquadFilter()
+  filter.type = filterType
+  filter.frequency.value = frequency
+  filter.Q.value = q
+  const gain = ctx.createGain()
+  gain.gain.setValueAtTime(peakGain, startAt)
+  gain.gain.exponentialRampToValueAtTime(0.001, startAt + duration)
+
+  source.connect(filter)
+  filter.connect(gain)
+  gain.connect(ctx.destination)
+  source.start(startAt)
+  source.stop(startAt + duration)
+}
+
+function playClick(audioCtxRef: React.RefObject<AudioContext | null>) {
+  if (!audioCtxRef.current) {
+    audioCtxRef.current = createAudioContext()
+  }
+  const ctx = audioCtxRef.current
+  if (!ctx) return
+  if (ctx.state === 'suspended') void ctx.resume()
+
+  const now = ctx.currentTime
+  // a crisp high tick immediately followed by a soft low thunk —
+  // mimics a real pull-chain switch's contact engaging, not a tone sweep
+  playNoiseBurst(ctx, now, 0.02, 'bandpass', 3200, 1.5, 0.5)
+  playNoiseBurst(ctx, now + 0.008, 0.035, 'lowpass', 350, 0.9, 0.22)
+}
+
 export function ChainToggle() {
   const { resolvedTheme, setTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
@@ -106,32 +154,10 @@ export function ChainToggle() {
   const toggleThemeRef = useRef(() => {})
   const audioCtxRef = useRef<AudioContext | null>(null)
 
-  function playClick() {
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = createAudioContext()
-    }
-    const ctx = audioCtxRef.current
-    if (!ctx) return
-    if (ctx.state === 'suspended') void ctx.resume()
-
-    const now = ctx.currentTime
-    const osc = ctx.createOscillator()
-    const gain = ctx.createGain()
-    osc.type = 'square'
-    osc.frequency.setValueAtTime(1200, now)
-    osc.frequency.exponentialRampToValueAtTime(160, now + 0.045)
-    gain.gain.setValueAtTime(0.16, now)
-    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.07)
-    osc.connect(gain)
-    gain.connect(ctx.destination)
-    osc.start(now)
-    osc.stop(now + 0.08)
-  }
-
   useEffect(() => {
     isDarkRef.current = isDark
     toggleThemeRef.current = () => {
-      playClick()
+      playClick(audioCtxRef)
       setTheme(isDarkRef.current ? 'light' : 'dark')
     }
   }, [isDark, setTheme])
