@@ -3,34 +3,63 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useRef } from 'react'
 
-const SEGMENTS = 9
-const SEGMENT_LENGTH = 14
-const FOB_RADIUS = 11
-const GRAVITY = 0.6
-const DAMPING = 0.985
+const SEGMENTS = 6
+const SEG_LEN_DARK = 11
+const SEG_LEN_LIGHT = 15
+const SEG_LEN_EASE = 0.06
+const FOB_RADIUS = 9
+const GRAVITY = 0.5
+const DAMPING = 0.993
 const CONSTRAINT_ITERATIONS = 6
-const PULL_THRESHOLD = 46
-const MAX_REACH = SEGMENT_LENGTH * SEGMENTS * 1.35
-const GRAB_RADIUS = 26
+const PULL_THRESHOLD = 30
+const MAX_REACH = SEG_LEN_LIGHT * SEGMENTS * 1.3
+const GRAB_RADIUS = 20
 
 const POINT_COUNT = SEGMENTS + 2 // anchor + links + fob
 const ANCHOR_INDEX = 0
 const FOB_INDEX = POINT_COUNT - 1
 
-const CANVAS_WIDTH = 70
-const CANVAS_HEIGHT = 200
-const ANCHOR_Y = 8
+const CANVAS_WIDTH = 54
+const CANVAS_HEIGHT = 150
+const ANCHOR_Y = 4
 const ANCHOR_X = CANVAS_WIDTH / 2
 
 type Point = { x: number; y: number; oldX: number; oldY: number }
 
 function createPoints(): Point[] {
+  const startLen = (SEG_LEN_DARK + SEG_LEN_LIGHT) / 2
   const points: Point[] = []
   for (let i = 0; i < POINT_COUNT; i++) {
-    const y = ANCHOR_Y + i * SEGMENT_LENGTH
+    const y = ANCHOR_Y + i * startLen
     points.push({ x: ANCHOR_X, y, oldX: ANCHOR_X, oldY: y })
   }
   return points
+}
+
+function createAudioContext(): AudioContext | null {
+  const Ctor =
+    window.AudioContext ||
+    (window as unknown as { webkitAudioContext?: typeof AudioContext })
+      .webkitAudioContext
+  return Ctor ? new Ctor() : null
+}
+
+function LampShadeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
+      <path d="M7 5h10l-2.5 7h-5z" fill="#7a4a24" />
+      <line
+        x1="12"
+        y1="12"
+        x2="12"
+        y2="15"
+        stroke="#6b4423"
+        strokeWidth={1.4}
+        strokeLinecap="round"
+      />
+      <circle cx="12" cy="15.5" r="1" fill="#6b4423" />
+    </svg>
+  )
 }
 
 export function ChainToggle() {
@@ -38,14 +67,40 @@ export function ChainToggle() {
   const isDark = resolvedTheme === 'dark'
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const pointsRef = useRef<Point[]>(createPoints())
+  const segLenRef = useRef((SEG_LEN_DARK + SEG_LEN_LIGHT) / 2)
   const draggingRef = useRef(false)
   const isDarkRef = useRef(isDark)
   const toggleThemeRef = useRef(() => {})
+  const audioCtxRef = useRef<AudioContext | null>(null)
+
+  function playClick() {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = createAudioContext()
+    }
+    const ctx = audioCtxRef.current
+    if (!ctx) return
+    if (ctx.state === 'suspended') void ctx.resume()
+
+    const now = ctx.currentTime
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.type = 'square'
+    osc.frequency.setValueAtTime(1200, now)
+    osc.frequency.exponentialRampToValueAtTime(160, now + 0.045)
+    gain.gain.setValueAtTime(0.16, now)
+    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.07)
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.start(now)
+    osc.stop(now + 0.08)
+  }
 
   useEffect(() => {
     isDarkRef.current = isDark
-    toggleThemeRef.current = () =>
+    toggleThemeRef.current = () => {
+      playClick()
       setTheme(isDarkRef.current ? 'light' : 'dark')
+    }
   }, [isDark, setTheme])
 
   useEffect(() => {
@@ -64,7 +119,9 @@ export function ChainToggle() {
     let rafId = 0
 
     function step() {
-      const fob = points[FOB_INDEX]
+      const target = isDarkRef.current ? SEG_LEN_DARK : SEG_LEN_LIGHT
+      segLenRef.current += (target - segLenRef.current) * SEG_LEN_EASE
+      const segLen = segLenRef.current
 
       if (!draggingRef.current) {
         for (let i = 1; i < POINT_COUNT; i++) {
@@ -95,7 +152,7 @@ export function ChainToggle() {
           const dx = b.x - a.x
           const dy = b.y - a.y
           const dist = Math.sqrt(dx * dx + dy * dy) || 0.0001
-          const diff = (dist - SEGMENT_LENGTH) / dist
+          const diff = (dist - segLen) / dist
           const aFixed = i === ANCHOR_INDEX
           const bFixed = draggingRef.current && i + 1 === FOB_INDEX
 
@@ -168,7 +225,7 @@ export function ChainToggle() {
     e.currentTarget.releasePointerCapture(e.pointerId)
 
     const fob = pointsRef.current[FOB_INDEX]
-    const restY = ANCHOR_Y + SEGMENT_LENGTH * (POINT_COUNT - 1)
+    const restY = ANCHOR_Y + segLenRef.current * (POINT_COUNT - 1)
     const pulled = fob.y - restY
     if (pulled > PULL_THRESHOLD) {
       toggleThemeRef.current()
@@ -179,29 +236,42 @@ export function ChainToggle() {
     if (e.key !== 'Enter' && e.key !== ' ') return
     e.preventDefault()
     const fob = pointsRef.current[FOB_INDEX]
-    fob.y += 34
+    fob.y += 22
     toggleThemeRef.current()
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      role="button"
-      tabIndex={0}
-      aria-label={
-        isDark
-          ? 'Смикнути ланцюжок, щоб увімкнути світлу тему'
-          : 'Смикнути ланцюжок, щоб увімкнути темну тему'
-      }
-      aria-pressed={isDark}
-      suppressHydrationWarning
-      className="absolute right-2 top-0 cursor-grab touch-none select-none active:cursor-grabbing"
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
-      onKeyDown={handleKeyDown}
-    />
+    <div className="relative flex size-9 shrink-0 items-center justify-center">
+      <LampShadeIcon />
+      <span
+        aria-hidden="true"
+        className="absolute left-1/2 top-[17px] size-[7px] -translate-x-1/2 rounded-full transition-all duration-500 ease-out"
+        style={{
+          backgroundColor: isDark ? '#4a4a4a' : '#ffe9a8',
+          boxShadow: isDark ? 'none' : '0 0 7px 3px rgba(255, 205, 100, 0.85)',
+          transform: `translate(-50%, ${isDark ? '-7px' : '3px'})`,
+          opacity: isDark ? 0 : 1,
+        }}
+      />
+      <canvas
+        ref={canvasRef}
+        role="button"
+        tabIndex={0}
+        aria-label={
+          isDark
+            ? 'Смикнути ланцюжок, щоб увімкнути світлу тему'
+            : 'Смикнути ланцюжок, щоб увімкнути темну тему'
+        }
+        aria-pressed={isDark}
+        suppressHydrationWarning
+        className="absolute left-1/2 top-full -mt-1 -translate-x-1/2 cursor-grab touch-none select-none active:cursor-grabbing"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onKeyDown={handleKeyDown}
+      />
+    </div>
   )
 }
 
@@ -210,38 +280,33 @@ function draw(ctx: CanvasRenderingContext2D, points: Point[], isDark: boolean) {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-  // mounting eyelet
-  const anchor = points[ANCHOR_INDEX]
-  ctx.strokeStyle = '#5a5d63'
-  ctx.lineWidth = 2
+  // thin wire running through every link up to the fob
+  ctx.strokeStyle = '#75787f'
+  ctx.lineWidth = 1.3
   ctx.beginPath()
-  ctx.arc(anchor.x, anchor.y, 4, 0, Math.PI * 2)
+  ctx.moveTo(points[0].x, points[0].y)
+  for (let i = 1; i < POINT_COUNT; i++) {
+    ctx.lineTo(points[i].x, points[i].y)
+  }
   ctx.stroke()
 
-  // chain links
-  for (let i = 0; i < POINT_COUNT - 2; i++) {
-    const a = points[i]
-    const b = points[i + 1]
-    const midX = (a.x + b.x) / 2
-    const midY = (a.y + b.y) / 2
-    const angle = Math.atan2(b.y - a.y, b.x - a.x)
-
-    ctx.save()
-    ctx.translate(midX, midY)
-    ctx.rotate(angle + (i % 2 === 0 ? Math.PI / 2 : 0))
-
-    const gradient = ctx.createLinearGradient(-4, 0, 4, 0)
-    gradient.addColorStop(0, '#c7cad0')
-    gradient.addColorStop(0.5, '#8b8f96')
-    gradient.addColorStop(1, '#5f6268')
-
-    ctx.strokeStyle = gradient
-    ctx.lineWidth = 3.4
-    ctx.lineCap = 'round'
+  // ball-chain beads
+  for (let i = 1; i < POINT_COUNT - 1; i++) {
+    const p = points[i]
+    const gradient = ctx.createRadialGradient(
+      p.x - 1,
+      p.y - 1,
+      0.4,
+      p.x,
+      p.y,
+      3.4,
+    )
+    gradient.addColorStop(0, '#e4e6ea')
+    gradient.addColorStop(1, '#787c83')
+    ctx.fillStyle = gradient
     ctx.beginPath()
-    ctx.ellipse(0, 0, 3.2, SEGMENT_LENGTH / 2 - 1, 0, 0, Math.PI * 2)
-    ctx.stroke()
-    ctx.restore()
+    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2)
+    ctx.fill()
   }
 
   // wooden fob
@@ -256,7 +321,7 @@ function draw(ctx: CanvasRenderingContext2D, points: Point[], isDark: boolean) {
   // small metal cap connecting chain to wood
   ctx.fillStyle = '#7d8087'
   ctx.beginPath()
-  ctx.roundRect(-3.5, -FOB_RADIUS - 4, 7, 8, 3)
+  ctx.roundRect(-3.2, -FOB_RADIUS - 4, 6.4, 7, 3)
   ctx.fill()
 
   // wood body (acorn-ish teardrop)
@@ -292,11 +357,11 @@ function draw(ctx: CanvasRenderingContext2D, points: Point[], isDark: boolean) {
 
   // grain lines
   ctx.strokeStyle = 'rgba(0,0,0,0.25)'
-  ctx.lineWidth = 0.8
-  for (const gy of [-4, 0, 5]) {
+  ctx.lineWidth = 0.7
+  for (const gy of [-3, 0, 4]) {
     ctx.beginPath()
-    ctx.moveTo(-FOB_RADIUS + 3, gy)
-    ctx.quadraticCurveTo(0, gy + 2, FOB_RADIUS - 3, gy)
+    ctx.moveTo(-FOB_RADIUS + 2, gy)
+    ctx.quadraticCurveTo(0, gy + 2, FOB_RADIUS - 2, gy)
     ctx.stroke()
   }
 
