@@ -4,6 +4,7 @@ import {
   updateRequestStatus,
   RequestNotFoundError,
   InvalidStatusTransitionError,
+  StatusConflictError,
 } from '@/lib/repositories/requests'
 import { REQUEST_STATUSES } from '@/types/database'
 
@@ -32,6 +33,9 @@ export async function PATCH(
     }
     if (error instanceof InvalidStatusTransitionError) {
       return NextResponse.json({ error: error.message }, { status: 400 })
+    }
+    if (error instanceof StatusConflictError) {
+      return NextResponse.json({ error: error.message }, { status: 409 })
     }
     throw error
   }
