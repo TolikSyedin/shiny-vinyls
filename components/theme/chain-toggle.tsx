@@ -1,7 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useSyncExternalStore } from 'react'
 
 const SEGMENTS = 6
 const SEG_LEN_DARK = 11
@@ -54,12 +54,50 @@ function createPoints(): Point[] {
   return points
 }
 
-function createAudioContext(): AudioContext | null {
-  const Ctor =
-    window.AudioContext ||
-    (window as unknown as { webkitAudioContext?: typeof AudioContext })
-      .webkitAudioContext
-  return Ctor ? new Ctor() : null
+const CLICK_SAMPLE_RATE = 44100
+const CLICK_DURATION = 0.08
+
+function writeAscii(view: DataView, offset: number, text: string) {
+  for (let i = 0; i < text.length; i++) {
+    view.setUint8(offset + i, text.charCodeAt(i))
+  }
+}
+
+// Synthesises the click as a plain 16-bit WAV so it can be played through an
+// <audio> element. Web Audio needs its context unlocked by a "clean" user
+// gesture, and on iOS a touch that blocks page scrolling — which the chain
+// drag must do — never qualifies, leaving resume() hanging forever. Media
+// elements go through a different, far more permissive path.
+function buildClickWavUrl(): string {
+  const length = Math.floor(CLICK_SAMPLE_RATE * CLICK_DURATION)
+  const bytes = new ArrayBuffer(44 + length * 2)
+  const view = new DataView(bytes)
+
+  writeAscii(view, 0, 'RIFF')
+  view.setUint32(4, 36 + length * 2, true)
+  writeAscii(view, 8, 'WAVE')
+  writeAscii(view, 12, 'fmt ')
+  view.setUint32(16, 16, true)
+  view.setUint16(20, 1, true) // PCM
+  view.setUint16(22, 1, true) // mono
+  view.setUint32(24, CLICK_SAMPLE_RATE, true)
+  view.setUint32(28, CLICK_SAMPLE_RATE * 2, true)
+  view.setUint16(32, 2, true)
+  view.setUint16(34, 16, true)
+  writeAscii(view, 36, 'data')
+  view.setUint32(40, length * 2, true)
+
+  for (let i = 0; i < length; i++) {
+    const t = i / CLICK_SAMPLE_RATE
+    // a crisp noise tick with a soft low thunk just behind it — mimics a
+    // real pull-chain switch's contact engaging, not a tone sweep
+    const tick = (Math.random() * 2 - 1) * Math.exp(-t * 260) * 0.8
+    const thunk = Math.sin(2 * Math.PI * 180 * t) * Math.exp(-t * 90) * 0.5
+    const sample = Math.max(-1, Math.min(1, (tick + thunk) * 0.6))
+    view.setInt16(44 + i * 2, sample * 0x7fff, true)
+  }
+
+  return URL.createObjectURL(new Blob([bytes], { type: 'audio/wav' }))
 }
 
 function LampShadeIcon({ isDark }: { isDark: boolean }) {
@@ -95,69 +133,86 @@ function LampShadeIcon({ isDark }: { isDark: boolean }) {
   )
 }
 
-function playNoiseBurst(
-  ctx: AudioContext,
-  startAt: number,
-  duration: number,
-  filterType: BiquadFilterType,
-  frequency: number,
-  q: number,
-  peakGain: number,
-) {
-  const bufferSize = Math.ceil(ctx.sampleRate * duration)
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
-  const data = buffer.getChannelData(0)
-  for (let i = 0; i < bufferSize; i++) {
-    data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize)
+let clickAudio: HTMLAudioElement | null = null
+
+function getClickAudio(): HTMLAudioElement {
+  if (!clickAudio) {
+    clickAudio = new Audio(buildClickWavUrl())
+    clickAudio.preload = 'auto'
   }
-
-  const source = ctx.createBufferSource()
-  source.buffer = buffer
-  const filter = ctx.createBiquadFilter()
-  filter.type = filterType
-  filter.frequency.value = frequency
-  filter.Q.value = q
-  const gain = ctx.createGain()
-  gain.gain.setValueAtTime(peakGain, startAt)
-  gain.gain.exponentialRampToValueAtTime(0.001, startAt + duration)
-
-  source.connect(filter)
-  filter.connect(gain)
-  gain.connect(ctx.destination)
-  source.start(startAt)
-  source.stop(startAt + duration)
+  return clickAudio
 }
 
-function playClick(audioCtxRef: React.RefObject<AudioContext | null>) {
-  if (!audioCtxRef.current) {
-    audioCtxRef.current = createAudioContext()
-  }
-  const ctx = audioCtxRef.current
-  if (!ctx) return
-  if (ctx.state === 'suspended') void ctx.resume()
+// Playing the element once inside a user gesture is what makes iOS willing
+// to replay it programmatically later, so this is called on every plausible
+// gesture rather than only when the theme actually flips.
+function primeClickAudio() {
+  const audio = getClickAudio()
+  if (!audio.paused) return
+  const restoreVolume = audio.volume
+  audio.volume = 0
+  void audio
+    .play()
+    .then(() => {
+      audio.pause()
+      audio.currentTime = 0
+      audio.volume = restoreVolume
+    })
+    .catch(() => {
+      audio.volume = restoreVolume
+    })
+}
 
-  const now = ctx.currentTime
-  // a crisp high tick immediately followed by a soft low thunk —
-  // mimics a real pull-chain switch's contact engaging, not a tone sweep
-  playNoiseBurst(ctx, now, 0.02, 'bandpass', 3200, 1.5, 0.5)
-  playNoiseBurst(ctx, now + 0.008, 0.035, 'lowpass', 350, 0.9, 0.22)
+function playClick() {
+  const audio = getClickAudio()
+  audio.currentTime = 0
+  void audio.play().catch(() => {})
+}
+
+// mounted-detection only: the value never changes after hydration, so
+// there is nothing to subscribe to
+function subscribeToNothing() {
+  return () => {}
 }
 
 export function ChainToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
+  // The server has no idea which theme will resolve, and React explicitly
+  // does not patch up attribute mismatches it finds while hydrating — which
+  // left the bulb frozen in its light-theme position under a dark page. So
+  // render the light-theme markup on both sides, then switch after mount.
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false,
+  )
+  const isDark = mounted && resolvedTheme === 'dark'
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const pointsRef = useRef<Point[]>(createPoints())
   const segLenRef = useRef((SEG_LEN_DARK + SEG_LEN_LIGHT) / 2)
   const draggingRef = useRef(false)
   const isDarkRef = useRef(isDark)
   const toggleThemeRef = useRef(() => {})
-  const audioCtxRef = useRef<AudioContext | null>(null)
+
+  useEffect(() => {
+    // any tap on the page is a chance to get the clip primed for playback
+    function handleFirstInteraction() {
+      primeClickAudio()
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('touchend', handleFirstInteraction)
+    }
+    document.addEventListener('click', handleFirstInteraction)
+    document.addEventListener('touchend', handleFirstInteraction)
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('touchend', handleFirstInteraction)
+    }
+  }, [])
 
   useEffect(() => {
     isDarkRef.current = isDark
     toggleThemeRef.current = () => {
-      playClick(audioCtxRef)
+      playClick()
       setTheme(isDarkRef.current ? 'light' : 'dark')
     }
   }, [isDark, setTheme])
@@ -173,6 +228,28 @@ export function ChainToggle() {
     canvas.height = CANVAS_HEIGHT * scale
     canvas.style.width = `${CANVAS_WIDTH}px`
     canvas.style.height = `${CANVAS_HEIGHT}px`
+
+    // Unlock audio and block the page scroll in one go, from a classic
+    // non-passive touchstart. preventDefault() here stops Safari panning
+    // the page for this gesture without disqualifying it as an unlock
+    // gesture the way `touch-action: none` or a touchmove handler would.
+    // React's synthetic onTouchStart can't do this — it binds passively.
+    function handleNativeTouchStart(e: TouchEvent) {
+      primeClickAudio()
+
+      const touch = e.touches[0]
+      if (!touch) return
+      const rect = canvas!.getBoundingClientRect()
+      const x = ((touch.clientX - rect.left) / rect.width) * CANVAS_WIDTH
+      const y = ((touch.clientY - rect.top) / rect.height) * CANVAS_HEIGHT
+      const fob = pointsRef.current[FOB_INDEX]
+      if (Math.hypot(x - fob.x, y - fob.y) <= GRAB_RADIUS) {
+        e.preventDefault()
+      }
+    }
+    canvas.addEventListener('touchstart', handleNativeTouchStart, {
+      passive: false,
+    })
 
     const points = pointsRef.current
     let rafId = 0
@@ -247,7 +324,10 @@ export function ChainToggle() {
     }
 
     rafId = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(rafId)
+    return () => {
+      cancelAnimationFrame(rafId)
+      canvas.removeEventListener('touchstart', handleNativeTouchStart)
+    }
   }, [])
 
   function localCoords(e: React.PointerEvent<HTMLCanvasElement>) {
@@ -263,6 +343,7 @@ export function ChainToggle() {
     const fob = pointsRef.current[FOB_INDEX]
     const dist = Math.hypot(x - fob.x, y - fob.y)
     if (dist > GRAB_RADIUS) return
+    primeClickAudio()
     e.currentTarget.setPointerCapture(e.pointerId)
     draggingRef.current = true
   }
@@ -328,12 +409,13 @@ export function ChainToggle() {
         aria-pressed={isDark}
         suppressHydrationWarning
         style={{ top: `${CHAIN_TOP}px` }}
-        className="absolute left-1/2 -translate-x-1/2 cursor-grab touch-none select-none active:cursor-grabbing"
+        className="absolute left-1/2 -translate-x-1/2 cursor-grab select-none active:cursor-grabbing"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
         onKeyDown={handleKeyDown}
+        onMouseDown={() => primeClickAudio()}
       />
     </div>
   )
