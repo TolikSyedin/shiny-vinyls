@@ -64,6 +64,7 @@ export async function getRequestStatus(
 
 export class RequestNotFoundError extends Error {}
 export class InvalidStatusTransitionError extends Error {}
+export class StatusConflictError extends Error {}
 
 export type AdminRequest = {
   id: string
@@ -115,14 +116,23 @@ export async function updateRequestStatus(
     )
   }
 
+  // Conditioned on the status we just read: if another request changed it
+  // in between, this matches zero rows instead of blindly overwriting a
+  // transition that's no longer valid from the row's real current state.
   const { data, error } = await supabase
     .from('requests')
     .update({ status })
     .eq('id', id)
+    .eq('status', current.status)
     .select('id, name, phone, comment, status, created_at')
-    .single()
+    .maybeSingle()
 
   if (error) throw error
+  if (!data) {
+    throw new StatusConflictError(
+      `Request ${id} status changed before the update could be applied`,
+    )
+  }
 
   return data
 }
