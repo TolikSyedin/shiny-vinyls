@@ -6,6 +6,7 @@ type TextFieldProps = {
   label: string
   placeholder?: string
   error?: string
+  type?: string
 } & UseFormRegisterReturn
 
 export function TextField({
@@ -13,6 +14,7 @@ export function TextField({
   label,
   placeholder,
   error,
+  type = 'text',
   ...registerProps
 }: TextFieldProps) {
   return (
@@ -20,6 +22,7 @@ export function TextField({
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
+        type={type}
         placeholder={placeholder}
         className="rounded-md border border-border bg-background p-2"
         {...registerProps}

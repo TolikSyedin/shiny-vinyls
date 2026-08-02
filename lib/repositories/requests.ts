@@ -1,9 +1,9 @@
-import { z } from 'zod'
 import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { createSessionClient } from '@/lib/supabase/session'
+import { isValidStatusTransition } from '@/lib/request-status'
+import { uuidSchema } from '@/lib/uuid'
 import type { RequestStatus } from '@/types/database'
-
-const uuidSchema = z.string().uuid()
 
 type CreateRequestInput = {
   name: string
@@ -13,6 +13,7 @@ type CreateRequestInput = {
 
 export async function createRequest(input: CreateRequestInput) {
   const id = crypto.randomUUID()
+  const { name, phone, comment } = input
   const supabase = createAnonClient()
 
   // No .select() here on purpose: anon has no select policy on requests,
@@ -20,9 +21,9 @@ export async function createRequest(input: CreateRequestInput) {
   // generated here, so the caller doesn't need it read back.
   const { error } = await supabase.from('requests').insert({
     id,
-    name: input.name,
-    phone: input.phone,
-    comment: input.comment,
+    name,
+    phone,
+    comment,
   })
 
   if (error) throw error
@@ -57,6 +58,81 @@ export async function getRequestStatus(
     .maybeSingle()
 
   if (error) throw error
+
+  return data
+}
+
+export class RequestNotFoundError extends Error {}
+export class InvalidStatusTransitionError extends Error {}
+export class StatusConflictError extends Error {}
+
+export type AdminRequest = {
+  id: string
+  name: string
+  phone: string
+  comment: string | null
+  status: RequestStatus
+  created_at: string
+}
+
+export async function listRequests(): Promise<AdminRequest[]> {
+  const supabase = await createSessionClient()
+  const { data, error } = await supabase
+    .from('requests')
+    .select('id, name, phone, comment, status, created_at')
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+
+  return data
+}
+
+export async function updateRequestStatus(
+  id: string,
+  status: RequestStatus,
+): Promise<AdminRequest> {
+  // A malformed id is indistinguishable from a nonexistent one to the
+  // caller — see getRequestStatus's version of this same check.
+  if (!uuidSchema.safeParse(id).success) {
+    throw new RequestNotFoundError(`Request ${id} not found`)
+  }
+
+  const supabase = await createSessionClient()
+
+  // Needed to validate the transition — the update below can't check
+  // "from what" without first reading the current status.
+  const { data: current, error: fetchError } = await supabase
+    .from('requests')
+    .select('status')
+    .eq('id', id)
+    .maybeSingle()
+
+  if (fetchError) throw fetchError
+  if (!current) throw new RequestNotFoundError(`Request ${id} not found`)
+
+  if (!isValidStatusTransition(current.status, status)) {
+    throw new InvalidStatusTransitionError(
+      `Cannot transition from "${current.status}" to "${status}"`,
+    )
+  }
+
+  // Conditioned on the status we just read: if another request changed it
+  // in between, this matches zero rows instead of blindly overwriting a
+  // transition that's no longer valid from the row's real current state.
+  const { data, error } = await supabase
+    .from('requests')
+    .update({ status })
+    .eq('id', id)
+    .eq('status', current.status)
+    .select('id, name, phone, comment, status, created_at')
+    .maybeSingle()
+
+  if (error) throw error
+  if (!data) {
+    throw new StatusConflictError(
+      `Request ${id} status changed before the update could be applied`,
+    )
+  }
 
   return data
 }
