@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="uk" suppressHydrationWarning>
-      <body>
+    <html lang="uk" suppressHydrationWarning className="overflow-x-hidden">
+      <body className="overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SiteHeader />
           {children}
