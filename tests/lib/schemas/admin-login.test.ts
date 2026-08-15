@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { adminLoginSchema } from './admin-login'
+import { adminLoginSchema } from '@/lib/schemas/admin-login'
 
 describe('adminLoginSchema', () => {
   it('приймає валідні email і пароль', () => {

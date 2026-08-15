@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { requestSchema } from './request'
+import { requestSchema } from '@/lib/schemas/request'
 
 describe('requestSchema', () => {
   it('приймає валідну заявку', () => {

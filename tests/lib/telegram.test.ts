@@ -6,7 +6,7 @@ import {
   formatInvalidLinkMessage,
   formatNotLinkedMessage,
   formatHelpMessage,
-} from './telegram'
+} from '@/lib/telegram'
 
 const adminUrl = 'http://localhost:3000/admin/requests'
 

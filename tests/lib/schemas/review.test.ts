@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { reviewSchema } from './review'
+import { reviewSchema } from '@/lib/schemas/review'
 
 describe('reviewSchema', () => {
   it('приймає валідний відгук', () => {

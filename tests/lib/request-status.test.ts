@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { isValidStatusTransition } from './request-status'
+import { isValidStatusTransition } from '@/lib/request-status'
 
 describe('isValidStatusTransition', () => {
   it('дозволяє новий -> контакт', () => {
