@@ -18,7 +18,7 @@ export function SubmitButton({
       aria-busy={isSubmitting}
       className="flex items-center justify-center gap-2 rounded-md border border-border p-2 disabled:opacity-50"
     >
-      {<VinylSpinnerIcon />}
+      {isSubmitting && <VinylSpinnerIcon />}
       {isSubmitting ? loadingLabel : label}
     </button>
   )

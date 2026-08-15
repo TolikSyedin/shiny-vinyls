@@ -37,6 +37,12 @@ export function VinylSpinnerIcon() {
       />
       <circle cx="12" cy="12" r="3.5" className="fill-muted-foreground" />
       <circle cx="12" cy="12" r="1" className="fill-background" />
+      {/* Off-center glint: every other shape here is a circle centered on
+          the rotation axis, so spinning them is visually a no-op — nothing
+          moves because a circle looks identical at any angle. This is the
+          one asymmetric mark, so the eye has something to track as it
+          orbits the disc. */}
+      <circle cx="16.5" cy="7" r="1" className="fill-background opacity-60" />
     </svg>
   )
 }
