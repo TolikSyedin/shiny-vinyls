@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { requestSchema } from '@/lib/schemas/request'
 import { createRequest } from '@/lib/repositories/requests'
+import { notifyNewRequest } from '@/lib/telegram'
 
 export async function POST(req: Request) {
   const body = await req.json()
@@ -22,6 +23,9 @@ export async function POST(req: Request) {
 
   const { name, phone, comment } = parsed.data
   const result = await createRequest({ name, phone, comment })
+
+  const adminUrl = `${new URL(req.url).origin}/admin/requests`
+  after(() => notifyNewRequest({ name, phone, comment, adminUrl }))
 
   return NextResponse.json(result, { status: 201 })
 }

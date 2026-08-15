@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { reviewSchema } from '@/lib/schemas/review'
 import { createReview } from '@/lib/repositories/reviews'
+import { notifyNewReview } from '@/lib/telegram'
 
 export async function POST(req: Request) {
   const body = await req.json()
@@ -22,6 +23,9 @@ export async function POST(req: Request) {
 
   const { name, rating, text } = parsed.data
   const result = await createReview({ name, rating, text })
+
+  const adminUrl = `${new URL(req.url).origin}/admin/reviews`
+  after(() => notifyNewReview({ name, rating, text, adminUrl }))
 
   return NextResponse.json(result, { status: 201 })
 }
