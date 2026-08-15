@@ -19,6 +19,7 @@ import { createBrowserClient } from '@/lib/supabase/browser'
 export function AdminLoginForm() {
   const router = useRouter()
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [isRedirecting, setIsRedirecting] = useState(false)
   const {
     register,
     handleSubmit,
@@ -42,6 +43,11 @@ export function AdminLoginForm() {
       return
     }
 
+    // isSubmitting flips back to false the instant this handler returns,
+    // which happens right after router.push is called — not once the new
+    // route has actually rendered. This flag keeps the loading UI visible
+    // through that gap instead of it flashing back to idle mid-navigation.
+    setIsRedirecting(true)
     router.push('/admin/requests')
   }
 
@@ -67,7 +73,7 @@ export function AdminLoginForm() {
       <FieldError message={submitError ?? undefined} />
 
       <SubmitButton
-        isSubmitting={isSubmitting}
+        isSubmitting={isSubmitting || isRedirecting}
         label="Увійти"
         loadingLabel="Входимо..."
       />

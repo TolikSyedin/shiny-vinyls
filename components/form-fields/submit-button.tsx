@@ -1,3 +1,5 @@
+import { VinylSpinnerIcon } from './vinyl-spinner-icon'
+
 type SubmitButtonProps = {
   isSubmitting: boolean
   label: string
@@ -13,8 +15,10 @@ export function SubmitButton({
     <button
       type="submit"
       disabled={isSubmitting}
-      className="rounded-md border border-border p-2 disabled:opacity-50"
+      aria-busy={isSubmitting}
+      className="flex items-center justify-center gap-2 rounded-md border border-border p-2 disabled:opacity-50"
     >
+      {<VinylSpinnerIcon />}
       {isSubmitting ? loadingLabel : label}
     </button>
   )

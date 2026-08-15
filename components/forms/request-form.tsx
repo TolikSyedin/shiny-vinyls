@@ -23,6 +23,7 @@ import {
 export function RequestForm() {
   const router = useRouter()
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [isRedirecting, setIsRedirecting] = useState(false)
   const {
     register,
     handleSubmit,
@@ -47,6 +48,11 @@ export function RequestForm() {
       }
 
       const { id } = await res.json()
+      // isSubmitting flips back to false the instant this handler returns,
+      // which happens right after router.push is called — not once the new
+      // route has actually rendered. This flag keeps the loading UI visible
+      // through that gap instead of it flashing back to idle mid-navigation.
+      setIsRedirecting(true)
       router.push(`/request/${id}`)
     } catch {
       setSubmitError(SUBMIT_ERROR_MESSAGE)
@@ -84,7 +90,10 @@ export function RequestForm() {
 
         <FieldError message={submitError ?? undefined} />
 
-        <SubmitButton isSubmitting={isSubmitting} label="Надіслати заявку" />
+        <SubmitButton
+          isSubmitting={isSubmitting || isRedirecting}
+          label="Надіслати заявку"
+        />
       </form>
 
       <p className="text-sm text-muted-foreground">
