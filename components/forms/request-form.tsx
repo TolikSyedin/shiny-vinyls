@@ -65,6 +65,7 @@ export function RequestForm() {
         <TextField
           id="name"
           label="Ім'я"
+          autocomplete="fullname"
           placeholder={NAME_PLACEHOLDER}
           error={errors.name?.message}
           {...register('name')}
@@ -73,6 +74,8 @@ export function RequestForm() {
         <TextField
           id="phone"
           label="Телефон"
+          type="tel"
+          autocomplete="tel"
           placeholder={PHONE_PLACEHOLDER}
           error={errors.phone?.message}
           {...register('phone')}

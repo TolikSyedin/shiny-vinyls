@@ -7,6 +7,7 @@ type TextFieldProps = {
   placeholder?: string
   error?: string
   type?: string
+  autocomplete?: string
 } & UseFormRegisterReturn
 
 export function TextField({
@@ -14,6 +15,7 @@ export function TextField({
   label,
   placeholder,
   error,
+  autocomplete,
   type = 'text',
   ...registerProps
 }: TextFieldProps) {
