@@ -72,6 +72,7 @@ export type AdminRequest = {
   phone: string
   comment: string | null
   status: RequestStatus
+  telegram_chat_id: string | null
   created_at: string
 }
 
@@ -79,7 +80,7 @@ export async function listRequests(): Promise<AdminRequest[]> {
   const supabase = await createSessionClient()
   const { data, error } = await supabase
     .from('requests')
-    .select('id, name, phone, comment, status, created_at')
+    .select('id, name, phone, comment, status, telegram_chat_id, created_at')
     .order('created_at', { ascending: false })
 
   if (error) throw error
@@ -124,7 +125,7 @@ export async function updateRequestStatus(
     .update({ status })
     .eq('id', id)
     .eq('status', current.status)
-    .select('id, name, phone, comment, status, created_at')
+    .select('id, name, phone, comment, status, telegram_chat_id, created_at')
     .maybeSingle()
 
   if (error) throw error
@@ -133,6 +134,50 @@ export async function updateRequestStatus(
       `Request ${id} status changed before the update could be applied`,
     )
   }
+
+  return data
+}
+
+// Overwrites any previously linked chat: the request UUID itself is the
+// credential (same trust model as getRequestStatus's public link), so the
+// most recent /start wins rather than rejecting a re-link.
+export async function linkTelegramChat(
+  requestId: string,
+  chatId: string,
+): Promise<AdminRequest | null> {
+  // Same rationale as getRequestStatus: a malformed id can't match a row
+  // anyway, so skip the round-trip to Postgres for an id it would reject.
+  if (!uuidSchema.safeParse(requestId).success) return null
+
+  const supabase = createAdminClient()
+  const { data, error } = await supabase
+    .from('requests')
+    .update({ telegram_chat_id: chatId })
+    .eq('id', requestId)
+    .select('id, name, phone, comment, status, telegram_chat_id, created_at')
+    .maybeSingle()
+
+  if (error) throw error
+
+  return data
+}
+
+export async function getLatestRequestStatusByChatId(
+  chatId: string,
+): Promise<RequestPublicStatus | null> {
+  // service-role read, narrowed to the same safe fields as
+  // getRequestStatus — the bot chat is the client's own, but there's no
+  // reason to widen the surface beyond what the site itself ever shows.
+  const supabase = createAdminClient()
+  const { data, error } = await supabase
+    .from('requests')
+    .select('id, status, created_at')
+    .eq('telegram_chat_id', chatId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throw error
 
   return data
 }
