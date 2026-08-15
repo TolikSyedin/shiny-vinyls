@@ -8,7 +8,7 @@ export function VinylSpinnerIcon() {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="size-5 animate-spin [animation-duration:1.2s]"
+      className="size-7 animate-spin [animation-duration:1.2s]"
     >
       <circle cx="12" cy="12" r="10" className="fill-foreground" />
       <circle
