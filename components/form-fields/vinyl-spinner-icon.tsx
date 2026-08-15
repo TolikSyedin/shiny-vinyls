@@ -1,8 +1,8 @@
-// Every color here is a theme token (foreground/background/muted-foreground),
-// not a hardcoded hex: the disc renders dark-on-light and light-on-dark, same
-// as body text, so it stays legible in both themes without hand-picking
-// per-theme colors. animation-duration is slowed below Tailwind's default
-// animate-spin (1s) to read more like a physical record than a UI spinner.
+// Colors are theme tokens (foreground/background/muted-foreground), not
+// hardcoded hex: the disc renders dark-on-light and light-on-dark, same as
+// body text, so it stays legible in both themes. animation-duration is
+// slowed below Tailwind's default animate-spin (1s) to read more like a
+// physical record than a UI spinner.
 export function VinylSpinnerIcon() {
   return (
     <svg
@@ -14,35 +14,59 @@ export function VinylSpinnerIcon() {
       <circle
         cx="12"
         cy="12"
-        r="8"
+        r="8.5"
         fill="none"
-        strokeWidth="0.5"
+        strokeWidth="0.4"
         className="stroke-background opacity-20"
       />
       <circle
         cx="12"
         cy="12"
-        r="6.5"
+        r="7"
         fill="none"
-        strokeWidth="0.5"
+        strokeWidth="0.4"
         className="stroke-background opacity-20"
       />
       <circle
         cx="12"
         cy="12"
-        r="5"
+        r="5.5"
         fill="none"
-        strokeWidth="0.5"
+        strokeWidth="0.4"
         className="stroke-background opacity-20"
       />
-      <circle cx="12" cy="12" r="3.5" className="fill-muted-foreground" />
-      <circle cx="12" cy="12" r="1" className="fill-background" />
-      {/* Off-center glint: every other shape here is a circle centered on
-          the rotation axis, so spinning them is visually a no-op — nothing
-          moves because a circle looks identical at any angle. This is the
-          one asymmetric mark, so the eye has something to track as it
-          orbits the disc. */}
-      <circle cx="16.5" cy="7" r="1" className="fill-background opacity-60" />
+      {/* Label: a small inset disc, like the paper label on a real record —
+          also the one asymmetric mark on the icon, so rotation is visible
+          (every other shape here is a circle centered on the rotation
+          axis, which looks identical at any angle). */}
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+        className="fill-background stroke-muted-foreground"
+        strokeWidth="0.4"
+      />
+      <g
+        transform="translate(12 12) scale(0.4) translate(-12 -12)"
+        className="stroke-foreground"
+      >
+        <line x1="12" y1="2" x2="12" y2="22" strokeWidth="1" strokeLinecap="butt" />
+        <path
+          d="M 7.2 7 L 7.2 10 L 12 10"
+          fill="none"
+          strokeWidth="1"
+          strokeLinecap="square"
+          strokeLinejoin="miter"
+        />
+        <path
+          d="M 2.2 14 L 7.2 14 L 7.2 17"
+          fill="none"
+          strokeWidth="1"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+        />
+        <line x1="17" y1="3.34" x2="17" y2="17" strokeWidth="1" strokeLinecap="butt" />
+      </g>
     </svg>
   )
 }
