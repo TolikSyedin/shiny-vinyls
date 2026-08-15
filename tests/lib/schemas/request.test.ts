@@ -67,6 +67,30 @@ describe('requestSchema', () => {
     }
   })
 
+  it('відхиляє телефон з літерами', () => {
+    const result = requestSchema.safeParse({
+      name: 'Олена',
+      phone: '+380abc234567',
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it('приймає телефон із дужками, пробілами й дефісами', () => {
+    const result = requestSchema.safeParse({
+      name: 'Олена',
+      phone: '+38 (050) 123-45-67',
+    })
+    expect(result.success).toBe(true)
+  })
+
+  it('відхиляє телефон із недостатньою кількістю цифр, навіть якщо довжина рядка формально валідна', () => {
+    const result = requestSchema.safeParse({
+      name: 'Олена',
+      phone: '-- () -- () --',
+    })
+    expect(result.success).toBe(false)
+  })
+
   it('обрізає пробіли навколо імені й телефону (trim)', () => {
     const result = requestSchema.safeParse({
       name: '  Олена  ',
