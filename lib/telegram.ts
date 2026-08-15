@@ -30,6 +30,40 @@ function formatAdminLink(adminUrl: string, label: string): string {
   return `<a href="${escapeHtml(adminUrl)}">${escapeHtml(label)}</a>`
 }
 
+type LinkedRequestInfo = {
+  name: string
+  phone: string
+  comment?: string | null
+  statusMessage: string
+}
+
+// Echoes back the request's own fields so the client can visually confirm
+// this is *their* заявка before trusting the bot — same reasoning as why
+// formatNewRequestMessage escapes its input: these are user-supplied values
+// interpolated into an HTML-parsed message.
+export function formatLinkedMessage(input: LinkedRequestInfo): string {
+  const lines = [
+    `Telegram привʼязано до заявки:`,
+    `Ім'я: ${escapeHtml(input.name)}`,
+    `Телефон: ${escapeHtml(input.phone)}`,
+  ]
+  if (input.comment) lines.push(`Коментар: ${escapeHtml(input.comment)}`)
+  lines.push('', input.statusMessage)
+  return lines.join('\n')
+}
+
+export function formatInvalidLinkMessage(): string {
+  return 'Не вдалося знайти заявку за цим посиланням. Спробуйте перейти за посиланням ще раз зі сторінки статусу заявки на сайті.'
+}
+
+export function formatNotLinkedMessage(): string {
+  return 'До цього чату ще не привʼязано жодної заявки. Перейдіть за посиланням "Слідкувати за статусом заявки в Telegram" на сторінці статусу вашої заявки на сайті.'
+}
+
+export function formatHelpMessage(): string {
+  return 'Доступні команди:\n/status — дізнатись статус вашої заявки'
+}
+
 export function formatNewRequestMessage(input: NewRequestNotification): string {
   const lines = [
     `Нова заявка:`,
@@ -51,19 +85,15 @@ export function formatNewReviewMessage(input: NewReviewNotification): string {
   ].join('\n')
 }
 
-// Chat-id-agnostic on purpose: a future client-facing bot (notifying a
-// client via their own requests.telegram_chat_id) can reuse this unchanged —
-// only notifyAdmin below is admin-specific.
+// Token-agnostic on purpose: shared by the admin bot (notifyAdmin) and the
+// client bot (notifyClient) below — each passes its own bot token.
 async function sendTelegramMessage(
+  token: string | undefined,
   chatId: string,
   text: string,
 ): Promise<void> {
-  const token = process.env.TELEGRAM_BOT_TOKEN
-
   if (!token) {
-    console.error(
-      'Telegram notification skipped: TELEGRAM_BOT_TOKEN is not set',
-    )
+    console.error('Telegram notification skipped: bot token is not set')
     return
   }
 
@@ -100,7 +130,7 @@ async function notifyAdmin(text: string): Promise<void> {
     return
   }
 
-  await sendTelegramMessage(chatId, text)
+  await sendTelegramMessage(process.env.TELEGRAM_BOT_TOKEN, chatId, text)
 }
 
 export async function notifyNewRequest(
@@ -113,4 +143,8 @@ export async function notifyNewReview(
   input: NewReviewNotification,
 ): Promise<void> {
   await notifyAdmin(formatNewReviewMessage(input))
+}
+
+export async function notifyClient(chatId: string, text: string): Promise<void> {
+  await sendTelegramMessage(process.env.TELEGRAM_CLIENT_BOT_TOKEN, chatId, text)
 }

@@ -18,6 +18,8 @@ export default async function RequestStatusPage({
     notFound()
   }
 
+  const botUsername = process.env.TELEGRAM_CLIENT_BOT_USERNAME
+
   return (
     <main className="mx-auto flex max-w-md flex-col gap-4 p-8">
       <h1 className="text-2xl font-semibold">Ваша заявка</h1>
@@ -25,6 +27,14 @@ export default async function RequestStatusPage({
       <p className="text-sm text-muted-foreground">
         Створено: {new Date(result.created_at).toLocaleString('uk-UA')}
       </p>
+      {botUsername && (
+        <a
+          href={`https://t.me/${botUsername}?start=${result.id}`}
+          className="text-sm font-medium underline underline-offset-4"
+        >
+          Слідкувати за статусом заявки в Telegram
+        </a>
+      )}
     </main>
   )
 }

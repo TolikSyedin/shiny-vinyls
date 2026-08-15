@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest'
-import { formatNewRequestMessage, formatNewReviewMessage } from './telegram'
+import {
+  formatNewRequestMessage,
+  formatNewReviewMessage,
+  formatLinkedMessage,
+  formatInvalidLinkMessage,
+  formatNotLinkedMessage,
+  formatHelpMessage,
+} from './telegram'
 
 const adminUrl = 'http://localhost:3000/admin/requests'
 
@@ -77,5 +84,66 @@ describe('formatNewReviewMessage', () => {
     })
     expect(text).toContain('&lt;b&gt;дуже&lt;/b&gt; задоволений &amp; рекомендую')
     expect(text).not.toContain('<b>дуже</b>')
+  })
+})
+
+describe('formatLinkedMessage', () => {
+  it('включає ім\'я, телефон і статус-текст, щоб клієнт міг звірити заявку', () => {
+    const text = formatLinkedMessage({
+      name: 'Олена',
+      phone: '+380501234567',
+      statusMessage: 'Ваші платівки миються та сушаться',
+    })
+    expect(text).toContain('Олена')
+    expect(text).toContain('+380501234567')
+    expect(text).toContain('Ваші платівки миються та сушаться')
+    expect(text).toContain('привʼязано')
+  })
+
+  it('додає коментар, якщо він переданий', () => {
+    const text = formatLinkedMessage({
+      name: 'Олена',
+      phone: '+380501234567',
+      comment: '5 платівок, є подряпини',
+      statusMessage: 'Ваші платівки миються та сушаться',
+    })
+    expect(text).toContain('5 платівок, є подряпини')
+  })
+
+  it('не додає рядок коментаря, якщо його немає', () => {
+    const text = formatLinkedMessage({
+      name: 'Олена',
+      phone: '+380501234567',
+      statusMessage: 'Ваші платівки миються та сушаться',
+    })
+    expect(text).not.toContain('Коментар:')
+  })
+
+  it('екранує HTML-спецсимволи в імені й телефоні', () => {
+    const text = formatLinkedMessage({
+      name: 'O\'Brien <script>',
+      phone: '+380501234567',
+      statusMessage: 'Статус',
+    })
+    expect(text).toContain('O\'Brien &lt;script&gt;')
+    expect(text).not.toContain('<script>')
+  })
+})
+
+describe('formatInvalidLinkMessage', () => {
+  it('повертає непорожнє повідомлення', () => {
+    expect(formatInvalidLinkMessage().length).toBeGreaterThan(0)
+  })
+})
+
+describe('formatNotLinkedMessage', () => {
+  it('повертає непорожнє повідомлення', () => {
+    expect(formatNotLinkedMessage().length).toBeGreaterThan(0)
+  })
+})
+
+describe('formatHelpMessage', () => {
+  it('згадує команду /status', () => {
+    expect(formatHelpMessage()).toContain('/status')
   })
 })

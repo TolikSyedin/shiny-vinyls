@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { z } from 'zod'
 import {
   updateRequestStatus,
@@ -6,6 +6,8 @@ import {
   InvalidStatusTransitionError,
   StatusConflictError,
 } from '@/lib/repositories/requests'
+import { notifyClient } from '@/lib/telegram'
+import { requestStatusLabels } from '@/lib/request-status-labels'
 import { REQUEST_STATUSES } from '@/types/database'
 
 const patchSchema = z.object({
@@ -26,6 +28,12 @@ export async function PATCH(
 
   try {
     const updated = await updateRequestStatus(id, parsed.data.status)
+
+    if (updated.telegram_chat_id) {
+      const chatId = updated.telegram_chat_id
+      after(() => notifyClient(chatId, requestStatusLabels[updated.status]))
+    }
+
     return NextResponse.json(updated)
   } catch (error) {
     if (error instanceof RequestNotFoundError) {
