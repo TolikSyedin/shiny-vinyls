@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChainToggle } from '@/components/theme'
+import { StrobeToggle } from '@/components/theme'
 
 export function SiteHeader() {
   return (
@@ -13,7 +13,7 @@ export function SiteHeader() {
         <Link href="/request">Заявка</Link>
         <Link href="/reviews">Відгуки</Link>
       </nav>
-      <ChainToggle />
+      <StrobeToggle />
     </header>
   )
 }
