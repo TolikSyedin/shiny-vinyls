@@ -32,6 +32,15 @@
   --color-accent-foreground: var(--accent-foreground);
 }
 
+/* the pitch fader is the only visible scroll indicator — this hides the
+   browser's drawn scrollbar without touching scroll behaviour itself */
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
