@@ -1,0 +1,176 @@
+/* Styles for the PitchFader component, imported by its index.tsx rather than
+   pulled into globals.css — the band is self-contained and its styles should
+   die with it.
+
+   Plain CSS rather than utility classes: the parts line up to the pixel (knob
+   radius against frame radius, knob travel against the -8/+8 ticks), and those
+   relationships are far easier to keep correct — and to read — as declarations
+   than as strings of arbitrary-value utilities.
+
+   Two things this file leans on from globals.css: the `--border` token, and
+   the `.dark` class next-themes puts on <html>. Both are resolved at runtime,
+   so nothing here depends on which order the two stylesheets land in. These
+   rules are unlayered, which keeps them ahead of Tailwind's own `@layer`
+   utilities no matter the order. */
+.pitch-fader {
+  padding: 8px 34px;
+  background: #c7c7c5;
+  border-bottom: 1px solid var(--border);
+}
+.dark .pitch-fader {
+  background: #141414;
+  border-bottom-color: transparent;
+}
+
+.pitch-fader__led {
+  width: 8px;
+  height: 9px;
+  border-radius: 2.5px;
+  background: #2f5c3a;
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+.pitch-fader__led--on {
+  background: #22ff55;
+  box-shadow: 0 0 6px 2px rgba(34, 255, 85, 0.85);
+}
+.dark .pitch-fader__led {
+  background: #5c2620;
+}
+.dark .pitch-fader__led--on {
+  background: #ff3b30;
+  box-shadow: 0 0 6px 2px rgba(255, 59, 48, 0.85);
+}
+
+.pitch-fader__ticks {
+  position: relative;
+  height: 24px;
+  margin: 0 11px;
+}
+.pitch-fader__ticks::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: #000;
+}
+.dark .pitch-fader__ticks::after {
+  background: #fff;
+}
+
+.pitch-fader__tick {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 5px;
+  transform: translateX(-50%);
+}
+.pitch-fader__num {
+  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  color: #000;
+}
+.dark .pitch-fader__num {
+  color: #fff;
+}
+.pitch-fader__mark {
+  background: #000;
+}
+.dark .pitch-fader__mark {
+  background: #fff;
+}
+.pitch-fader__tick--major .pitch-fader__mark {
+  width: 6px;
+  height: 6px;
+}
+.pitch-fader__tick--minor .pitch-fader__mark {
+  width: 1.5px;
+  height: 5px;
+}
+
+/* negative side margins pull the frame out to where the knob's edges land at
+   -8/+8, so nothing of the housing shows past the knob's extremes */
+.pitch-fader__frame {
+  position: relative;
+  margin: 0 -7px 6px;
+  padding: 7px 0;
+  border: 1px solid #a2a2a0;
+  border-radius: 3px;
+}
+.dark .pitch-fader__frame {
+  border-color: #2a2a2a;
+}
+
+.pitch-fader__groove {
+  position: relative;
+  height: 24px;
+}
+.pitch-fader__slot {
+  position: absolute;
+  inset-inline: 17px;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+}
+.dark .pitch-fader__slot {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* inset by half the knob's width, so its centre — not its edge — is what
+   tracks the scale */
+.pitch-fader__travel {
+  position: absolute;
+  inset-block: 0;
+  left: 17px;
+  right: 17px;
+}
+.pitch-fader__trail {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #5537c0;
+}
+.dark .pitch-fader__trail {
+  background: #8b6bf0;
+}
+
+.pitch-fader__thumb {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 34px;
+  transform: translateX(-50%);
+}
+/* the two knobs are swapped here rather than with Tailwind's `dark:hidden`:
+   a `.pitch-fader__thumb svg` rule outranks `.hidden` on specificity and would
+   force both to render, stacking one under the other */
+.pitch-fader__knob {
+  width: 100%;
+  height: 100%;
+}
+.pitch-fader__knob--light {
+  display: block;
+}
+.pitch-fader__knob--dark {
+  display: none;
+}
+.dark .pitch-fader__knob--light {
+  display: none;
+}
+.dark .pitch-fader__knob--dark {
+  display: block;
+}

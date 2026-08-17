@@ -19,7 +19,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`overflow-x-hidden ${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
     >
-      <body className="overflow-x-hidden">
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SiteHeader />
           {children}
