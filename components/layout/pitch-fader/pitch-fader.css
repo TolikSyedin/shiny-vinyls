@@ -73,7 +73,7 @@
 }
 
 .pitch-fader__num {
-  font-family: ui-monospace, 'IBM Plex Mono', monospace;
+  font-family: var(--f-mono), ui-monospace, monospace;
   font-size: 10px;
   line-height: 1;
   font-variant-numeric: tabular-nums;
