@@ -1,6 +1,7 @@
 import './globals.css'
 import { ThemeProvider } from '@/components/theme'
 import { SiteHeader, SiteFooter } from '@/components/layout'
+import { fontBody, fontDisplay, fontMono } from './fonts'
 
 export const metadata = {
   title: 'Shiny Vinyls',
@@ -13,7 +14,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="uk" suppressHydrationWarning className="overflow-x-hidden">
+    <html
+      lang="uk"
+      suppressHydrationWarning
+      className={`overflow-x-hidden ${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
+    >
       <body className="overflow-x-hidden">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SiteHeader />
