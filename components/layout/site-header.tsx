@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { BrandLink } from '@/components/brand'
 import { ChainToggle } from '@/components/theme'
 
 export function SiteHeader() {
@@ -7,8 +8,8 @@ export function SiteHeader() {
       className="relative flex items-center justify-between border-b border-border p-4"
       style={{ clipPath: 'inset(0 0 -100vh 0)' }}
     >
+      <BrandLink />
       <nav className="flex gap-4">
-        <Link href="/">Головна</Link>
         <Link href="/contacts">Контакти</Link>
         <Link href="/request">Заявка</Link>
         <Link href="/reviews">Відгуки</Link>
