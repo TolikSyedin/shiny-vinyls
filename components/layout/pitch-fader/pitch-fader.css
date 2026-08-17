@@ -16,7 +16,7 @@
   position: fixed;
   inset-inline: 0;
   z-index: 40;
-  padding: 12px 34px 10px;
+  padding: 8px 34px;
   background: #c7c7c5;
   border-bottom: 1px solid var(--border);
 }
@@ -25,18 +25,10 @@
   border-bottom-color: #141414;
 }
 
-.pitch-fader__led-row {
-  position: relative;
-  height: 10px;
-}
 .pitch-fader__led {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 5px;
+  width: 8px;
   height: 9px;
   border-radius: 2.5px;
-  transform: translate(-50%, -50%);
   background: #2f5c3a;
   transition:
     background-color 120ms ease,
@@ -59,7 +51,7 @@
    scale is nudged to match, which keeps the knob nested inside the frame. */
 .pitch-fader__ticks {
   position: relative;
-  height: 32px;
+  height: 24px;
   margin: 0 11px;
 }
 .pitch-fader__ticks::after {
@@ -132,7 +124,7 @@
 
 .pitch-fader__groove {
   position: relative;
-  height: 32px;
+  height: 24px;
 }
 .pitch-fader__slot {
   position: absolute;
