@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState } from 'react'
 import { StrobeAssembly } from './assembly'
 import { playClick, preloadClickAudio, primeClickAudio } from './click-sound'
+import './strobe-toggle.css'
 
 export function StrobeToggle() {
   // Which layer is opaque is decided by the `.dark` ancestor selector in
