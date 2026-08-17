@@ -1,26 +1,19 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { StrobeAssembly } from './assembly'
 import { playClick, preloadClickAudio, primeClickAudio } from './click-sound'
 
-// mounted-detection only: the value never changes after hydration, so
-// there is nothing to subscribe to
-function subscribeToNothing() {
-  return () => {}
-}
-
 export function StrobeToggle() {
+  // Which layer is opaque is decided by the `.dark` ancestor selector in
+  // CSS, not by this value — next-themes sets that class synchronously
+  // before first paint, so CSS never needs to wait for hydration the way
+  // `resolvedTheme` does. `isDark` only drives a11y attributes and which
+  // theme a click switches to; `suppressHydrationWarning` on the button
+  // covers the brief server/client mismatch on those.
   const { resolvedTheme, setTheme } = useTheme()
-  // No assembly reads fine in both themes, so the neutral pre-hydration
-  // state renders neither layer rather than guessing wrong half the time.
-  const mounted = useSyncExternalStore(
-    subscribeToNothing,
-    () => true,
-    () => false,
-  )
-  const isDark = mounted && resolvedTheme === 'dark'
+  const isDark = resolvedTheme === 'dark'
   const [anim, setAnim] = useState<'close' | 'open' | null>(null)
   const animatingRef = useRef(false)
 
@@ -85,7 +78,6 @@ export function StrobeToggle() {
         onAnimationEnd={handleAnimationEnd}
         className={[
           'strobe-toggle',
-          mounted ? (isDark ? 'strobe-toggle--dark' : 'strobe-toggle--light') : '',
           anim === 'close' ? 'strobe-toggle--anim-close' : '',
           anim === 'open' ? 'strobe-toggle--anim-open' : '',
         ]
