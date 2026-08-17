@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 
+const GROOVE_RADII = [103, 96, 89, 82, 75, 68, 61, 54]
+
 export function VinylDisc() {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const stateRef = useRef({
