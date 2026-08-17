@@ -1,3 +1,5 @@
+import { SvGlyph } from './sv-glyph'
+
 export type DiscMarkColors = {
   body: string
   ring: string
@@ -13,8 +15,8 @@ type DiscMarkProps = {
 
 // Vinyl-record mark shared by the brand logo (DiscLogo) and the form
 // loading spinner (VinylSpinnerIcon) — same shape, different colors and
-// animation per caller. The tonearm glyph on the label is the only
-// asymmetric detail, so rotation reads as motion instead of a static circle.
+// animation per caller. The SV glyph on the label is the only asymmetric
+// detail, so rotation reads as motion instead of a static circle.
 export function DiscMark({ size, colors, className }: DiscMarkProps) {
   return (
     <svg
@@ -66,10 +68,7 @@ export function DiscMark({ size, colors, className }: DiscMarkProps) {
         fill="none"
         strokeWidth="1"
       >
-        <line x1="12" y1="2" x2="12" y2="22" />
-        <path d="M 7.2 7 L 7.2 10 L 12 10" strokeLinecap="square" />
-        <path d="M 2.2 14 L 7.2 14 L 7.2 17" />
-        <line x1="17" y1="3.34" x2="17" y2="17" />
+        <SvGlyph />
       </g>
     </svg>
   )

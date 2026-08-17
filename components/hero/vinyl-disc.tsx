@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { SvGlyph } from '@/components/common'
 
 const GROOVE_RADII = [103, 96, 89, 82, 75, 68, 61, 54]
 
@@ -142,10 +143,7 @@ export function VinylDisc() {
           strokeWidth="1"
           strokeLinejoin="miter"
         >
-          <line x1="12" y1="2" x2="12" y2="22" />
-          <path d="M 7.2 7 L 7.2 10 L 12 10" strokeLinecap="square" />
-          <path d="M 2.2 14 L 7.2 14 L 7.2 17" />
-          <line x1="17" y1="3.34" x2="17" y2="17" />
+          <SvGlyph />
         </g>
       </g>
     </svg>
