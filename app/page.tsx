@@ -1,4 +1,4 @@
-import { VinylDisc } from "@/components/hero/VinylDisk";
+import { VinylDisc } from '@/components/hero/VinylDisk'
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
           Скелет сторінки — контент попереду.
         </p>
         <div style={{ width: 500, height: 500 }}>
-          <VinylDisc/>
+          <VinylDisc />
         </div>
       </div>
     </main>

@@ -1,90 +1,96 @@
-'use client';
+'use client'
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react'
 
 export const VinylDisc: React.FC = () => {
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null)
   const stateRef = useRef({
     angle: 0,
     vel: 0,
     dragging: false,
     lastA: 0,
     lastT: 0,
-  });
+  })
 
   useEffect(() => {
-    const el = svgRef.current;
-    if (!el) return;
+    const el = svgRef.current
+    if (!el) return
 
-    const reduce: boolean = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const BASE: number = reduce ? 0 : 13.8;
-    stateRef.current.vel = BASE;
+    const reduce: boolean = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+    const BASE: number = reduce ? 0 : 13.8
+    stateRef.current.vel = BASE
 
-    let prev: number = performance.now();
-    let rafId: number;
+    let prev: number = performance.now()
+    let rafId: number
 
     const loop = (t: number): undefined => {
-      const dt = Math.min(0.05, (t - prev) / 1000);
-      prev = t;
+      const dt = Math.min(0.05, (t - prev) / 1000)
+      prev = t
 
       if (!stateRef.current.dragging) {
-        stateRef.current.vel += (BASE - stateRef.current.vel) * Math.min(1, dt * 2.1);
-        stateRef.current.angle += stateRef.current.vel * dt;
+        stateRef.current.vel +=
+          (BASE - stateRef.current.vel) * Math.min(1, dt * 2.1)
+        stateRef.current.angle += stateRef.current.vel * dt
       }
 
       if (el) {
-        el.style.transform = `rotate(${stateRef.current.angle.toFixed(2)}deg)`;
+        el.style.transform = `rotate(${stateRef.current.angle.toFixed(2)}deg)`
       }
 
-      rafId = requestAnimationFrame(loop);
-    };
-
-    rafId = requestAnimationFrame(loop);
-
-    return () => cancelAnimationFrame(rafId);
-  }, []);
-
-  const pointAngle = (e: React.PointerEvent<SVGSVGElement>): number => {
-    if (!svgRef.current) return 0;
-    const r = svgRef.current.getBoundingClientRect();
-    return (
-      Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) *
-      (180 / Math.PI)
-    );
-  };
-
-  const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
-    stateRef.current.dragging = true;
-    stateRef.current.vel = 0;
-    stateRef.current.lastA = pointAngle(e);
-    stateRef.current.lastT = performance.now();
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId);
-    } catch {}
-  };
-
-  const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
-    if (!stateRef.current.dragging) return;
-    const a = pointAngle(e);
-    const now = performance.now();
-    let d = a - stateRef.current.lastA;
-
-    if (d > 180) d -= 360;
-    else if (d < -180) d += 360;
-
-    stateRef.current.angle += d;
-    const dt = (now - stateRef.current.lastT) / 1000;
-    if (dt > 0.004) {
-      stateRef.current.vel = Math.max(-1400, Math.min(1400, d / dt));
+      rafId = requestAnimationFrame(loop)
     }
 
-    stateRef.current.lastA = a;
-    stateRef.current.lastT = now;
-  };
+    rafId = requestAnimationFrame(loop)
+
+    return () => cancelAnimationFrame(rafId)
+  }, [])
+
+  const pointAngle = (e: React.PointerEvent<SVGSVGElement>): number => {
+    if (!svgRef.current) return 0
+    const r = svgRef.current.getBoundingClientRect()
+    return (
+      Math.atan2(
+        e.clientY - (r.top + r.height / 2),
+        e.clientX - (r.left + r.width / 2),
+      ) *
+      (180 / Math.PI)
+    )
+  }
+
+  const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    stateRef.current.dragging = true
+    stateRef.current.vel = 0
+    stateRef.current.lastA = pointAngle(e)
+    stateRef.current.lastT = performance.now()
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!stateRef.current.dragging) return
+    const a = pointAngle(e)
+    const now = performance.now()
+    let d = a - stateRef.current.lastA
+
+    if (d > 180) d -= 360
+    else if (d < -180) d += 360
+
+    stateRef.current.angle += d
+    const dt = (now - stateRef.current.lastT) / 1000
+    if (dt > 0.004) {
+      stateRef.current.vel = Math.max(-1400, Math.min(1400, d / dt))
+    }
+
+    stateRef.current.lastA = a
+    stateRef.current.lastT = now
+  }
 
   const handleRelease = () => {
-    stateRef.current.dragging = false;
-  };
+    stateRef.current.dragging = false
+  }
 
   return (
     <svg
@@ -107,15 +113,78 @@ export const VinylDisc: React.FC = () => {
     >
       <g>
         <circle cx="120" cy="120" r="112" fill="var(--disc)" />
-        <circle cx="120" cy="120" r="103" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="96" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="89" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="82" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="75" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="68" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="61" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="54" fill="none" stroke="var(--groove)" strokeWidth="1.5" />
-        <circle cx="120" cy="120" r="40" fill="var(--surface)" stroke="var(--muted)" strokeWidth="1.2" />
+        <circle
+          cx="120"
+          cy="120"
+          r="103"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="96"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="89"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="82"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="75"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="68"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="61"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="54"
+          fill="none"
+          stroke="var(--groove)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="40"
+          fill="var(--surface)"
+          stroke="var(--muted)"
+          strokeWidth="1.2"
+        />
         <g
           transform="translate(120 120) scale(4) translate(-12 -12)"
           stroke="var(--stamp)"
@@ -130,5 +199,5 @@ export const VinylDisc: React.FC = () => {
         </g>
       </g>
     </svg>
-  );
-};
+  )
+}
