@@ -1,4 +1,4 @@
-import { VinylDisc } from '@/components/hero/VinylDisk'
+import { VinylDisc } from '@/components/hero/vinyl-disc'
 
 export default function Home() {
   return (
