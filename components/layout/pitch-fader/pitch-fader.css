@@ -19,7 +19,7 @@
 }
 .dark .pitch-fader {
   background: #141414;
-  border-bottom-color: #141414;
+  border-bottom-color: transparent;
 }
 
 .pitch-fader__led {
