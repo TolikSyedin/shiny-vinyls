@@ -2,9 +2,8 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { StrobeAssembly } from './assembly'
 import { playClick, preloadClickAudio, primeClickAudio } from './click-sound'
-import { DarkLayer } from './dark-layer'
-import { LightLayer } from './light-layer'
 
 // mounted-detection only: the value never changes after hydration, so
 // there is nothing to subscribe to
@@ -98,8 +97,14 @@ export function StrobeToggle() {
           .filter(Boolean)
           .join(' ')}
       >
-        <LightLayer className="strobe-toggle__layer strobe-toggle__layer-light" />
-        <DarkLayer className="strobe-toggle__layer strobe-toggle__layer-dark" />
+        <StrobeAssembly
+          variant="light"
+          className="strobe-toggle__layer strobe-toggle__layer-light"
+        />
+        <StrobeAssembly
+          variant="dark"
+          className="strobe-toggle__layer strobe-toggle__layer-dark"
+        />
       </span>
     </button>
   )
