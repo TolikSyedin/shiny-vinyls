@@ -13,11 +13,8 @@ function subscribeToNothing() {
 
 export function StrobeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  // The server can't know the resolved theme, so both sides render neutral
-  // markup — but unlike the old chain toggle there's no single "default"
-  // assembly that reads fine in either theme (light is silver-and-lit, dark
-  // is matte-black-and-off), so the neutral state here is neither layer
-  // rendered at all rather than a guess that flashes wrong half the time.
+  // No assembly reads fine in both themes, so the neutral pre-hydration
+  // state renders neither layer rather than guessing wrong half the time.
   const mounted = useSyncExternalStore(
     subscribeToNothing,
     () => true,
@@ -34,10 +31,8 @@ export function StrobeToggle() {
   }, [])
 
   useEffect(() => {
-    // any tap on the page is a chance to get the clip primed for playback —
-    // mobile browsers only unlock <audio> from a genuine gesture, and this
-    // toggle's own button is a plain click with no gesture to prime on
-    // ahead of time the way the old chain-drag's touchstart did
+    // primes on the first tap anywhere — mobile only unlocks <audio> from a
+    // genuine gesture, and there's no earlier one to prime on
     function handleFirstInteraction() {
       primeClickAudio()
       document.removeEventListener('click', handleFirstInteraction)

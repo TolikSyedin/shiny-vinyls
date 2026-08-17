@@ -9,9 +9,8 @@ function writeAscii(view: DataView, offset: number, text: string) {
 }
 
 // Cheap state-variable bandpass filter (Chamberlin design) run over raw
-// white noise — this is what gives the tick its narrow, "crisp" timbre
-// instead of a flat hiss. Same role BiquadFilterNode played back when this
-// used Web Audio.
+// white noise — gives the tick its narrow, "crisp" timbre instead of a
+// flat hiss.
 function bandpassNoise(
   length: number,
   sampleRate: number,
@@ -39,9 +38,8 @@ function bandpassNoise(
 
 // Synthesises the click as a plain 16-bit WAV so it can be played through an
 // <audio> element. Web Audio needs its context unlocked by a "clean" user
-// gesture, and on iOS a touch that blocks page scrolling — which the chain
-// drag must do — never qualifies, leaving resume() hanging forever. Media
-// elements go through a different, far more permissive path.
+// gesture, and iOS is picky about what qualifies — media elements go through
+// a far more permissive unlock path.
 function buildClickWavUrl(): string {
   const length = Math.floor(CLICK_SAMPLE_RATE * CLICK_DURATION)
   const bytes = new ArrayBuffer(44 + length * 2)
