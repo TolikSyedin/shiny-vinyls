@@ -124,7 +124,12 @@ export function PitchFader() {
                 className={`pitch-fader__tick pitch-fader__tick--${isMajor ? 'major' : 'minor'}`}
                 style={{ left: `${((value - MIN) / (MAX - MIN)) * 100}%` }}
               >
-                {isMajor && (
+                {isMajor && value === 0 && (
+                  <div
+                    className={`pitch-fader__led ${isCentered ? 'pitch-fader__led--on' : ''}`}
+                  />
+                )}
+                {isMajor && value !== 0 && (
                   <span className="pitch-fader__num">
                     {value > 0 ? `+${value}` : value}
                   </span>
@@ -133,12 +138,6 @@ export function PitchFader() {
               </div>
             )
           })}
-        </div>
-
-        <div className="pitch-fader__led-row">
-          <div
-            className={`pitch-fader__led ${isCentered ? 'pitch-fader__led--on' : ''}`}
-          />
         </div>
       </div>
     </>
