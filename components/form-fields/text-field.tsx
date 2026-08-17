@@ -26,6 +26,7 @@ export function TextField({
         id={id}
         type={type}
         placeholder={placeholder}
+        autoComplete={autocomplete}
         className="rounded-md border border-border bg-background p-2"
         {...registerProps}
       />
