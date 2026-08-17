@@ -27,15 +27,15 @@ type StrobeVariantData = {
   buttonStroke: string
   buttonRectY: number
   buttonRectHeight: number
-  buttonRectOpacityA: number
-  buttonRectOpacityB: number
+  buttonHighlightOpacity: number
+  buttonShadowOpacity: number
   cylinderTopY: number
   cylinderStroke: string
   cylinderRectY: number
   cylinderRectHeight: number
-  cylinderRectOpacityA: number
-  cylinderRectOpacityB: number
-  glow: { winLitStops: Stop[] } | null
+  cylinderHighlightOpacity: number
+  cylinderShadowOpacity: number
+  glowStops: Stop[] | null
 }
 
 const VARIANTS: Record<'light' | 'dark', StrobeVariantData> = {
@@ -81,21 +81,19 @@ const VARIANTS: Record<'light' | 'dark', StrobeVariantData> = {
     buttonStroke: '#7d8185',
     buttonRectY: 294,
     buttonRectHeight: 13,
-    buttonRectOpacityA: 0.3,
-    buttonRectOpacityB: 0.18,
+    buttonHighlightOpacity: 0.3,
+    buttonShadowOpacity: 0.18,
     cylinderTopY: 110,
     cylinderStroke: '#7d8185',
     cylinderRectY: 115,
     cylinderRectHeight: 183,
-    cylinderRectOpacityA: 0.3,
-    cylinderRectOpacityB: 0.18,
-    glow: {
-      winLitStops: [
-        { offset: '0', color: '#fffdf4' },
-        { offset: '0.5', color: '#ffe6a6' },
-        { offset: '1', color: '#f0b348' },
-      ],
-    },
+    cylinderHighlightOpacity: 0.3,
+    cylinderShadowOpacity: 0.18,
+    glowStops: [
+      { offset: '0', color: '#fffdf4' },
+      { offset: '0.5', color: '#ffe6a6' },
+      { offset: '1', color: '#f0b348' },
+    ],
   },
   dark: {
     bodyStops: [
@@ -139,16 +137,46 @@ const VARIANTS: Record<'light' | 'dark', StrobeVariantData> = {
     buttonStroke: '#0f0f0f',
     buttonRectY: 282,
     buttonRectHeight: 25,
-    buttonRectOpacityA: 0.1,
-    buttonRectOpacityB: 0.07,
+    buttonHighlightOpacity: 0.1,
+    buttonShadowOpacity: 0.07,
     cylinderTopY: 264,
     cylinderStroke: '#0f0f0f',
     cylinderRectY: 269,
     cylinderRectHeight: 29,
-    cylinderRectOpacityA: 0.1,
-    cylinderRectOpacityB: 0.07,
-    glow: null,
+    cylinderHighlightOpacity: 0.1,
+    cylinderShadowOpacity: 0.07,
+    glowStops: null,
   },
+}
+
+// The two side rects that catch the light along a cylindrical edge: a
+// brighter strip on the near side, a dimmer one on the far side. Used once
+// for the button, once for the taller lamp cylinder.
+function EdgeHighlights({
+  x1,
+  width1,
+  x2,
+  width2,
+  y,
+  height,
+  highlightOpacity,
+  shadowOpacity,
+}: {
+  x1: number
+  width1: number
+  x2: number
+  width2: number
+  y: number
+  height: number
+  highlightOpacity: number
+  shadowOpacity: number
+}) {
+  return (
+    <>
+      <rect x={x1} y={y} width={width1} height={height} fill="#ffffff" opacity={highlightOpacity} />
+      <rect x={x2} y={y} width={width2} height={height} fill="#ffffff" opacity={shadowOpacity} />
+    </>
+  )
 }
 
 export function StrobeAssembly({
@@ -191,14 +219,14 @@ export function StrobeAssembly({
             <stop key={s.offset} offset={s.offset} stopColor={s.color} />
           ))}
         </radialGradient>
-        {v.glow && (
+        {v.glowStops && (
           <linearGradient id={gid('winLit')} x1="0" y1="0" x2="0" y2="1">
-            {v.glow.winLitStops.map((s) => (
+            {v.glowStops.map((s) => (
               <stop key={s.offset} offset={s.offset} stopColor={s.color} />
             ))}
           </linearGradient>
         )}
-        {v.glow && (
+        {v.glowStops && (
           <filter id={gid('blurLight')} x="-80%" y="-80%" width="260%" height="260%">
             <feGaussianBlur stdDeviation="10" />
           </filter>
@@ -261,21 +289,15 @@ export function StrobeAssembly({
           strokeWidth="1.2"
           opacity="0.5"
         />
-        <rect
-          x="127"
+        <EdgeHighlights
+          x1={127}
+          width1={3}
+          x2={151}
+          width2={2}
           y={v.buttonRectY}
-          width="3"
           height={v.buttonRectHeight}
-          fill="#ffffff"
-          opacity={v.buttonRectOpacityA}
-        />
-        <rect
-          x="151"
-          y={v.buttonRectY}
-          width="2"
-          height={v.buttonRectHeight}
-          fill="#ffffff"
-          opacity={v.buttonRectOpacityB}
+          highlightOpacity={v.buttonHighlightOpacity}
+          shadowOpacity={v.buttonShadowOpacity}
         />
 
         <g className="strobe-toggle__moving">
@@ -295,7 +317,7 @@ export function StrobeAssembly({
             opacity="0.5"
           />
 
-          {v.glow && (
+          {v.glowStops && (
             <>
               <circle
                 cx="243"
@@ -319,21 +341,15 @@ export function StrobeAssembly({
             </>
           )}
 
-          <rect
-            x="218"
+          <EdgeHighlights
+            x1={218}
+            width1={5}
+            x2={265}
+            width2={4}
             y={v.cylinderRectY}
-            width="5"
             height={v.cylinderRectHeight}
-            fill="#ffffff"
-            opacity={v.cylinderRectOpacityA}
-          />
-          <rect
-            x="265"
-            y={v.cylinderRectY}
-            width="4"
-            height={v.cylinderRectHeight}
-            fill="#ffffff"
-            opacity={v.cylinderRectOpacityB}
+            highlightOpacity={v.cylinderHighlightOpacity}
+            shadowOpacity={v.cylinderShadowOpacity}
           />
         </g>
       </g>
