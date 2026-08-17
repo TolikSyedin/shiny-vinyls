@@ -13,9 +13,6 @@
    rules are unlayered, which keeps them ahead of Tailwind's own `@layer`
    utilities no matter the order. */
 .pitch-fader {
-  position: fixed;
-  inset-inline: 0;
-  z-index: 40;
   padding: 8px 34px;
   background: #c7c7c5;
   border-bottom: 1px solid var(--border);

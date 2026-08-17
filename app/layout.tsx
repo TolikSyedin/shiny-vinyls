@@ -1,6 +1,6 @@
 import './globals.css'
 import { ThemeProvider } from '@/components/theme'
-import { SiteHeader, SiteFooter, PitchFader } from '@/components/layout'
+import { SiteHeader, SiteFooter } from '@/components/layout'
 
 export const metadata = {
   title: 'Shiny Vinyls',
@@ -14,10 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uk" suppressHydrationWarning className="overflow-x-hidden">
-      <body className="overflow-x-hidden">
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SiteHeader />
-          <PitchFader />
           {children}
           <SiteFooter />
         </ThemeProvider>
