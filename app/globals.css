@@ -9,7 +9,6 @@
   --border: #e5e5e5;
   --accent: #f5f5f5;
   --accent-foreground: #171717;
-
   --surface: #d9d8ce;
   --surface-2: #edece5;
   --ink: #17151a;
@@ -32,7 +31,6 @@
   --border: #424242;
   --accent: #262626;
   --accent-foreground: #ededed;
-
   --surface: #261f32;
   --surface-2: #1b1822;
   --ink: #f0ece4;
@@ -55,6 +53,16 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+}
+
+h1 {
+    font-family: var(--f-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -.03em;
+    line-height: 1.02;
+    font-size: clamp(1.9rem, 5.6vw, 3.4rem);
+    margin: 0;
 }
 
 body {

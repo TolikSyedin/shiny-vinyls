@@ -1,7 +1,5 @@
 import { IBM_Plex_Mono, Manrope, Unbounded } from 'next/font/google'
 
-// cyrillic-ext is required — ї/є/ґ live outside the base cyrillic subset.
-
 export const fontDisplay = Unbounded({
   subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
   weight: ['700', '900'],
