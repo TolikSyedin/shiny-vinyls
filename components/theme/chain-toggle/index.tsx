@@ -1,7 +1,8 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useRef, useSyncExternalStore } from 'react'
+import { useEffect, useRef } from 'react'
+import { useMounted } from '@/lib/hooks/use-mounted'
 import { primeClickAudio, playClick } from './click-sound'
 import {
   ANCHOR_X,
@@ -25,24 +26,9 @@ import { LampShadeIcon } from './lamp-shade-icon'
 import { createPoints, stepChain } from './physics'
 import { draw } from './render'
 
-// mounted-detection only: the value never changes after hydration, so
-// there is nothing to subscribe to
-function subscribeToNothing() {
-  return () => {}
-}
-
 export function ChainToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  // The server has no idea which theme will resolve, and React explicitly
-  // does not patch up attribute mismatches it finds while hydrating — which
-  // once left the bulb frozen in its light-theme position under a dark page.
-  // Both sides render the same neutral markup, and the theme-dependent bits
-  // only diverge from it after mount, when the resolved theme is known.
-  const mounted = useSyncExternalStore(
-    subscribeToNothing,
-    () => true,
-    () => false,
-  )
+  const mounted = useMounted()
   const isDark = mounted && resolvedTheme === 'dark'
   const bulbOut = mounted && resolvedTheme !== 'dark'
   const canvasRef = useRef<HTMLCanvasElement>(null)
