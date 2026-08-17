@@ -116,70 +116,17 @@ export function VinylDisc() {
     >
       <g>
         <circle cx="120" cy="120" r="112" fill="var(--disc)" />
-        <circle
-          cx="120"
-          cy="120"
-          r="103"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="96"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="89"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="82"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="75"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="68"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="61"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
-        <circle
-          cx="120"
-          cy="120"
-          r="54"
-          fill="none"
-          stroke="var(--groove)"
-          strokeWidth="1.5"
-        />
+        {GROOVE_RADII.map((r) => (
+          <circle
+            key={r}
+            cx="120"
+            cy="120"
+            r={r}
+            fill="none"
+            stroke="var(--groove)"
+            strokeWidth="1.5"
+          />
+        ))}
         <circle
           cx="120"
           cy="120"
