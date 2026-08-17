@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { CENTER_LED_THRESHOLD, MAJOR_STEP, MAX, MIN, TICKS } from './constants'
 import { PitchFaderThumb } from './thumb'
@@ -9,59 +10,73 @@ function clamp01(n: number) {
   return Math.min(1, Math.max(0, n))
 }
 
+// How far down the page has been scrolled, 0..1. 0 both at the very top and
+// on a page that can't scroll at all — same resting position either way.
+function computeScrollFraction() {
+  const scrollHeight = document.documentElement.scrollHeight
+  const viewportHeight = window.innerHeight
+  const scrollable = scrollHeight > viewportHeight
+  return scrollable
+    ? clamp01(window.scrollY / (scrollHeight - viewportHeight))
+    : 0
+}
+
+// Collapses a burst of calls (raw scroll/resize events) into at most one
+// per animation frame.
+function rafThrottle(fn: () => void) {
+  let rafId = 0
+  function throttled() {
+    if (rafId) return
+    rafId = requestAnimationFrame(() => {
+      rafId = 0
+      fn()
+    })
+  }
+  throttled.cancel = () => {
+    if (rafId) cancelAnimationFrame(rafId)
+  }
+  return throttled
+}
+
 // Layout effects don't run during SSR (and React warns if you ask), hence
 // the fallback.
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 export function PitchFader() {
+  // This component lives in the root layout and never unmounts across
+  // client-side navigation, so without `pathname` as a dependency below,
+  // the thumb would keep showing the previous page's scroll position until
+  // the next scroll/resize on the new page.
+  const pathname = usePathname()
   const [fraction, setFraction] = useState(0)
-  const [canScroll, setCanScroll] = useState(false)
 
   // Throttled to one measurement per animation frame so raw scroll events
   // don't trigger layout work on every pixel. A layout effect (not a plain
-  // effect) so `canScroll`/`fraction` land before the first paint, avoiding
-  // a flash of the band's resting state.
+  // effect) so `fraction` lands before the first paint, avoiding a flash of
+  // the band's resting state. When the page can't scroll, fraction sits at
+  // 0 — same as a real pitch fader left untouched at rest.
   useIsomorphicLayoutEffect(() => {
-    let rafId = 0
+    const measure = rafThrottle(() => setFraction(computeScrollFraction()))
 
-    function measure() {
-      rafId = 0
-      const scrollHeight = document.documentElement.scrollHeight
-      const viewportHeight = window.innerHeight
-      const scrollable = scrollHeight > viewportHeight
-      setCanScroll(scrollable)
-      if (!scrollable) return
-      setFraction(clamp01(window.scrollY / (scrollHeight - viewportHeight)))
-    }
-
-    function onScrollOrResize() {
-      if (rafId) return
-      rafId = requestAnimationFrame(measure)
-    }
-
-    measure()
+    setFraction(computeScrollFraction())
     // `document`, not `window`: the root layout sets `overflow-x: hidden` on
     // <html>, which makes the element its own scroll container. Scroll events
     // don't bubble, so they're dispatched to `document` and never reach
     // `window` — a window listener here silently never fires.
-    document.addEventListener('scroll', onScrollOrResize, { passive: true })
-    window.addEventListener('resize', onScrollOrResize)
+    document.addEventListener('scroll', measure, { passive: true })
+    window.addEventListener('resize', measure)
     return () => {
-      if (rafId) cancelAnimationFrame(rafId)
-      document.removeEventListener('scroll', onScrollOrResize)
-      window.removeEventListener('resize', onScrollOrResize)
+      measure.cancel()
+      document.removeEventListener('scroll', measure)
+      window.removeEventListener('resize', measure)
     }
-  }, [])
+  }, [pathname])
 
   const isCentered = Math.abs(fraction - 0.5) <= CENTER_LED_THRESHOLD
 
   return (
-    <div
-      aria-hidden="true"
-      className="pitch-fader"
-      style={{ visibility: canScroll ? 'visible' : 'hidden' }}
-    >
+    <div aria-hidden="true" className="pitch-fader">
       <div className="pitch-fader__frame">
         <div className="pitch-fader__groove">
           <div className="pitch-fader__slot" />
