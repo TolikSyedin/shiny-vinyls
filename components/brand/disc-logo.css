@@ -13,5 +13,5 @@
 
 /* the mark spins only when its containing .brand link is hovered */
 .brand:hover .disc-logo-mark {
-  animation: disc-logo-spin 1.2s linear infinite;
+  animation: disc-logo-spin 4.2s linear infinite;
 }
