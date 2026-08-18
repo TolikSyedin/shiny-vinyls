@@ -1,19 +1,25 @@
-import Link from 'next/link'
 import { BrandLink } from '@/components/brand'
 import { StrobeToggle } from '@/components/theme'
+import { CtaLink } from '@/components/ui'
+import { MobileNav } from './mobile-nav'
 import { PitchFader } from './pitch-fader'
+import { SiteNav } from './site-nav'
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-30">
-      <div className="flex items-center justify-between border-b border-border bg-background p-4">
+      <div className="relative flex items-center justify-between border-b border-border bg-background p-4">
         <BrandLink />
-        <nav className="flex gap-4">
-          <Link href="/contacts">Контакти</Link>
-          <Link href="/request">Заявка</Link>
-          <Link href="/reviews">Відгуки</Link>
-        </nav>
-        <StrobeToggle />
+        <SiteNav />
+        <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <CtaLink href="/request" size="sm">
+              Заявка
+            </CtaLink>
+          </div>
+          <StrobeToggle />
+          <MobileNav />
+        </div>
       </div>
       <PitchFader />
     </header>
