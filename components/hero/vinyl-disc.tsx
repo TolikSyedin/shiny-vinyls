@@ -5,7 +5,11 @@ import { SvGlyph } from '@/components/common'
 
 const GROOVE_RADII = [103, 96, 89, 82, 75, 68, 61, 54]
 
-export function VinylDisc() {
+export function VinylDisc({
+  onInteractionStart,
+}: {
+  onInteractionStart?: () => void
+}) {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const stateRef = useRef({
     angle: 0,
@@ -61,6 +65,7 @@ export function VinylDisc() {
   }
 
   function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
+    onInteractionStart?.()
     stateRef.current.dragging = true
     stateRef.current.vel = 0
     stateRef.current.lastA = pointAngle(e)
