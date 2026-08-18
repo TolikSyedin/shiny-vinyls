@@ -21,7 +21,7 @@ export function TextAreaField({
       <textarea
         id={id}
         placeholder={placeholder}
-        className="rounded-md border border-border bg-background p-2"
+        className={`rounded-md border border-border bg-background p-2 ${error ? 'border-red-500' : ''}`}
         {...registerProps}
       />
       <FieldError message={error} />

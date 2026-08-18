@@ -8,7 +8,7 @@ import {
   SUBMIT_ERROR_MESSAGE,
   NAME_PLACEHOLDER,
   REVIEW_TEXT_PLACEHOLDER,
-} from '@/lib/form-content'
+} from '@/lib/data/constants'
 import {
   FieldError,
   HoneypotField,

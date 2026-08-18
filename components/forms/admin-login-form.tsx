@@ -12,7 +12,7 @@ import {
   LOGIN_ERROR_MESSAGE,
   EMAIL_PLACEHOLDER,
   PASSWORD_PLACEHOLDER,
-} from '@/lib/form-content'
+} from '@/lib/data/constants'
 import { FieldError, TextField, SubmitButton } from '@/components/form-fields'
 import { createBrowserClient } from '@/lib/supabase/browser'
 
