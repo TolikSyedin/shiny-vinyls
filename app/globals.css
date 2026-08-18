@@ -78,6 +78,7 @@
 
 @theme {
   --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-disc-spin: disc-spin 4.2s linear infinite;
 
   @keyframes fade-in {
     from {
@@ -87,6 +88,15 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes disc-spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }
