@@ -32,11 +32,11 @@ export function SiteFooter() {
           </Link>
         </div>
         <div className="grid gap-[7px]">
-          <a href="tel:+380671480148" className={LINK_CLASS_NAME}>
-            +38 067 148 01 48
+          <a href="tel:+38067XXXXXXX" className={LINK_CLASS_NAME}>
+            +38 067 XXX XX XX
           </a>
-          <a href="mailto:hello@shinyvinyls.com" className={LINK_CLASS_NAME}>
-            hello@shinyvinyls.com
+          <a href="https://t.me/dirtyenterta1n3r" className={LINK_CLASS_NAME}>
+            Telegram
           </a>
         </div>
       </div>
