@@ -9,9 +9,8 @@ function writeAscii(view: DataView, offset: number, text: string) {
 }
 
 // Cheap state-variable bandpass filter (Chamberlin design) run over raw
-// white noise — this is what gives the tick its narrow, "crisp" timbre
-// instead of a flat hiss. Same role BiquadFilterNode played back when this
-// used Web Audio.
+// white noise — gives the tick its narrow, "crisp" timbre instead of a
+// flat hiss.
 function bandpassNoise(
   length: number,
   sampleRate: number,
@@ -39,9 +38,8 @@ function bandpassNoise(
 
 // Synthesises the click as a plain 16-bit WAV so it can be played through an
 // <audio> element. Web Audio needs its context unlocked by a "clean" user
-// gesture, and on iOS a touch that blocks page scrolling — which the chain
-// drag must do — never qualifies, leaving resume() hanging forever. Media
-// elements go through a different, far more permissive path.
+// gesture, and iOS is picky about what qualifies — media elements go through
+// a far more permissive unlock path.
 function buildClickWavUrl(): string {
   const length = Math.floor(CLICK_SAMPLE_RATE * CLICK_DURATION)
   const bytes = new ArrayBuffer(44 + length * 2)
@@ -94,6 +92,15 @@ function getClickAudio(): HTMLAudioElement {
   return clickAudio
 }
 
+// Building the element only in response to the first gesture meant that
+// gesture's own play() could land before the browser had actually decoded
+// the freshly-assigned blob source — the very first click played silently
+// even with priming/volume fixed. Call this on mount, well before any
+// gesture, so the element exists and starts decoding ahead of time.
+export function preloadClickAudio() {
+  getClickAudio()
+}
+
 // Playing the element once inside a user gesture is what makes iOS willing
 // to replay it programmatically later, so this is called on every plausible
 // gesture rather than only when the theme actually flips.
@@ -116,6 +123,10 @@ export function primeClickAudio() {
 
 export function playClick() {
   const audio = getClickAudio()
+  // priming (above) mutes the element and restores the volume asynchronously
+  // once its own play() resolves — if this fires before that microtask runs,
+  // the real click would otherwise play back silently
+  audio.volume = 1
   audio.currentTime = 0
   void audio.play().catch(() => {})
 }

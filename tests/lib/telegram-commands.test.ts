@@ -3,7 +3,10 @@ import { parseCommand } from '@/lib/telegram-commands'
 
 describe('parseCommand', () => {
   it('розбирає команду без payload', () => {
-    expect(parseCommand('/status')).toEqual({ command: '/status', payload: undefined })
+    expect(parseCommand('/status')).toEqual({
+      command: '/status',
+      payload: undefined,
+    })
   })
 
   it('розбирає /start з payload', () => {
@@ -14,7 +17,10 @@ describe('parseCommand', () => {
   })
 
   it('обрізає зайві пробіли навколо тексту', () => {
-    expect(parseCommand('  /status  ')).toEqual({ command: '/status', payload: undefined })
+    expect(parseCommand('  /status  ')).toEqual({
+      command: '/status',
+      payload: undefined,
+    })
   })
 
   it('склеює payload з кількох слів через пробіл', () => {

@@ -20,10 +20,7 @@ type NewReviewNotification = {
 // (per sendTelegramMessage's never-throw contract) silently drops the whole
 // notification instead of just breaking formatting.
 function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
 function formatAdminLink(adminUrl: string, label: string): string {
@@ -145,6 +142,9 @@ export async function notifyNewReview(
   await notifyAdmin(formatNewReviewMessage(input))
 }
 
-export async function notifyClient(chatId: string, text: string): Promise<void> {
+export async function notifyClient(
+  chatId: string,
+  text: string,
+): Promise<void> {
   await sendTelegramMessage(process.env.TELEGRAM_CLIENT_BOT_TOKEN, chatId, text)
 }

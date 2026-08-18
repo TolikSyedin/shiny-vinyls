@@ -1,0 +1,144 @@
+.pitch-fader {
+  padding: 8px 34px;
+  background: var(--metal);
+  border-bottom: 1px solid var(--border);
+}
+
+.dark .pitch-fader {
+  border-bottom-color: transparent;
+}
+
+.pitch-fader__led {
+  width: 8px;
+  height: 9px;
+  border-radius: 2.5px;
+  background: #2f5c3a;
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.pitch-fader__led--on {
+  background: #22ff55;
+  box-shadow: 0 0 6px 2px rgba(34, 255, 85, 0.85);
+}
+
+.dark .pitch-fader__led {
+  background: #5c2620;
+}
+
+.dark .pitch-fader__led--on {
+  background: #ff3b30;
+  box-shadow: 0 0 6px 2px rgba(255, 59, 48, 0.85);
+}
+
+.pitch-fader__ticks {
+  position: relative;
+  height: 24px;
+  margin: 0 11px;
+}
+
+.pitch-fader__ticks::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: var(--ink);
+}
+
+.pitch-fader__tick {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 5px;
+  transform: translateX(-50%);
+}
+
+.pitch-fader__num {
+  font-family: var(--f-mono), ui-monospace, monospace;
+  font-size: 10px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  color: var(--ink);
+}
+
+.pitch-fader__mark {
+  background: var(--ink);
+}
+
+.pitch-fader__tick--major .pitch-fader__mark {
+  width: 6px;
+  height: 6px;
+}
+
+.pitch-fader__tick--minor .pitch-fader__mark {
+  width: 1.5px;
+  height: 5px;
+}
+
+/* negative side margins pull the frame out to where the knob's edges land at
+   -8/+8, so nothing of the housing shows past the knob's extremes */
+.pitch-fader__frame {
+  position: relative;
+  margin: 0 -7px 6px;
+  padding: 7px 0;
+  border: 1px solid var(--metal-edge);
+  border-radius: 3px;
+}
+
+.pitch-fader__groove {
+  position: relative;
+  height: 24px;
+}
+
+.pitch-fader__slot {
+  position: absolute;
+  inset-inline: 17px;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.dark .pitch-fader__slot {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* inset by half the knob's width, so its centre — not its edge — is what
+   tracks the scale */
+.pitch-fader__travel {
+  position: absolute;
+  inset-block: 0;
+  left: 17px;
+  right: 17px;
+}
+
+.pitch-fader__trail {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--stamp);
+}
+
+.pitch-fader__thumb {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 34px;
+  transform: translateX(-50%);
+}
+
+.pitch-fader__knob {
+  width: 100%;
+  height: 100%;
+}
