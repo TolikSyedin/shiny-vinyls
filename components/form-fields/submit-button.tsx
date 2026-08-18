@@ -1,3 +1,4 @@
+import { CtaButton } from '../ui'
 import { VinylSpinnerIcon } from './vinyl-spinner-icon'
 
 type SubmitButtonProps = {
@@ -12,7 +13,7 @@ export function SubmitButton({
   loadingLabel = 'Надсилаємо...',
 }: SubmitButtonProps) {
   return (
-    <button
+    <CtaButton
       type="submit"
       disabled={isSubmitting}
       aria-busy={isSubmitting}
@@ -20,6 +21,6 @@ export function SubmitButton({
     >
       {isSubmitting && <VinylSpinnerIcon />}
       {isSubmitting ? loadingLabel : label}
-    </button>
+    </CtaButton>
   )
 }

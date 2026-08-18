@@ -13,7 +13,7 @@ export default async function AdminRequestsPage() {
   const requests = await listRequests()
 
   return (
-    <main className="mx-auto flex max-w-4xl flex-col gap-8 p-4 sm:p-8">
+    <main className="mx-auto flex max-w-4xl flex-1 flex-col gap-8 p-4 sm:p-8">
       <AdminNav />
       <h1 className="text-2xl font-semibold">Заявки</h1>
 

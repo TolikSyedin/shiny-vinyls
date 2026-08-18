@@ -21,7 +21,7 @@ export default async function RequestStatusPage({
   const botUsername = process.env.TELEGRAM_CLIENT_BOT_USERNAME
 
   return (
-    <main className="mx-auto flex max-w-md flex-col gap-4 p-8">
+    <main className="mx-auto flex max-w-md flex-1 flex-col gap-4 p-8">
       <h1 className="text-2xl font-semibold">Ваша заявка</h1>
       <p>{requestStatusLabels[result.status]}</p>
       <p className="text-sm text-muted-foreground">

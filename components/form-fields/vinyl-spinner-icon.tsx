@@ -15,7 +15,7 @@ export function VinylSpinnerIcon() {
     <DiscMark
       size={28}
       colors={colors}
-      className="animate-spin [animation-duration:1.2s]"
+      className="animate-spin [animation-duration:2s]"
     />
   )
 }
