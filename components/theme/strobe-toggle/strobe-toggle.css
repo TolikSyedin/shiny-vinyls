@@ -3,6 +3,10 @@
   display: block;
   width: 100%;
   height: 100%;
+  /* The lamp's base plate sits at the same height in both variants' shared
+     viewBox, so one shift lines its bottom edge up with the CTA button's
+     bottom edge regardless of theme. */
+  transform: translateY(-3.15px);
 }
 
 .strobe-toggle__layer {
