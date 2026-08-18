@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { CloseIcon, MenuIcon } from '@/components/icons'
-import { NAV_LINKS } from './data/nav-links'
+import { NAV_LINKS } from './data/nav-links/constants'
 import './mobile-nav.css'
 
 export function MobileNav() {

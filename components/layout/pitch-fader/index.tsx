@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { CENTER_LED_THRESHOLD, MAJOR_STEP, MAX, MIN, TICKS } from './constants'
+import { CENTER_LED_THRESHOLD, MAJOR_STEP, MAX, MIN, TICKS } from '../data/pitch-fader/constants'
 import { PitchFaderThumb } from './thumb'
 import './pitch-fader.css'
 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { NAV_LINKS } from './data/nav-links'
+import { NAV_LINKS } from './data/nav-links/constants'
 import './site-nav.css'
 
 export function SiteNav() {
