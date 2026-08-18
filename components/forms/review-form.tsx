@@ -59,7 +59,10 @@ export function ReviewForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[18px]"
+    >
       <TextField
         id="name"
         label="Ім'я"
@@ -69,7 +72,7 @@ export function ReviewForm() {
         {...register('name')}
       />
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 font-[family-name:var(--f-display)] font-muted">
         <span>Оцінка</span>
         <Controller
           name="rating"
@@ -93,19 +96,25 @@ export function ReviewForm() {
         <FieldError message={errors.rating?.message} />
       </div>
 
-      <TextAreaField
-        id="text"
-        label="Відгук"
-        placeholder={REVIEW_TEXT_PLACEHOLDER}
-        error={errors.text?.message}
-        {...register('text')}
-      />
+      <div className="col-span-full">
+        <TextAreaField
+          id="text"
+          label="Відгук"
+          placeholder={REVIEW_TEXT_PLACEHOLDER}
+          error={errors.text?.message}
+          {...register('text')}
+        />
+      </div>
 
       <HoneypotField register={register} name="website" />
 
-      <FieldError message={submitError ?? undefined} />
+      <div className="col-span-full">
+        <FieldError message={submitError ?? undefined} />
+      </div>
 
-      <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      <div className="col-span-full">
+        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      </div>
     </form>
   )
 }
