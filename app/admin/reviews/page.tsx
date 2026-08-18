@@ -2,6 +2,7 @@ import { listAllReviews } from '@/lib/repositories/reviews'
 import { adminReviewStatusLabels } from '@/lib/admin-status-labels'
 import { AdminNav } from '@/components/admin/admin-nav'
 import { ReviewModerationControl } from '@/components/admin/review-moderation-control'
+import { PageContainer } from '@/components/layout'
 
 export const metadata = {
   title: 'Відгуки — Адмін — Shiny Vinyls',
@@ -13,7 +14,7 @@ export default async function AdminReviewsPage() {
   const reviews = await listAllReviews()
 
   return (
-    <main className="mx-auto flex max-w-4xl flex-1 flex-col gap-8 p-4 sm:p-8">
+    <PageContainer className="flex flex-col gap-8 py-4 sm:py-8">
       <AdminNav />
       <h1 className="text-2xl font-semibold">Відгуки</h1>
 
@@ -52,6 +53,6 @@ export default async function AdminReviewsPage() {
           </table>
         </div>
       )}
-    </main>
+    </PageContainer>
   )
 }

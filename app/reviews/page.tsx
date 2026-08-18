@@ -1,5 +1,6 @@
 import { listApprovedReviews } from '@/lib/repositories/reviews'
 import { ReviewForm } from '@/components/forms'
+import { PageContainer } from '@/components/layout'
 
 export const metadata = {
   title: 'Відгуки — Shiny Vinyls',
@@ -14,7 +15,7 @@ export default async function ReviewsPage() {
   const reviews = await listApprovedReviews()
 
   return (
-    <main className="mx-auto flex max-w-2xl flex-1 flex-col gap-8 p-8">
+    <PageContainer className="flex flex-col gap-8 py-8">
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">Відгуки</h1>
         {reviews.length === 0 ? (
@@ -37,6 +38,6 @@ export default async function ReviewsPage() {
         <h2 className="text-xl font-semibold">Залишити відгук</h2>
         <ReviewForm />
       </div>
-    </main>
+    </PageContainer>
   )
 }

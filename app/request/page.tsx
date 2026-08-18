@@ -1,4 +1,5 @@
 import { RequestForm } from '@/components/forms'
+import { PageContainer } from '@/components/layout'
 
 export const metadata = {
   title: 'Заявка — Shiny Vinyls',
@@ -6,9 +7,9 @@ export const metadata = {
 
 export default function RequestPage() {
   return (
-    <main className="mx-auto flex max-w-md flex-1 flex-col gap-4 p-8">
+    <PageContainer className="flex flex-col gap-4 py-8">
       <h1 className="text-2xl font-semibold">Залишити заявку</h1>
       <RequestForm />
-    </main>
+    </PageContainer>
   )
 }

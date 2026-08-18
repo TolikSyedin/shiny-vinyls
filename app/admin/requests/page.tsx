@@ -2,6 +2,7 @@ import { listRequests } from '@/lib/repositories/requests'
 import { adminRequestStatusLabels } from '@/lib/admin-status-labels'
 import { AdminNav } from '@/components/admin/admin-nav'
 import { RequestStatusControl } from '@/components/admin/request-status-control'
+import { PageContainer } from '@/components/layout'
 
 export const metadata = {
   title: 'Заявки — Адмін — Shiny Vinyls',
@@ -13,7 +14,7 @@ export default async function AdminRequestsPage() {
   const requests = await listRequests()
 
   return (
-    <main className="mx-auto flex max-w-4xl flex-1 flex-col gap-8 p-4 sm:p-8">
+    <PageContainer className="flex flex-col gap-8 py-4 sm:py-8">
       <AdminNav />
       <h1 className="text-2xl font-semibold">Заявки</h1>
 
@@ -56,6 +57,6 @@ export default async function AdminRequestsPage() {
           </table>
         </div>
       )}
-    </main>
+    </PageContainer>
   )
 }
