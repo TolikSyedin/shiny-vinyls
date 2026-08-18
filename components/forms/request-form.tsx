@@ -11,7 +11,7 @@ import {
   NAME_PLACEHOLDER,
   PHONE_PLACEHOLDER,
   COMMENT_PLACEHOLDER,
-} from '@/lib/form-content'
+} from '@/lib/data/constants'
 import {
   FieldError,
   HoneypotField,

@@ -27,7 +27,7 @@ export function TextField({
         type={type}
         placeholder={placeholder}
         autoComplete={autocomplete}
-        className="rounded-md border border-border bg-background p-2"
+        className={`rounded-md border border-border bg-background p-2 ${error ? 'border-red-500' : ''}`}
         {...registerProps}
       />
       <FieldError message={error} />
