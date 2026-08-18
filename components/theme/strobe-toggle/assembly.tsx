@@ -166,8 +166,22 @@ function EdgeHighlights({
 }) {
   return (
     <>
-      <rect x={x1} y={y} width={width1} height={height} fill="#ffffff" opacity={highlightOpacity} />
-      <rect x={x2} y={y} width={width2} height={height} fill="#ffffff" opacity={shadowOpacity} />
+      <rect
+        x={x1}
+        y={y}
+        width={width1}
+        height={height}
+        fill="#ffffff"
+        opacity={highlightOpacity}
+      />
+      <rect
+        x={x2}
+        y={y}
+        width={width2}
+        height={height}
+        fill="#ffffff"
+        opacity={shadowOpacity}
+      />
     </>
   )
 }
@@ -181,7 +195,7 @@ export function StrobeAssembly({
 }) {
   const id = useId()
   const gid = (name: string) => `${name}${id}`
-  const ref = (name: string) => `url(#${name}${id})`
+  const ref = (name: string) => `url(#${gid(name)})`
   const v = VARIANTS[variant]
 
   return (
@@ -220,7 +234,13 @@ export function StrobeAssembly({
           </linearGradient>
         )}
         {v.glowStops && (
-          <filter id={gid('blurLight')} x="-80%" y="-80%" width="260%" height="260%">
+          <filter
+            id={gid('blurLight')}
+            x="-80%"
+            y="-80%"
+            width="260%"
+            height="260%"
+          >
             <feGaussianBlur stdDeviation="10" />
           </filter>
         )}
@@ -271,7 +291,13 @@ export function StrobeAssembly({
           d={`M 123 306 L 123 ${v.buttonTopY} h 34 L 157 306 a 17 8 0 0 1 -34 0 Z`}
           fill={ref('body')}
         />
-        <ellipse cx="140" cy={v.buttonTopY} rx="17" ry="7" fill={ref('topFace')} />
+        <ellipse
+          cx="140"
+          cy={v.buttonTopY}
+          rx="17"
+          ry="7"
+          fill={ref('topFace')}
+        />
         <ellipse
           cx="140"
           cy={v.buttonTopY}
@@ -298,7 +324,13 @@ export function StrobeAssembly({
             d={`M 211 302 L 211 ${v.cylinderTopY} h 64 L 275 302 a 32 14 0 0 1 -64 0 Z`}
             fill={ref('body')}
           />
-          <ellipse cx="243" cy={v.cylinderTopY} rx="32" ry="13" fill={ref('topFace')} />
+          <ellipse
+            cx="243"
+            cy={v.cylinderTopY}
+            rx="32"
+            ry="13"
+            fill={ref('topFace')}
+          />
           <ellipse
             cx="243"
             cy={v.cylinderTopY}
@@ -328,8 +360,22 @@ export function StrobeAssembly({
                 opacity="0.7"
                 filter={ref('blurLight')}
               />
-              <rect x="230" y="148" width="26" height="46" rx="13" fill="#5d6165" />
-              <rect x="233" y="151" width="20" height="40" rx="10" fill={ref('winLit')} />
+              <rect
+                x="230"
+                y="148"
+                width="26"
+                height="46"
+                rx="13"
+                fill="#5d6165"
+              />
+              <rect
+                x="233"
+                y="151"
+                width="20"
+                height="40"
+                rx="10"
+                fill={ref('winLit')}
+              />
               <circle cx="243" cy="171" r="8" fill="#fffdf2" opacity="0.95" />
             </>
           )}
