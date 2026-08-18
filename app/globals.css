@@ -124,6 +124,11 @@ body {
     sans-serif;
 }
 
+input,
+textarea {
+  background-color: var(--surface);
+}
+
 button {
   cursor: pointer;
 }
