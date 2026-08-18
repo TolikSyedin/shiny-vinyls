@@ -6,19 +6,17 @@ import { CENTER_LED_THRESHOLD, MAJOR_STEP, MAX, MIN, TICKS } from './constants'
 import { PitchFaderThumb } from './thumb'
 import './pitch-fader.css'
 
-function clamp01(n: number) {
-  return Math.min(1, Math.max(0, n))
-}
-
 // How far down the page has been scrolled, 0..1. 0 both at the very top and
 // on a page that can't scroll at all — same resting position either way.
+// Clamped because the raw division can drift a hair past 0/1 from
+// sub-pixel rounding (non-100% zoom, fractional scrollY at the very end).
 function computeScrollFraction() {
   const scrollHeight = document.documentElement.scrollHeight
   const viewportHeight = window.innerHeight
   const scrollable = scrollHeight > viewportHeight
-  return scrollable
-    ? clamp01(window.scrollY / (scrollHeight - viewportHeight))
-    : 0
+  if (!scrollable) return 0
+  const raw = window.scrollY / (scrollHeight - viewportHeight)
+  return Math.min(1, Math.max(0, raw))
 }
 
 // Collapses a burst of calls (raw scroll/resize events) into at most one
