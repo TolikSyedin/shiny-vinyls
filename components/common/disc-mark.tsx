@@ -13,10 +13,6 @@ type DiscMarkProps = {
   className?: string
 }
 
-// Vinyl-record mark shared by the brand logo (DiscLogo) and the form
-// loading spinner (VinylSpinnerIcon) — same shape, different colors and
-// animation per caller. The SV glyph on the label is the only asymmetric
-// detail, so rotation reads as motion instead of a static circle.
 export function DiscMark({ size, colors, className }: DiscMarkProps) {
   return (
     <svg
