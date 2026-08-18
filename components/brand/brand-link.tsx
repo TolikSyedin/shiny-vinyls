@@ -5,7 +5,7 @@ import './brand-link.css'
 export function BrandLink() {
   return (
     <Link href="/" className="brand">
-      <DiscLogo/>
+      <DiscLogo />
       Shiny Vinyls
     </Link>
   )

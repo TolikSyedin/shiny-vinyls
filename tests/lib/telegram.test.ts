@@ -11,8 +11,12 @@ import {
 const adminUrl = 'http://localhost:3000/admin/requests'
 
 describe('formatNewRequestMessage', () => {
-  it('включає ім\'я та телефон', () => {
-    const text = formatNewRequestMessage({ name: 'Олена', phone: '+380501234567', adminUrl })
+  it("включає ім'я та телефон", () => {
+    const text = formatNewRequestMessage({
+      name: 'Олена',
+      phone: '+380501234567',
+      adminUrl,
+    })
     expect(text).toContain('Олена')
     expect(text).toContain('+380501234567')
   })
@@ -28,23 +32,31 @@ describe('formatNewRequestMessage', () => {
   })
 
   it('не додає рядок коментаря, якщо його немає', () => {
-    const text = formatNewRequestMessage({ name: 'Олена', phone: '+380501234567', adminUrl })
+    const text = formatNewRequestMessage({
+      name: 'Олена',
+      phone: '+380501234567',
+      adminUrl,
+    })
     expect(text).not.toContain('Коментар:')
   })
 
   it('обгортає посилання на адмінку в клікабельний <a> тег з підписом "Обробити заявку"', () => {
-    const text = formatNewRequestMessage({ name: 'Олена', phone: '+380501234567', adminUrl })
+    const text = formatNewRequestMessage({
+      name: 'Олена',
+      phone: '+380501234567',
+      adminUrl,
+    })
     expect(text).toContain(`<a href="${adminUrl}">Обробити заявку</a>`)
   })
 
   it('екранує HTML-спецсимволи в полях, щоб не зламати parse_mode: HTML', () => {
     const text = formatNewRequestMessage({
-      name: 'O\'Brien <script>',
+      name: "O'Brien <script>",
       phone: '+380501234567',
       comment: 'A & B < C',
       adminUrl,
     })
-    expect(text).toContain('O\'Brien &lt;script&gt;')
+    expect(text).toContain("O'Brien &lt;script&gt;")
     expect(text).toContain('A &amp; B &lt; C')
     expect(text).not.toContain('<script>')
   })
@@ -53,7 +65,7 @@ describe('formatNewRequestMessage', () => {
 describe('formatNewReviewMessage', () => {
   const reviewAdminUrl = 'http://localhost:3000/admin/reviews'
 
-  it('включає ім\'я, рейтинг і текст відгуку', () => {
+  it("включає ім'я, рейтинг і текст відгуку", () => {
     const text = formatNewReviewMessage({
       name: 'Ігор',
       rating: 5,
@@ -82,13 +94,15 @@ describe('formatNewReviewMessage', () => {
       text: '<b>дуже</b> задоволений & рекомендую',
       adminUrl: reviewAdminUrl,
     })
-    expect(text).toContain('&lt;b&gt;дуже&lt;/b&gt; задоволений &amp; рекомендую')
+    expect(text).toContain(
+      '&lt;b&gt;дуже&lt;/b&gt; задоволений &amp; рекомендую',
+    )
     expect(text).not.toContain('<b>дуже</b>')
   })
 })
 
 describe('formatLinkedMessage', () => {
-  it('включає ім\'я, телефон і статус-текст, щоб клієнт міг звірити заявку', () => {
+  it("включає ім'я, телефон і статус-текст, щоб клієнт міг звірити заявку", () => {
     const text = formatLinkedMessage({
       name: 'Олена',
       phone: '+380501234567',
@@ -121,11 +135,11 @@ describe('formatLinkedMessage', () => {
 
   it('екранує HTML-спецсимволи в імені й телефоні', () => {
     const text = formatLinkedMessage({
-      name: 'O\'Brien <script>',
+      name: "O'Brien <script>",
       phone: '+380501234567',
       statusMessage: 'Статус',
     })
-    expect(text).toContain('O\'Brien &lt;script&gt;')
+    expect(text).toContain("O'Brien &lt;script&gt;")
     expect(text).not.toContain('<script>')
   })
 })
