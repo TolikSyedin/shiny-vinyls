@@ -20,7 +20,7 @@ export function VinylDisc() {
     if (!el) return
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const BASE = reduce ? 0 : 13.8
+    const BASE = reduce ? 0 : 85.71
     stateRef.current.vel = BASE
 
     let prev = performance.now()
