@@ -1,17 +1,3 @@
-/* Styles for the PitchFader component, imported by its index.tsx rather than
-   pulled into globals.css — the band is self-contained and its styles should
-   die with it.
-
-   Plain CSS rather than utility classes: the parts line up to the pixel (knob
-   radius against frame radius, knob travel against the -8/+8 ticks), and those
-   relationships are far easier to keep correct — and to read — as declarations
-   than as strings of arbitrary-value utilities.
-
-   Two things this file leans on from globals.css: the `--border` token, and
-   the `.dark` class next-themes puts on <html>. Both are resolved at runtime,
-   so nothing here depends on which order the two stylesheets land in. These
-   rules are unlayered, which keeps them ahead of Tailwind's own `@layer`
-   utilities no matter the order. */
 .pitch-fader {
   padding: 8px 34px;
   background: var(--metal);

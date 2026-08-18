@@ -1,10 +1,3 @@
-/* Styles for the StrobeToggle component, imported by its index.tsx rather
-   than pulled into globals.css — self-contained and dies with the component,
-   same reasoning as pitch-fader.css. */
-
-/* Strobe-light theme toggle: two SVG layers crossfade opacity, and only
-   the lamp+button (.strobe-toggle__moving) amortise on click — the plate
-   underneath stays put. */
 .strobe-toggle {
   position: relative;
   display: block;

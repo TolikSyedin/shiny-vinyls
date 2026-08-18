@@ -2,13 +2,6 @@
 
 import { useId } from 'react'
 
-// Technics SL-1210 strobe illuminator. The lit/extended state has the
-// cylinder popped up out of the plate with a warm LED glow around its
-// window; the retracted/dark state sinks it flush and drops the glow
-// entirely. Both variants share the same plate/cylinder geometry — only
-// the colors, the button/cylinder extend-retract coordinates, and the
-// glow (light only) differ, so those are the only things that vary here.
-
 type Stop = { offset: string; color: string }
 
 type StrobeVariantData = {
