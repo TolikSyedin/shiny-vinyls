@@ -34,7 +34,10 @@ export function HeroSection() {
         <div className="flex aspect-square w-[min(72vw,380px)] overflow-hidden">
           <VinylDisc onInteractionStart={() => setIsTouched(true)} />
         </div>
-        <p className="mt-[12px] text-center font-[family-name:var(--f-mono)] text-[10px] tracking-[0.14em] text-[var(--muted)] uppercase">
+        <p
+          key={isTouched ? 'touched' : 'default'}
+          className="mt-[12px] text-center font-[family-name:var(--f-mono)] text-[10px] tracking-[0.14em] text-[var(--muted)] uppercase motion-safe:animate-fade-in"
+        >
           Любиш скретчити? {isTouched ? 'Люби і платівки чистити' : ''}
         </p>
       </div>
