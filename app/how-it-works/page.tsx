@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function HowItWorksPage() {
   return (
-    <PageContainer className="flex flex-col gap-4 py-8">
+    <PageContainer>
       <h1 className="text-2xl font-semibold">Послуга</h1>
       <p className="text-muted-foreground">
         Тут скоро буде повний опис процесу й тарифів.
