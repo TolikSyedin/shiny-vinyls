@@ -22,6 +22,36 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
     if (!viewport || !track || !loops) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+    // Native listeners throughout: React's onWheel/onPointer* are passive,
+    // where preventDefault only warns, so a horizontal wheel gesture can't
+    // be claimed from JSX.
+    const abort = new AbortController()
+    const on = <K extends keyof HTMLElementEventMap>(
+      type: K,
+      handler: (e: HTMLElementEventMap[K]) => void,
+    ) =>
+      viewport.addEventListener(type, handler, {
+        passive: false,
+        signal: abort.signal,
+      })
+
+    if (!loops) {
+      let drag: { id: number; x: number; scrollLeft: number } | null = null
+
+      on('pointerdown', (e) => {
+        drag = { id: e.pointerId, x: e.clientX, scrollLeft: viewport.scrollLeft }
+        viewport.setPointerCapture(e.pointerId)
+      })
+      on('pointermove', (e) => {
+        if (drag?.id !== e.pointerId) return
+        viewport.scrollLeft = drag.scrollLeft - (e.clientX - drag.x)
+      })
+      on('pointerup', () => (drag = null))
+      on('pointercancel', () => (drag = null))
+
+      return () => abort.abort()
+    }
+
     // Until this runs the viewport is a plain scroller, so the list works
     // without JS; from here the transform alone moves it.
     viewport.style.overflow = 'hidden'
@@ -29,8 +59,6 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
 
     const loopWidth = track.scrollWidth / 2
     const duration = loopWidth / PX_PER_SECOND
-    const abort = new AbortController()
-    const { signal } = abort
 
     let offset = 0
     let frame = 0
@@ -86,14 +114,6 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
 
       frame = requestAnimationFrame(step)
     }
-
-    // Native listeners throughout: React's onWheel is passive, where
-    // preventDefault only warns, so a horizontal wheel gesture can't be
-    // claimed from JSX.
-    const on = <K extends keyof HTMLElementEventMap>(
-      type: K,
-      handler: (e: HTMLElementEventMap[K]) => void,
-    ) => viewport.addEventListener(type, handler, { passive: false, signal })
 
     const endDrag = (e: PointerEvent) => {
       if (drag?.id !== e.pointerId) return
