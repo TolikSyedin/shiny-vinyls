@@ -4,104 +4,149 @@ import { useEffect, useRef } from 'react'
 import { ReviewCard } from './review-card'
 import type { ApprovedReview } from '@/lib/repositories/reviews'
 
-const AUTO_SCROLL_PX_PER_SECOND = 40
-// How long to hold off autoplay after the last scroll we didn't cause
-// ourselves — covers touch drag, trackpad, and wheel uniformly.
-const RESUME_AFTER_SCROLL_MS = 600
-// scrollLeft only ever moves in whole pixels, so a drift check needs a
-// little slack to absorb that without mistaking our own rounding for a real
-// user scroll (which moves far more than a couple of pixels per frame).
-const DRIFT_EPSILON_PX = 2
-const COPIES = 3
+const PX_PER_SECOND = 40
+const FRICTION_PER_FRAME = 0.94 // share of speed kept per 16ms of coasting
+const MIN_COAST_SPEED = 0.02 // px/ms at which a coast is over
+const WHEEL_IDLE_MS = 180 // a wheel gesture has no end event; a pause stands in
 
 export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
-  const outerRef = useRef<HTMLDivElement>(null)
-  const innerRef = useRef<HTMLDivElement>(null)
-  const isHoveredRef = useRef(false)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const outer = outerRef.current
-    const inner = innerRef.current
-    if (!outer || !inner) return
+    const viewport = viewportRef.current
+    const track = trackRef.current
+    if (!viewport || !track) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const oneCopyWidth = outer.scrollWidth / COPIES
-    const middleCopyStart = oneCopyWidth * Math.floor(COPIES / 2)
+    // Until this runs the viewport is a plain scroller, so the list works
+    // without JS; from here the transform alone moves it.
+    viewport.style.overflow = 'hidden'
+    viewport.style.touchAction = 'pan-y'
 
-    // The true, fractional scroll position lives here — never re-derived
-    // from outer.scrollLeft during normal autoplay, since that getter is
-    // whole-pixel-rounded by the browser and would erase the sub-pixel
-    // progress made each frame. The whole-pixel part is written to
-    // scrollLeft (so native scroll/momentum, and the drift check below,
-    // still see a sane integer position); the leftover sub-pixel remainder
-    // is painted via a `transform` on the inner track instead, which is
-    // compositor-driven and not pixel-snapped — this is what makes the
-    // motion look smooth rather than stepping in visible 1px jumps.
-    let position = middleCopyStart
-    let lastWrittenWhole = Math.floor(position)
-    outer.scrollLeft = lastWrittenWhole
-    inner.style.transform = `translateX(${lastWrittenWhole - position}px)`
+    const loopWidth = track.scrollWidth / 2
+    const duration = loopWidth / PX_PER_SECOND
+    const abort = new AbortController()
+    const { signal } = abort
 
-    let frameId: number
-    let lastTime: number | null = null
-    let userInteractingUntil = 0
+    let offset = 0
+    let frame = 0
+    let idle: ReturnType<typeof setTimeout>
+    let drag: { id: number; x: number; time: number; speed: number } | null
 
-    function tick(time: number) {
-      if (lastTime === null) lastTime = time
-      const deltaSeconds = (time - lastTime) / 1000
-      lastTime = time
+    // Both copies are identical, so every offset has an equivalent in
+    // (-loopWidth, 0] — the range where the viewport is always over content.
+    const normalize = (value: number) =>
+      -(((-value % loopWidth) + loopWidth) % loopWidth)
 
-      if (outer && inner) {
-        const observed = outer.scrollLeft
-        const driftedByUser =
-          Math.abs(observed - lastWrittenWhole) > DRIFT_EPSILON_PX
-        if (driftedByUser) {
-          position = observed
-          userInteractingUntil = time + RESUME_AFTER_SCROLL_MS
-        }
-
-        if (!isHoveredRef.current && time > userInteractingUntil) {
-          position += AUTO_SCROLL_PX_PER_SECOND * deltaSeconds
-        }
-
-        if (position < oneCopyWidth * 0.5) {
-          position += oneCopyWidth
-        } else if (position > oneCopyWidth * (COPIES - 0.5)) {
-          position -= oneCopyWidth
-        }
-
-        lastWrittenWhole = Math.floor(position)
-        outer.scrollLeft = lastWrittenWhole
-        inner.style.transform = `translateX(${lastWrittenWhole - position}px)`
-      }
-
-      frameId = requestAnimationFrame(tick)
+    // Moves the track by hand. The animation is detached first so the two
+    // never write `transform` in the same frame.
+    const move = (by: number) => {
+      offset = normalize(offset + by)
+      track.style.animationName = 'none'
+      track.style.transform = `translateX(${offset}px)`
     }
 
-    frameId = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frameId)
+    // Takes over from the animation, wherever it happens to be right now.
+    const grab = () => {
+      const { transform } = getComputedStyle(track)
+      cancelAnimationFrame(frame)
+      offset = transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m41
+      move(0)
+    }
+
+    // Hands `transform` back, entering the cycle at the current offset so
+    // the handover is invisible. Longhands, because the `animation`
+    // shorthand would also write an inline animation-play-state and so
+    // outrank the hover-to-pause rule.
+    const release = () => {
+      track.style.transform = ''
+      track.style.animationName = 'marquee'
+      track.style.animationDuration = `${duration}s`
+      track.style.animationTimingFunction = 'linear'
+      track.style.animationIterationCount = 'infinite'
+      track.style.animationDelay = `${(offset / loopWidth) * duration}s`
+    }
+
+    const coast = (speed: number) => {
+      let previous = performance.now()
+
+      const step = (now: number) => {
+        const elapsed = now - previous
+        previous = now
+        speed *= FRICTION_PER_FRAME ** (elapsed / 16)
+        move(speed * elapsed)
+
+        if (Math.abs(speed) < MIN_COAST_SPEED) return release()
+        frame = requestAnimationFrame(step)
+      }
+
+      frame = requestAnimationFrame(step)
+    }
+
+    // Native listeners throughout: React's onWheel is passive, where
+    // preventDefault only warns, so a horizontal wheel gesture can't be
+    // claimed from JSX.
+    const on = <K extends keyof HTMLElementEventMap>(
+      type: K,
+      handler: (e: HTMLElementEventMap[K]) => void,
+    ) => viewport.addEventListener(type, handler, { passive: false, signal })
+
+    const endDrag = (e: PointerEvent) => {
+      if (drag?.id !== e.pointerId) return
+      const { speed } = drag
+      drag = null
+      coast(speed)
+    }
+
+    on('pointerdown', (e) => {
+      grab()
+      drag = { id: e.pointerId, x: e.clientX, time: e.timeStamp, speed: 0 }
+      viewport.setPointerCapture(e.pointerId)
+    })
+
+    on('pointermove', (e) => {
+      if (drag?.id !== e.pointerId) return
+      const distance = e.clientX - drag.x
+      drag.speed = distance / Math.max(e.timeStamp - drag.time, 1)
+      drag.x = e.clientX
+      drag.time = e.timeStamp
+      move(distance)
+    })
+
+    on('pointerup', endDrag)
+    on('pointercancel', endDrag)
+
+    on('wheel', (e) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return
+      e.preventDefault()
+      grab()
+      move(-e.deltaX)
+      clearTimeout(idle)
+      idle = setTimeout(release, WHEEL_IDLE_MS)
+    })
+
+    release()
+
+    return () => {
+      abort.abort()
+      clearTimeout(idle)
+      cancelAnimationFrame(frame)
+    }
   }, [])
 
   return (
     <div
-      ref={outerRef}
-      onPointerEnter={(e) => {
-        if (e.pointerType === 'mouse') isHoveredRef.current = true
-      }}
-      onPointerLeave={(e) => {
-        if (e.pointerType === 'mouse') isHoveredRef.current = false
-      }}
+      ref={viewportRef}
       className="overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
-        ref={innerRef}
-        className="flex w-max gap-[14px] perspective-[1000px] transform-3d"
+        ref={trackRef}
+        className="flex w-max cursor-grab gap-[14px] perspective-[1000px] transform-3d hover:[animation-play-state:paused] active:cursor-grabbing"
       >
-        {Array.from({ length: COPIES }, (_, copy) =>
-          reviews.map((review, i) => (
-            <ReviewCard key={`${review.id}-${copy}-${i}`} review={review} />
-          )),
-        )}
+        {[...reviews, ...reviews].map((review, i) => (
+          <ReviewCard key={`${review.id}-${i}`} review={review} />
+        ))}
       </div>
     </div>
   )

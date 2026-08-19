@@ -101,6 +101,18 @@
   }
 }
 
+/* Duration and delay are set per-instance in ReviewsSlider (they depend on
+   the rendered content width), so this isn't registered as a Tailwind
+   --animate-* utility like the keyframes above. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 h1 {
   font-family: var(--f-display);
   font-weight: 900;
