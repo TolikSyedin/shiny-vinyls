@@ -8,7 +8,7 @@ export type CardGridItem = {
   note: string
 }
 
-const CARD_CLASS_NAME =
+export const CARD_CLASS_NAME =
   'grid gap-[10px] rounded-[6px] border border-[var(--rule)] bg-[var(--surface-2)] p-[22px] text-[var(--ink)] no-underline'
 
 function CardBody({ label, title, note }: Omit<CardGridItem, 'href'>) {
