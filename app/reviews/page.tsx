@@ -1,6 +1,7 @@
 import { listApprovedReviews } from '@/lib/repositories/reviews'
 import { ReviewForm } from '@/components/forms'
 import { PageContainer } from '@/components/layout'
+import { ReviewsSlider } from '@/components/reviews/reviews-slider'
 
 export const metadata = {
   title: 'Відгуки — Shiny Vinyls',
@@ -21,16 +22,7 @@ export default async function ReviewsPage() {
         {reviews.length === 0 ? (
           <p className="text-muted-foreground">Поки що немає відгуків.</p>
         ) : (
-          reviews.map((review) => (
-            <div key={review.id} className="border-b border-border pb-4">
-              <p className="font-semibold">{review.name}</p>
-              <p aria-label={`Оцінка ${review.rating} з 5`}>
-                {'★'.repeat(review.rating)}
-                {'☆'.repeat(5 - review.rating)}
-              </p>
-              <p>{review.text}</p>
-            </div>
-          ))
+          <ReviewsSlider reviews={reviews} />
         )}
       </div>
 
