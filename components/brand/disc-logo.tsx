@@ -1,5 +1,4 @@
 import { DiscMark } from '@/components/common'
-import './disc-logo.css'
 
 const colors = {
   body: 'var(--disc)',
@@ -9,5 +8,11 @@ const colors = {
 }
 
 export function DiscLogo({ size = 48 }: { size?: number }) {
-  return <DiscMark size={size} colors={colors} className="disc-logo-mark" />
+  return (
+    <DiscMark
+      size={size}
+      colors={colors}
+      className="flex-none group-hover:animate-disc-spin"
+    />
+  )
 }

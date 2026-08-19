@@ -1,19 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import {
-  SUBMIT_ERROR_MESSAGE,
   NAME_PLACEHOLDER,
   REVIEW_TEXT_PLACEHOLDER,
-} from '@/lib/data/constants'
+} from '@/lib/data/form-fields/placeholders/constants'
+import { SUBMIT_ERROR_MESSAGE } from '@/lib/data/form-fields/error-messages/constants'
 import {
   FieldError,
   HoneypotField,
   TextField,
   TextAreaField,
+  StarRatingField,
   SubmitButton,
 } from '@/components/form-fields'
 
@@ -28,6 +29,7 @@ export function ReviewForm() {
   } = useForm<ReviewInput>({
     resolver: zodResolver(reviewSchema),
   })
+  const rating = useWatch({ control, name: 'rating' })
 
   async function onSubmit(data: ReviewInput) {
     setSubmitError(null)
@@ -59,7 +61,17 @@ export function ReviewForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-[18px]"
+    >
+      <StarRatingField
+        label="Оцінка"
+        value={rating}
+        error={errors.rating?.message}
+        {...register('rating', { setValueAs: Number })}
+      />
+
       <TextField
         id="name"
         label="Ім'я"
@@ -68,30 +80,6 @@ export function ReviewForm() {
         error={errors.name?.message}
         {...register('name')}
       />
-
-      <div className="flex flex-col gap-1">
-        <span>Оцінка</span>
-        <Controller
-          name="rating"
-          control={control}
-          render={({ field }) => (
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => field.onChange(star)}
-                  aria-label={`Оцінка ${star} з 5`}
-                  className="text-2xl leading-none"
-                >
-                  {star <= (field.value ?? 0) ? '★' : '☆'}
-                </button>
-              ))}
-            </div>
-          )}
-        />
-        <FieldError message={errors.rating?.message} />
-      </div>
 
       <TextAreaField
         id="text"
@@ -105,7 +93,9 @@ export function ReviewForm() {
 
       <FieldError message={submitError ?? undefined} />
 
-      <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      <div className="self-start">
+        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      </div>
     </form>
   )
 }

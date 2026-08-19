@@ -1,5 +1,5 @@
 import { CtaButton } from '../ui'
-import { VinylSpinnerIcon } from './vinyl-spinner-icon'
+import { VinylSpinnerIcon } from '../icons/vinyl-spinner-icon'
 
 type SubmitButtonProps = {
   isSubmitting: boolean

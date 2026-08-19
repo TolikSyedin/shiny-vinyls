@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getRequestStatus } from '@/lib/repositories/requests'
 import { requestStatusLabels } from '@/lib/request-status-labels'
+import { PageContainer } from '@/components/layout'
 
 export const metadata = {
   title: 'Статус заявки — Shiny Vinyls',
@@ -21,7 +22,7 @@ export default async function RequestStatusPage({
   const botUsername = process.env.TELEGRAM_CLIENT_BOT_USERNAME
 
   return (
-    <main className="mx-auto flex max-w-md flex-1 flex-col gap-4 p-8">
+    <PageContainer>
       <h1 className="text-2xl font-semibold">Ваша заявка</h1>
       <p>{requestStatusLabels[result.status]}</p>
       <p className="text-sm text-muted-foreground">
@@ -35,6 +36,6 @@ export default async function RequestStatusPage({
           Слідкувати за статусом заявки в Telegram
         </a>
       )}
-    </main>
+    </PageContainer>
   )
 }

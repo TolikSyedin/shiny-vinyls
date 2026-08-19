@@ -78,6 +78,7 @@
 
 @theme {
   --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-disc-spin: disc-spin 4.2s linear infinite;
 
   @keyframes fade-in {
     from {
@@ -88,6 +89,27 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes disc-spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+/* Duration and delay are set per-instance in ReviewsSlider (they depend on
+   the rendered content width), so this isn't registered as a Tailwind
+   --animate-* utility like the keyframes above. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -122,6 +144,11 @@ body {
     'Segoe UI',
     Roboto,
     sans-serif;
+}
+
+input,
+textarea {
+  background-color: var(--surface-2);
 }
 
 button {

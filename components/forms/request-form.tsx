@@ -7,11 +7,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
 import {
-  SUBMIT_ERROR_MESSAGE,
   NAME_PLACEHOLDER,
   PHONE_PLACEHOLDER,
   COMMENT_PLACEHOLDER,
-} from '@/lib/data/constants'
+} from '@/lib/data/form-fields/placeholders/constants'
+import { SUBMIT_ERROR_MESSAGE } from '@/lib/data/form-fields/error-messages/constants'
 import {
   FieldError,
   HoneypotField,
@@ -30,6 +30,7 @@ export function RequestForm() {
     formState: { errors, isSubmitting },
   } = useForm<RequestInput>({
     resolver: zodResolver(requestSchema),
+    shouldFocusError: false,
   })
 
   async function onSubmit(data: RequestInput) {
@@ -61,7 +62,10 @@ export function RequestForm() {
 
   return (
     <div className="flex flex-col gap-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[18px]"
+      >
         <TextField
           id="name"
           label="Ім'я"
@@ -81,22 +85,28 @@ export function RequestForm() {
           {...register('phone')}
         />
 
-        <TextAreaField
-          id="comment"
-          label="Коментар (необов'язково)"
-          placeholder={COMMENT_PLACEHOLDER}
-          error={errors.comment?.message}
-          {...register('comment')}
-        />
+        <div className="col-span-full">
+          <TextAreaField
+            id="comment"
+            label="Коментар (необов'язково)"
+            placeholder={COMMENT_PLACEHOLDER}
+            error={errors.comment?.message}
+            {...register('comment')}
+          />
+        </div>
 
         <HoneypotField register={register} name="website" />
 
-        <FieldError message={submitError ?? undefined} />
+        <div className="col-span-full">
+          <FieldError message={submitError ?? undefined} />
+        </div>
 
-        <SubmitButton
-          isSubmitting={isSubmitting || isRedirecting}
-          label="Надіслати заявку"
-        />
+        <div className="col-span-full">
+          <SubmitButton
+            isSubmitting={isSubmitting || isRedirecting}
+            label="Надіслати заявку"
+          />
+        </div>
       </form>
 
       <p className="text-sm text-muted-foreground">
