@@ -3,7 +3,7 @@ export const FIELD_LABEL_CLASS_NAME =
 
 export function inputClassName(error?: string) {
   return [
-    'w-full rounded-[4px] border px-[13px] py-[12px] font-[family-name:var(--f-body)] text-[0.95rem] text-[var(--ink)] focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--stamp)]',
+    'w-full rounded-[4px] border px-[13px] py-[12px] font-[family-name:var(--f-body)] text-base text-[var(--ink)] focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--stamp)]',
     error ? 'border-red-500' : 'border-[var(--rule)]',
   ].join(' ')
 }
