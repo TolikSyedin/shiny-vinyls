@@ -9,10 +9,10 @@ import {
   type AdminLoginInput,
 } from '@/lib/schemas/admin-login'
 import {
-  LOGIN_ERROR_MESSAGE,
   EMAIL_PLACEHOLDER,
   PASSWORD_PLACEHOLDER,
-} from '@/lib/data/constants'
+} from '@/lib/data/form-fields/placeholders/constants'
+import { LOGIN_ERROR_MESSAGE } from '@/lib/data/form-fields/error-messages/constants'
 import { FieldError, TextField, SubmitButton } from '@/components/form-fields'
 import { createBrowserClient } from '@/lib/supabase/browser'
 

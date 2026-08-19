@@ -2,8 +2,8 @@ import type { UseFormRegisterReturn } from 'react-hook-form'
 import { FieldError } from '@/components/form-fields/field-error'
 import {
   FIELD_LABEL_CLASS_NAME,
-  inputClassName,
-} from '@/components/form-fields/field-classes'
+  INPUT_CLASS_NAME,
+} from '@/lib/data/form-fields/form-field-classNames/constants'
 
 type TextFieldProps = {
   id: string
@@ -33,7 +33,7 @@ export function TextField({
         type={type}
         placeholder={placeholder}
         autoComplete={autocomplete}
-        className={inputClassName(error)}
+        className={`${INPUT_CLASS_NAME} ${error ? 'border-red-500' : 'border-[var(--rule)]'}`}
         {...registerProps}
       />
       <FieldError message={error} />

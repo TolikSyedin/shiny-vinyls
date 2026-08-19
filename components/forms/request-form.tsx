@@ -7,11 +7,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
 import {
-  SUBMIT_ERROR_MESSAGE,
   NAME_PLACEHOLDER,
   PHONE_PLACEHOLDER,
   COMMENT_PLACEHOLDER,
-} from '@/lib/data/constants'
+} from '@/lib/data/form-fields/placeholders/constants'
+import { SUBMIT_ERROR_MESSAGE } from '@/lib/data/form-fields/error-messages/constants'
 import {
   FieldError,
   HoneypotField,

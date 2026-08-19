@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import type { UseFormRegisterReturn } from 'react-hook-form'
 import { FieldError } from '@/components/form-fields/field-error'
-import { FIELD_LABEL_CLASS_NAME } from '@/components/form-fields/field-classes'
+import { FIELD_LABEL_CLASS_NAME } from '@/lib/data/form-fields/form-field-classNames/constants'
 import { StarIcon } from '@/components/icons'
 
 const STARS = [1, 2, 3, 4, 5] as const

@@ -8,7 +8,7 @@ import {
   MAX,
   MIN,
   TICKS,
-} from '../data/pitch-fader/constants'
+} from '@/lib/data/layout/pitch-fader/constants'
 import { PitchFaderThumb } from './thumb'
 import './pitch-fader.css'
 

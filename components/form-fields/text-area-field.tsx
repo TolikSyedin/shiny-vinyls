@@ -2,8 +2,8 @@ import type { UseFormRegisterReturn } from 'react-hook-form'
 import { FieldError } from '@/components/form-fields/field-error'
 import {
   FIELD_LABEL_CLASS_NAME,
-  inputClassName,
-} from '@/components/form-fields/field-classes'
+  TEXTAREA_CLASS_NAME,
+} from '@/lib/data/form-fields/form-field-classNames/constants'
 
 type TextAreaFieldProps = {
   id: string
@@ -27,7 +27,7 @@ export function TextAreaField({
       <textarea
         id={id}
         placeholder={placeholder}
-        className={`min-h-[104px] resize-y ${inputClassName(error)}`}
+        className={`${TEXTAREA_CLASS_NAME} ${error ? 'border-red-500' : 'border-[var(--rule)]'}`}
         {...registerProps}
       />
       <FieldError message={error} />
