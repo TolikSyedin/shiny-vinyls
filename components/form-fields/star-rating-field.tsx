@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import type { UseFormRegisterReturn } from 'react-hook-form'
 import { FieldError } from '@/components/form-fields/field-error'
 import { FIELD_LABEL_CLASS_NAME } from '@/lib/data/form-fields/form-field-class-names/constants'
 import { StarIcon } from '@/components/icons'
@@ -10,16 +9,18 @@ const STARS = [1, 2, 3, 4, 5] as const
 
 type StarRatingFieldProps = {
   label: string
+  name: string
   value?: number
   error?: string
-} & UseFormRegisterReturn
+  onChange: (rating: number) => void
+}
 
 export function StarRatingField({
   label,
+  name,
   value,
   error,
-  name,
-  ...registerProps
+  onChange,
 }: StarRatingFieldProps) {
   const [hovered, setHovered] = useState<number | null>(null)
   const display = hovered ?? value ?? 0
@@ -41,10 +42,10 @@ export function StarRatingField({
               <input
                 id={id}
                 type="radio"
-                value={n}
                 name={name}
+                checked={value === n}
+                onChange={() => onChange(n)}
                 className="sr-only"
-                {...registerProps}
               />
               <StarIcon
                 className={`h-8 w-8 ${filled ? 'text-[var(--stamp)]' : 'text-[var(--ink)]/25'}`}

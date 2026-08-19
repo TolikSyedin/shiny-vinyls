@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm, useController } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import {
@@ -29,7 +29,9 @@ export function ReviewForm() {
   } = useForm<ReviewInput>({
     resolver: zodResolver(reviewSchema),
   })
-  const rating = useWatch({ control, name: 'rating' })
+  const {
+    field: { value: rating, onChange: onRatingChange },
+  } = useController({ control, name: 'rating' })
 
   async function onSubmit(data: ReviewInput) {
     setSubmitError(null)
@@ -67,9 +69,10 @@ export function ReviewForm() {
     >
       <StarRatingField
         label="Оцінка"
+        name="rating"
         value={rating}
         error={errors.rating?.message}
-        {...register('rating', { setValueAs: Number })}
+        onChange={onRatingChange}
       />
 
       <TextField
