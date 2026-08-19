@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { EMAIL_IS_INCORRECT, PASSWORD_TOO_SHORT } from '../data/constants'
+import { EMAIL_IS_INCORRECT, PASSWORD_TOO_SHORT } from '../data/form-fields/error-messages/constants'
 
 export const adminLoginSchema = z.object({
   email: z.string().trim().email(EMAIL_IS_INCORRECT),

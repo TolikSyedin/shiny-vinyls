@@ -3,7 +3,7 @@ import {
   NAME_TOO_SHORT,
   RATING_NOT_DEFINED,
   REVIEW_TOO_SHORT,
-} from '../data/constants'
+} from '../data/form-fields/error-messages/constants'
 
 export const reviewSchema = z.object({
   name: z.string().trim().min(2, NAME_TOO_SHORT).max(100),

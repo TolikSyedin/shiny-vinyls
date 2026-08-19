@@ -3,7 +3,7 @@ import {
   NAME_TOO_SHORT,
   PHONE_TOO_SHORT,
   PHONE_CONTAINS_UNEXPECTED_VALUES,
-} from '../data/constants'
+} from '../data/form-fields/error-messages/constants'
 
 export const requestSchema = z.object({
   name: z.string().trim().min(2, NAME_TOO_SHORT).max(100),
