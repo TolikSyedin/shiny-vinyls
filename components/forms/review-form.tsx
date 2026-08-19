@@ -97,7 +97,9 @@ export function ReviewForm() {
 
       <FieldError message={submitError ?? undefined} />
 
-      <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      <div className="self-start">
+        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      </div>
     </form>
   )
 }
