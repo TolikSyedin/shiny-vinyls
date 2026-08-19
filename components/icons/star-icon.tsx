@@ -1,6 +1,3 @@
-// No fixed width/height (unlike every other icon here) — this one renders at two
-// different sizes (large/interactive in the form, small/read-only in review cards),
-// so every call site must set its own h-*/w-* class.
 export function StarIcon({ className }: { className?: string }) {
   return (
     <svg
