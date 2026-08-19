@@ -3,7 +3,7 @@ import { FieldError } from '@/components/form-fields/field-error'
 import {
   FIELD_LABEL_CLASS_NAME,
   INPUT_CLASS_NAME,
-} from '@/lib/data/form-fields/form-field-classNames/constants'
+} from '@/lib/data/form-fields/form-field-class-names/constants'
 
 type TextFieldProps = {
   id: string
