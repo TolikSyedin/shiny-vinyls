@@ -8,15 +8,18 @@ const PX_PER_SECOND = 40
 const FRICTION_PER_FRAME = 0.94 // share of speed kept per 16ms of coasting
 const MIN_COAST_SPEED = 0.02 // px/ms at which a coast is over
 const WHEEL_IDLE_MS = 180 // a wheel gesture has no end event; a pause stands in
+const MIN_REVIEWS_FOR_LOOP = 5
 
 export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const loops = reviews.length >= MIN_REVIEWS_FOR_LOOP
+  const reviewsList = loops ? [...reviews, ...reviews] : reviews
 
   useEffect(() => {
     const viewport = viewportRef.current
     const track = trackRef.current
-    if (!viewport || !track) return
+    if (!viewport || !track || !loops) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     // Until this runs the viewport is a plain scroller, so the list works
@@ -133,7 +136,7 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
       clearTimeout(idle)
       cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [loops])
 
   return (
     <div
@@ -144,7 +147,7 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
         ref={trackRef}
         className="flex w-max cursor-grab gap-[14px] perspective-[1000px] transform-3d hover:[animation-play-state:paused] active:cursor-grabbing"
       >
-        {[...reviews, ...reviews].map((review, i) => (
+        {reviewsList.map((review, i) => (
           <ReviewCard key={`${review.id}-${i}`} review={review} />
         ))}
       </div>
