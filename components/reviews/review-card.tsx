@@ -12,12 +12,12 @@ export function ReviewCard({ review }: { review: ApprovedReview }) {
       <div
         role="img"
         aria-label={`Оцінка ${review.rating} з 5`}
-        className="flex gap-[2px]"
+        className="flex gap-[1px]"
       >
         {STARS.map((n) => (
           <StarIcon
             key={n}
-            className={`h-4 w-4 ${n <= review.rating ? 'text-[var(--stamp)]' : 'text-[var(--rule)]'}`}
+            className={`h-4 w-4 ${n <= review.rating ? 'text-[var(--stamp)]' : 'text-[var(--ink)]/25'}`}
           />
         ))}
       </div>

@@ -27,7 +27,7 @@ export function StarRatingField({
   return (
     <fieldset className="m-0 grid gap-[7px] border-0 p-0">
       <legend className={FIELD_LABEL_CLASS_NAME}>{label}</legend>
-      <div className="flex gap-2" onMouseLeave={() => setHovered(null)}>
+      <div className="flex gap-1" onMouseLeave={() => setHovered(null)}>
         {STARS.map((n) => {
           const id = `${name}-${n}`
           const filled = n <= display
@@ -47,7 +47,7 @@ export function StarRatingField({
                 {...registerProps}
               />
               <StarIcon
-                className={`h-8 w-8 ${filled ? 'text-[var(--stamp)]' : 'text-[var(--rule)]'}`}
+                className={`h-8 w-8 ${filled ? 'text-[var(--stamp)]' : 'text-[var(--ink)]/25'}`}
               />
               <span className="sr-only">{`Оцінка ${n} з 5`}</span>
             </label>
