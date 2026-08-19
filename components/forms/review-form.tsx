@@ -1,9 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
+import {
+  reviewSchema,
+  type ReviewInput,
+  type ReviewFormValues,
+} from '@/lib/schemas/review'
 import {
   SUBMIT_ERROR_MESSAGE,
   NAME_PLACEHOLDER,
@@ -14,6 +18,7 @@ import {
   HoneypotField,
   TextField,
   TextAreaField,
+  StarRatingField,
   SubmitButton,
 } from '@/components/form-fields'
 
@@ -25,9 +30,10 @@ export function ReviewForm() {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<ReviewInput>({
+  } = useForm<ReviewFormValues, unknown, ReviewInput>({
     resolver: zodResolver(reviewSchema),
   })
+  const rating = useWatch({ control, name: 'rating' })
 
   async function onSubmit(data: ReviewInput) {
     setSubmitError(null)
@@ -61,8 +67,15 @@ export function ReviewForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[18px]"
+      className="flex flex-col gap-[18px]"
     >
+      <StarRatingField
+        label="Оцінка"
+        value={rating as number | undefined}
+        error={errors.rating?.message}
+        {...register('rating')}
+      />
+
       <TextField
         id="name"
         label="Ім'я"
@@ -72,49 +85,19 @@ export function ReviewForm() {
         {...register('name')}
       />
 
-      <div className="flex flex-col gap-1 font-[family-name:var(--f-display)] font-muted">
-        <span>Оцінка</span>
-        <Controller
-          name="rating"
-          control={control}
-          render={({ field }) => (
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => field.onChange(star)}
-                  aria-label={`Оцінка ${star} з 5`}
-                  className="text-2xl leading-none"
-                >
-                  {star <= (field.value ?? 0) ? '★' : '☆'}
-                </button>
-              ))}
-            </div>
-          )}
-        />
-        <FieldError message={errors.rating?.message} />
-      </div>
-
-      <div className="col-span-full">
-        <TextAreaField
-          id="text"
-          label="Відгук"
-          placeholder={REVIEW_TEXT_PLACEHOLDER}
-          error={errors.text?.message}
-          {...register('text')}
-        />
-      </div>
+      <TextAreaField
+        id="text"
+        label="Відгук"
+        placeholder={REVIEW_TEXT_PLACEHOLDER}
+        error={errors.text?.message}
+        {...register('text')}
+      />
 
       <HoneypotField register={register} name="website" />
 
-      <div className="col-span-full">
-        <FieldError message={submitError ?? undefined} />
-      </div>
+      <FieldError message={submitError ?? undefined} />
 
-      <div className="col-span-full">
-        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
-      </div>
+      <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
     </form>
   )
 }
