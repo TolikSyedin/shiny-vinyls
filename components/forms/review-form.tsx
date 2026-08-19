@@ -3,11 +3,7 @@
 import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  reviewSchema,
-  type ReviewInput,
-  type ReviewFormValues,
-} from '@/lib/schemas/review'
+import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
 import {
   NAME_PLACEHOLDER,
   REVIEW_TEXT_PLACEHOLDER,
@@ -30,7 +26,7 @@ export function ReviewForm() {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<ReviewFormValues, unknown, ReviewInput>({
+  } = useForm<ReviewInput>({
     resolver: zodResolver(reviewSchema),
   })
   const rating = useWatch({ control, name: 'rating' })
@@ -71,9 +67,9 @@ export function ReviewForm() {
     >
       <StarRatingField
         label="Оцінка"
-        value={rating as number | undefined}
+        value={rating}
         error={errors.rating?.message}
-        {...register('rating')}
+        {...register('rating', { setValueAs: Number })}
       />
 
       <TextField
