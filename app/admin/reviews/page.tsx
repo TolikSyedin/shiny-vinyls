@@ -14,7 +14,7 @@ export default async function AdminReviewsPage() {
   const reviews = await listAllReviews()
 
   return (
-    <PageContainer className="flex flex-col gap-8 py-4 sm:py-8">
+    <PageContainer>
       <AdminNav />
       <h1 className="text-2xl font-semibold">Відгуки</h1>
 

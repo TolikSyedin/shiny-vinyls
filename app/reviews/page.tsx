@@ -16,7 +16,7 @@ export default async function ReviewsPage() {
   const reviews = await listApprovedReviews()
 
   return (
-    <PageContainer className="flex flex-col gap-8 py-8">
+    <PageContainer>
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">Відгуки</h1>
         {reviews.length === 0 ? (

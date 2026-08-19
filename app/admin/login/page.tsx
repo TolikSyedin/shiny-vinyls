@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function AdminLoginPage() {
   return (
-    <PageContainer className="flex flex-col gap-4 py-8">
+    <PageContainer>
       <h1 className="text-2xl font-semibold">Вхід для адміністратора</h1>
       <AdminLoginForm />
     </PageContainer>

@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function ContactsPage() {
   return (
-    <PageContainer className="flex flex-col gap-4 py-8">
+    <PageContainer>
       <h1 className="text-2xl font-semibold">Контакти</h1>
       {/* TODO: Add correct phone number when ready */}
       <p>
