@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation'
 import { getRequestStatus } from '@/lib/repositories/requests'
 import { requestStatusLabels } from '@/lib/request-status-labels'
 import { PageContainer } from '@/components/layout'
+import { PageHeader } from '@/components/common'
+import { Mono } from '@/components/ui'
 
 export const metadata = {
   title: 'Статус заявки — Shiny Vinyls',
@@ -23,11 +25,15 @@ export default async function RequestStatusPage({
 
   return (
     <PageContainer>
-      <h1 className="text-2xl font-semibold">Ваша заявка</h1>
-      <p>{requestStatusLabels[result.status]}</p>
-      <p className="text-sm text-muted-foreground">
-        Створено: {new Date(result.created_at).toLocaleString('uk-UA')}
-      </p>
+      <PageHeader
+        eyebrow="Заявка"
+        title="Ваша заявка"
+        lead={requestStatusLabels[result.status]}
+      >
+        <Mono>
+          Створено: {new Date(result.created_at).toLocaleString('uk-UA')}
+        </Mono>
+      </PageHeader>
       {botUsername && (
         <a
           href={`https://t.me/${botUsername}?start=${result.id}`}
