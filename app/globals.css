@@ -16,6 +16,7 @@
   --rule: #c0bfb3;
   --stamp: #5537c0;
   --sticker: #e64a00;
+  --error: #c0392b;
   --lamp: #c9913f;
   --lamp-wash: #e7dcc2;
   --metal: #c3c3bd;
@@ -49,6 +50,7 @@
   --rule: #2a2633;
   --stamp: #8b6bf0;
   --sticker: #ff5c16;
+  --error: #ef4444;
   --lamp: #4a4450;
   --lamp-wash: transparent;
   --metal: #211f26;
@@ -68,9 +70,14 @@
 }
 
 @theme inline {
+  --animate-marquee: marquee var(--marquee-duration, 20s) linear
+    var(--marquee-delay, 0s) infinite;
+
   --font-display: var(--f-display), 'Arial Black', sans-serif;
   --font-body: var(--f-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--f-mono), ui-monospace, monospace;
+
+  --color-error: var(--error);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -103,17 +110,14 @@
       transform: rotate(360deg);
     }
   }
-}
 
-/* Duration and delay are set per-instance in ReviewsSlider (they depend on
-   the rendered content width), so this isn't registered as a Tailwind
-   --animate-* utility like the keyframes above. */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
@@ -122,8 +126,6 @@
     scroll-behavior: smooth;
   }
 
-  /* the pitch fader is the only visible scroll indicator — this hides the
-     browser's drawn scrollbar without touching scroll behaviour itself */
   html {
     scrollbar-width: none;
   }
@@ -149,23 +151,11 @@
     max-width: 100%;
   }
 
-  /* Never remove this: the amethyst ring is the only focus affordance the
-     brandbook allows, and every control relies on it. */
   :focus-visible {
     outline: 2px solid var(--stamp);
     outline-offset: 3px;
     border-radius: 2px;
   }
-
-  /* ── типографіка ─────────────────────────────────────────────────────────
-     Sizes and weights come straight from the brandbook. They live on the tags
-     rather than in per-component class strings so a heading looks the same
-     wherever it is written; a component that genuinely needs another size
-     overrides it with a utility, which wins because utilities sit in a later
-     cascade layer than base.
-
-     Headings carry no margin: every container here spaces its children with
-     grid/flex gap, and a margin on top of that would double the gap. */
 
   h1 {
     font-family: var(--font-display);
@@ -211,8 +201,6 @@
     text-underline-offset: 3px;
   }
 
-  /* ── форма ───────────────────────────────────────────────────────────── */
-
   label,
   legend {
     font-family: var(--font-mono);
@@ -228,21 +216,22 @@
     font-size: 0.95rem;
     color: var(--ink);
     background-color: var(--surface-2);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--field-border, var(--rule));
     border-radius: 4px;
     padding: 12px 13px;
     width: 100%;
   }
 
-  input:not([type='checkbox']):not([type='radio']):focus,
-  textarea:focus {
-    outline: 2px solid var(--stamp);
+  input:not([type='checkbox']):not([type='radio']):focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--field-ring, var(--stamp));
     outline-offset: -2px;
   }
 
   input[aria-invalid='true'],
   textarea[aria-invalid='true'] {
-    border-color: #ef4444;
+    --field-border: var(--error);
+    --field-ring: var(--error);
   }
 
   textarea {
