@@ -17,7 +17,7 @@ export default function RootLayout({
     <html
       lang="uk"
       suppressHydrationWarning
-      className={`overflow-x-hidden ${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
+      className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

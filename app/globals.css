@@ -123,10 +123,6 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
-  }
-
-  html {
     scrollbar-width: none;
   }
 
