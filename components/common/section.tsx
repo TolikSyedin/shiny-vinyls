@@ -12,7 +12,7 @@ export function Section({
   return (
     <section
       className={cx(
-        'mt-[clamp(3rem,7vw,5.5rem)] border-t border-[var(--rule)] pt-[1.5rem]',
+        'mt-[clamp(1rem,2vw,3rem)] border-t border-[var(--rule)] pt-[1.5rem]',
         className,
       )}
     >
