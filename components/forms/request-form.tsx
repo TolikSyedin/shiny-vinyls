@@ -31,7 +31,6 @@ export function RequestForm() {
     formState: { errors, isSubmitting },
   } = useForm<RequestInput>({
     resolver: zodResolver(requestSchema),
-    shouldFocusError: false,
   })
 
   async function onSubmit(data: RequestInput) {
