@@ -1,7 +1,5 @@
-export {
-  CardGridSection,
-  CARD_CLASS_NAME,
-  type CardGridItem,
-} from './card-grid-section'
+export { CardGridSection, type CardGridItem } from './card-grid-section'
 export { DiscMark, type DiscMarkColors } from './disc-mark'
+export { PageHeader } from './page-header'
+export { Section, SectionHeading } from './section'
 export { SvGlyph } from './sv-glyph'

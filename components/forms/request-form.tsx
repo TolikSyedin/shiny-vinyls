@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Note } from '@/components/ui'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
@@ -109,12 +110,10 @@ export function RequestForm() {
         </div>
       </form>
 
-      <p className="text-sm text-muted-foreground">
+      <Note>
         Не вдається надіслати заявку?{' '}
-        <Link href="/contacts" className="underline">
-          Звʼяжіться з нами напряму
-        </Link>
-      </p>
+        <Link href="/contacts">Звʼяжіться з нами напряму</Link>
+      </Note>
     </div>
   )
 }

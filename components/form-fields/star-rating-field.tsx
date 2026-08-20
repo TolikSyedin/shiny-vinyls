@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { FieldError } from '@/components/form-fields/field-error'
-import { FIELD_LABEL_CLASS_NAME } from '@/lib/data/form-fields/form-field-class-names/constants'
 import { StarIcon } from '@/components/icons'
 
 const STARS = [1, 2, 3, 4, 5] as const
@@ -27,7 +26,7 @@ export function StarRatingField({
 
   return (
     <fieldset className="m-0 grid gap-[7px] border-0 p-0">
-      <legend className={FIELD_LABEL_CLASS_NAME}>{label}</legend>
+      <legend>{label}</legend>
       <div className="flex gap-1" onMouseLeave={() => setHovered(null)}>
         {STARS.map((n) => {
           const id = `${name}-${n}`

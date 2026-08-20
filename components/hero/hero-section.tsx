@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { CtaLink } from '@/components/ui'
+import { CtaLink, Eyebrow, Lead, PriceTag, Row } from '@/components/ui'
+import { basePricePerVinyl } from '@/lib/pricing'
 import { VinylDisc } from './vinyl-disc'
 
 export function HeroSection() {
@@ -16,31 +17,29 @@ export function HeroSection() {
           <br />
           звучить як вперше
         </h1>
-        <p className="m-0 max-w-[52ch] text-[clamp(1rem,1.5vw,1.12rem)] leading-[1.6]">
+        <Lead>
           Пил у звуковій доріжці стирає голку швидше за саму музику. Одне
           ультразвукове чищення повертає платівці динаміку і первинну глибину
           звуку.
-        </p>
-        <div className="flex flex-wrap items-center gap-[14px]">
+        </Lead>
+        <Row>
           <CtaLink href="/request">Здати платівки</CtaLink>
           <CtaLink href="/how-it-works" variant="ghost">
             Як це працює
           </CtaLink>
-          <span className="inline-block -rotate-[1.5deg] rounded-[2px] bg-[var(--sticker)] px-[11px] py-[6px] font-[family-name:var(--f-mono)] text-[12px] font-medium whitespace-nowrap text-white">
-            130 ₴ / шт
-          </span>
-        </div>
+          <PriceTag>{basePricePerVinyl()} ₴ / шт</PriceTag>
+        </Row>
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="flex aspect-square w-[min(72vw,380px)] overflow-hidden">
           <VinylDisc onInteractionStart={() => setTouchCount((n) => n + 1)} />
         </div>
-        <p
+        <Eyebrow
           key={touchCount}
-          className="mt-[12px] text-center font-[family-name:var(--f-mono)] text-[10px] tracking-[0.14em] text-[var(--muted)] uppercase motion-safe:animate-fade-in"
+          className="mt-[12px] text-center motion-safe:animate-fade-in"
         >
           Любиш скретчити?{isTouched ? ' Люби і платівки чистити' : ''}
-        </p>
+        </Eyebrow>
       </div>
     </section>
   )

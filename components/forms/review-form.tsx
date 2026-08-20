@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm, useController } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
+import { Note } from '@/components/ui'
 import {
   NAME_PLACEHOLDER,
   REVIEW_TEXT_PLACEHOLDER,
@@ -56,9 +57,7 @@ export function ReviewForm() {
 
   if (isSubmitted) {
     return (
-      <p className="text-muted-foreground">
-        Дякуємо за відгук! Він зʼявиться на сайті після модерації.
-      </p>
+      <Note>Дякуємо за відгук! Він зʼявиться на сайті після модерації.</Note>
     )
   }
 
