@@ -68,6 +68,10 @@
 }
 
 @theme inline {
+  --font-display: var(--f-display), 'Arial Black', sans-serif;
+  --font-body: var(--f-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--f-mono), ui-monospace, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
@@ -113,48 +117,143 @@
   }
 }
 
-h1 {
-  font-family: var(--f-display);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
-  font-size: clamp(1.9rem, 5.6vw, 3.4rem);
-  margin: 0;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-/* the pitch fader is the only visible scroll indicator — this hides the
-   browser's drawn scrollbar without touching scroll behaviour itself */
-html {
-  scrollbar-width: none;
-}
+  /* the pitch fader is the only visible scroll indicator — this hides the
+     browser's drawn scrollbar without touching scroll behaviour itself */
+  html {
+    scrollbar-width: none;
+  }
 
-html::-webkit-scrollbar {
-  display: none;
-}
+  html::-webkit-scrollbar {
+    display: none;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family:
-    var(--f-body),
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
 
-input,
-textarea {
-  background-color: var(--surface-2);
-}
+  ::selection {
+    background: var(--stamp);
+    color: #fff;
+  }
 
-button {
-  cursor: pointer;
-}
+  img,
+  svg {
+    max-width: 100%;
+  }
 
-button:disabled {
-  cursor: not-allowed;
+  /* Never remove this: the amethyst ring is the only focus affordance the
+     brandbook allows, and every control relies on it. */
+  :focus-visible {
+    outline: 2px solid var(--stamp);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ── типографіка ─────────────────────────────────────────────────────────
+     Sizes and weights come straight from the brandbook. They live on the tags
+     rather than in per-component class strings so a heading looks the same
+     wherever it is written; a component that genuinely needs another size
+     overrides it with a utility, which wins because utilities sit in a later
+     cascade layer than base.
+
+     Headings carry no margin: every container here spaces its children with
+     grid/flex gap, and a margin on top of that would double the gap. */
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    font-size: clamp(1.9rem, 5.6vw, 3.4rem);
+    margin: 0;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+    margin: 0;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  p {
+    line-height: 1.62;
+    margin: 0;
+  }
+
+  a {
+    color: var(--stamp);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── форма ───────────────────────────────────────────────────────────── */
+
+  label,
+  legend {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input:not([type='checkbox']):not([type='radio']),
+  textarea {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background-color: var(--surface-2);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 12px 13px;
+    width: 100%;
+  }
+
+  input:not([type='checkbox']):not([type='radio']):focus,
+  textarea:focus {
+    outline: 2px solid var(--stamp);
+    outline-offset: -2px;
+  }
+
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: #ef4444;
+  }
+
+  textarea {
+    min-height: 104px;
+    resize: vertical;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
