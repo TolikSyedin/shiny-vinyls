@@ -2,8 +2,6 @@ import type { ReactNode } from 'react'
 import { Eyebrow } from '@/components/ui'
 import { cx } from '@/lib/utils/cx'
 
-// The rhythm every section below the page header follows: a rule, generous
-// space above it, and the heading block at the top.
 export function Section({
   children,
   className,
