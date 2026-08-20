@@ -11,7 +11,7 @@ export function HeroSection() {
 
   return (
     <section className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-[clamp(28px,5vw,56px)] pt-[clamp(44px,7vw,88px)]">
-      <div className="grid justify-items-start gap-[22px]">
+      <div className="flex flex-col items-start gap-[22px]">
         <h1>
           Ваша платівка знову
           <br />

@@ -17,7 +17,7 @@ export function PageHeader({
   children?: ReactNode
 }) {
   return (
-    <section className="grid justify-items-start gap-[20px] pt-[clamp(40px,6vw,72px)]">
+    <section className="flex flex-col items-start gap-[20px] pt-[clamp(40px,6vw,72px)]">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h1>{title}</h1>
       {lead ? <Lead>{lead}</Lead> : null}

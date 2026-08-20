@@ -16,7 +16,7 @@ export function TextAreaField({
   ...registerProps
 }: TextAreaFieldProps) {
   return (
-    <div className="grid gap-[7px]">
+    <div className="flex flex-col gap-[7px]">
       <label htmlFor={id}>{label}</label>
       <textarea
         id={id}

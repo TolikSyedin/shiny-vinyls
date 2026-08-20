@@ -14,7 +14,7 @@ export function Card({
   className?: string
 }) {
   const classes = cx(
-    'grid gap-[10px] rounded-[6px] border border-[var(--rule)] p-[22px] text-[var(--ink)] no-underline',
+    'flex flex-col gap-[10px] rounded-[6px] border border-[var(--rule)] p-[22px] text-[var(--ink)] no-underline',
     flat ? 'bg-transparent' : 'bg-[var(--surface-2)]',
     className,
   )

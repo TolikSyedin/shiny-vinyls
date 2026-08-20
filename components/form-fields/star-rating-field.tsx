@@ -25,7 +25,7 @@ export function StarRatingField({
   const display = hovered ?? value ?? 0
 
   return (
-    <fieldset className="m-0 grid gap-[7px] border-0 p-0">
+    <fieldset className="m-0 flex flex-col items-start gap-[7px] border-0 p-0">
       <legend>{label}</legend>
       <div className="flex gap-1" onMouseLeave={() => setHovered(null)}>
         {STARS.map((n) => {

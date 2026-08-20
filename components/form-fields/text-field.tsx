@@ -20,7 +20,7 @@ export function TextField({
   ...registerProps
 }: TextFieldProps) {
   return (
-    <div className="grid gap-[7px]">
+    <div className="flex flex-col gap-[7px]">
       <label htmlFor={id}>{label}</label>
       <input
         id={id}

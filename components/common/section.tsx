@@ -33,7 +33,7 @@ export function SectionHeading({
   children: ReactNode
 }) {
   return (
-    <div className="grid justify-items-start gap-[10px]">
+    <div className="flex flex-col items-start gap-[10px]">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2>{children}</h2>
     </div>

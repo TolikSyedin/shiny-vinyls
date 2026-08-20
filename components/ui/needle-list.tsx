@@ -9,7 +9,7 @@ export function NeedleList({
   className?: string
 }) {
   return (
-    <ul className={cx('m-0 grid list-none gap-[2px] p-0', className)}>
+    <ul className={cx('m-0 flex list-none flex-col gap-[2px] p-0', className)}>
       {items.map((item) => (
         <li
           key={item}
