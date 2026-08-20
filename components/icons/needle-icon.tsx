@@ -1,6 +1,18 @@
-export function NeedleIcon() {
+export function NeedleIcon({
+  size = 16,
+  className,
+}: {
+  size?: number
+  className?: string
+}) {
   return (
-    <svg width="16" height="16" viewBox="0 0 64 64" aria-hidden="true">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      className={className}
+    >
       <path
         d="M30.5 14.5 L39.5 5.5 L53.5 5.5"
         stroke="var(--sticker)"
