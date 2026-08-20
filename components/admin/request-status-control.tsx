@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { isValidStatusTransition } from '@/lib/request-status'
 import { adminRequestStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { REQUEST_STATUSES, type RequestStatus } from '@/types/database'
+import { FieldError } from '@/components/form-fields'
 
 export function RequestStatusControl({
   id,
@@ -63,7 +64,7 @@ export function RequestStatusControl({
           → {adminRequestStatusLabels[next]}
         </button>
       ))}
-      {error && <span className="text-sm text-red-500">Помилка</span>}
+      {error && <FieldError message="Помилка" />}
     </div>
   )
 }
