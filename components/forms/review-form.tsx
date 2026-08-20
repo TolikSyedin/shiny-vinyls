@@ -30,8 +30,9 @@ export function ReviewForm() {
   } = useForm<ReviewInput>({
     resolver: zodResolver(reviewSchema),
   })
+  // const nameField = register('name')
   const {
-    field: { value: rating, onChange: onRatingChange },
+    field: { value: rating, onChange: onRatingChange, ref: ratingRef },
   } = useController({ control, name: 'rating' })
 
   async function onSubmit(data: ReviewInput) {
@@ -64,16 +65,9 @@ export function ReviewForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-[18px]"
+      className="flex flex-col gap-[1rem]"
+
     >
-      <TextField
-        id="name"
-        label="Ім'я"
-        autocomplete="name"
-        placeholder={NAME_PLACEHOLDER}
-        error={errors.name?.message}
-        {...register('name')}
-      />
 
       <StarRatingField
         label="Оцінка"
@@ -81,6 +75,16 @@ export function ReviewForm() {
         value={rating}
         error={errors.rating?.message}
         onChange={onRatingChange}
+        ref={ratingRef}
+      />
+
+      <TextField
+        id="name"
+        label="Ім'я"
+        autocomplete="name"
+        placeholder={NAME_PLACEHOLDER}
+        error={errors.name?.message}
+        {...register('name')}
       />
 
       <TextAreaField

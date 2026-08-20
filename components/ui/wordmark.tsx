@@ -4,8 +4,8 @@ import { cx } from '@/lib/utils/cx'
 type WordmarkSize = 'sm' | 'md'
 
 const SIZE: Record<WordmarkSize, string> = {
-  sm: 'text-[12px]',
-  md: 'text-[13px]',
+  sm: 'text-[0.75rem]',
+  md: 'text-[0.8rem]',
 }
 
 export function Wordmark({

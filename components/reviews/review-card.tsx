@@ -6,11 +6,11 @@ const STARS = [1, 2, 3, 4, 5] as const
 
 export function ReviewCard({ review }: { review: ApprovedReview }) {
   return (
-    <Card className="w-[280px] shrink-0 transition-[transform,box-shadow,border-color] duration-200 ease-out hover:translate-z-[1px] hover:border-[var(--stamp)] hover:shadow-[0_8px_16px_-8px_rgba(0,0,0,0.35)]">
+    <Card className="w-[17.5rem] shrink-0 transition-[transform,box-shadow,border-color] duration-200 ease-out hover:translate-z-[0.05rem] hover:border-[var(--stamp)] hover:shadow-[0_0.5rem_1rem_-0.5rem_rgba(0,0,0,0.35)]">
       <div
         role="img"
         aria-label={`Оцінка ${review.rating} з 5`}
-        className="flex gap-[1px]"
+        className="flex gap-[0.05rem]"
       >
         {STARS.map((n) => (
           <StarIcon

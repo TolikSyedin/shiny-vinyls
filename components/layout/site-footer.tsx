@@ -7,12 +7,12 @@ const LINK_CLASS_NAME =
 export function SiteFooter() {
   return (
     <footer className="mt-4 md:mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
-      <div className="mx-auto flex max-w-[1120px] flex-wrap items-start justify-between gap-[22px] px-[clamp(16px,4vw,40px)] py-[34px]">
-        <div className="flex flex-col gap-[8px]">
+      <div className="mx-auto flex max-w-[70rem] flex-wrap items-start justify-between gap-[1.5rem] px-[clamp(1rem,4vw,2.5rem)] py-[2rem]">
+        <div className="flex flex-col gap-[0.5rem]">
           <Wordmark size="sm">Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
         </div>
-        <div className="flex flex-col gap-[7px]">
+        <div className="flex flex-col gap-[0.5rem]">
           <Link href="/how-it-works" className={LINK_CLASS_NAME}>
             Послуга
           </Link>
@@ -20,7 +20,7 @@ export function SiteFooter() {
             Відгуки
           </Link>
         </div>
-        <div className="flex flex-col gap-[7px]">
+        <div className="flex flex-col gap-[0.5rem]">
           <Link href="/request" className={LINK_CLASS_NAME}>
             Заявка
           </Link>
@@ -28,7 +28,7 @@ export function SiteFooter() {
             Контакти
           </Link>
         </div>
-        <div className="flex flex-col gap-[7px]">
+        <div className="flex flex-col gap-[0.5rem]">
           <a href="tel:+38067XXXXXXX" className={LINK_CLASS_NAME}>
             +38 067 XXX XX XX
           </a>

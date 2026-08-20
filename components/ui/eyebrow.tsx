@@ -11,7 +11,7 @@ export function Eyebrow({
   return (
     <span
       className={cx(
-        'font-mono text-[10px] tracking-[0.16em] text-[var(--muted)] uppercase',
+        'font-mono text-[0.6rem] tracking-[0.16em] text-[var(--muted)] uppercase',
         className,
       )}
     >

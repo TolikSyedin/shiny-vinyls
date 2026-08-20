@@ -23,10 +23,8 @@ export function TextField({
   ...registerProps
 }: TextFieldProps) {
   return (
-    <div className={cx('flex flex-col gap-[7px]', className)}>
-      <label className={error ? 'text-error' : ''} htmlFor={id}>
-        {label}
-      </label>
+    <div className={cx('flex flex-col gap-[0.5rem]', className)}>
+      <label className={error ? 'text-error' : ''} htmlFor={id}>{label}</label>
       <input
         id={id}
         type={type}
