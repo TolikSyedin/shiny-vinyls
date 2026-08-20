@@ -23,11 +23,11 @@ export function CardGridSection({
   return (
     <Section>
       <SectionHeading eyebrow={eyebrow}>{heading}</SectionHeading>
-      <CardGrid cols={cols} className="mt-[26px]">
+      <CardGrid cols={cols} className="mt-[clamp(1rem,3vw,1.5rem)]">
         {items.map(({ href, label, title, note }) => (
           <Card key={title} href={href}>
             {label && <Mono tone="stamp">{label}</Mono>}
-            <h3 className="flex items-center gap-[8px]">
+            <h3 className="flex items-center gap-[0.5rem]">
               <NeedleIcon />
               {title}
             </h3>

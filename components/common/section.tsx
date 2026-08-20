@@ -12,7 +12,7 @@ export function Section({
   return (
     <section
       className={cx(
-        'mt-[clamp(48px,7vw,84px)] border-t border-[var(--rule)] pt-[30px]',
+        'mt-[clamp(3rem,7vw,5.5rem)] border-t border-[var(--rule)] pt-[1.5rem]',
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function SectionHeading({
   children: ReactNode
 }) {
   return (
-    <div className="flex flex-col items-start gap-[10px]">
+    <div className="flex flex-col items-start gap-[0.6rem]">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2>{children}</h2>
     </div>

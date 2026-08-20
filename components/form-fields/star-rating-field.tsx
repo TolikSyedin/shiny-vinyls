@@ -28,11 +28,11 @@ export function StarRatingField({
   const display = hovered ?? value ?? 0
 
   return (
-    <fieldset className="flex flex-col items-start gap-[7px] border-0 p-0">
+    <fieldset className="flex flex-col items-start gap-[0.5rem] border-0 p-0">
       <legend className={error ? 'text-error' : ''}>{label}</legend>
       <div
         aria-invalid={Boolean(error)}
-        className={cx('flex mt-4 rounded-[2px]', error ? 'outline-1 outline-[var(--error)]' : '')}
+        className={cx('mt-4 flex rounded-[0.1rem]', error ? 'outline-1 outline-[var(--error)]' : '')}
         onMouseLeave={() => setHovered(null)}
       >
         {STARS.map((n) => {
@@ -43,7 +43,7 @@ export function StarRatingField({
               key={n}
               htmlFor={id}
               onMouseEnter={() => setHovered(n)}
-              className="cursor-pointer rounded-[2px] has-[:focus-visible]:outline-2 has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-[var(--stamp)]"
+              className="cursor-pointer rounded-[0.1rem] has-[:focus-visible]:outline-[0.1rem] has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-[var(--stamp)]"
             >
               <input
                 id={id}

@@ -23,7 +23,7 @@ export default async function AdminRequestsPage() {
         <Note>Заявок ще немає.</Note>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[640px] border-collapse text-left">
+          <table className="w-full min-w-[40rem] border-collapse text-left">
             <thead>
               <tr className="border-b border-border">
                 <th className="p-2">Імʼія</th>

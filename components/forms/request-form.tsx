@@ -64,9 +64,9 @@ export function RequestForm() {
     <div className="flex flex-col gap-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[18px]"
+        className="flex flex-col gap-[1rem]"
       >
-        <div className="flex flex-col gap-[18px] sm:flex-row">
+        <div className="flex flex-col gap-[1rem] sm:flex-row">
           <TextField
             className="min-w-0 flex-1"
             id="name"
