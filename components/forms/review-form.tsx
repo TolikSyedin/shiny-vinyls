@@ -65,7 +65,7 @@ export function ReviewForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-[18px]"
+      className="flex flex-col gap-[1rem]"
 
     >
 
