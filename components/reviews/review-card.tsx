@@ -6,7 +6,7 @@ const STARS = [1, 2, 3, 4, 5] as const
 
 export function ReviewCard({ review }: { review: ApprovedReview }) {
   return (
-    <Card className="w-[280px] shrink-0 transition-[transform,box-shadow,border-color] duration-200 ease-out hover:translate-z-[1px] hover:border-[var(--stamp)] hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.45)]">
+    <Card className="w-[280px] shrink-0 transition-[transform,box-shadow,border-color] duration-200 ease-out hover:translate-z-[1px] hover:border-[var(--stamp)] hover:shadow-[0_8px_16px_-8px_rgba(0,0,0,0.35)]">
       <div
         role="img"
         aria-label={`Оцінка ${review.rating} з 5`}

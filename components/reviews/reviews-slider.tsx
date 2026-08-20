@@ -165,7 +165,7 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
   return (
     <div
       ref={viewportRef}
-      className="overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="overflow-x-auto py-[15px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
         ref={trackRef}
