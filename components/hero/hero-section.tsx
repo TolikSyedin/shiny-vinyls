@@ -10,8 +10,8 @@ export function HeroSection() {
   const isTouched = touchCount > 0
 
   return (
-    <section className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-[clamp(28px,5vw,56px)] pt-[clamp(44px,7vw,88px)]">
-      <div className="flex flex-col items-start gap-[22px]">
+    <section className="flex flex-wrap items-center gap-[clamp(28px,5vw,56px)] pt-[clamp(44px,7vw,88px)]">
+      <div className="flex min-w-0 grow basis-[320px] flex-col items-start gap-[22px]">
         <h1>
           Ваша платівка знову
           <br />
@@ -30,7 +30,7 @@ export function HeroSection() {
           <PriceTag>{basePricePerVinyl()} ₴ / шт</PriceTag>
         </Row>
       </div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex min-w-0 grow basis-[320px] flex-col items-center justify-center">
         <div className="flex aspect-square w-[min(72vw,380px)] overflow-hidden">
           <VinylDisc onInteractionStart={() => setTouchCount((n) => n + 1)} />
         </div>
