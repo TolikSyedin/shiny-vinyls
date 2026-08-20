@@ -1,9 +1,6 @@
 import type { ReactNode } from 'react'
 import { cx } from '@/lib/utils/cx'
 
-// The small mono label that sits above a heading — `.lbl` in the brandbook.
-// `className` is for spacing only; the type and colour are fixed here so the
-// label reads the same on every page.
 export function Eyebrow({
   children,
   className,

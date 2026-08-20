@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import { cx } from '@/lib/utils/cx'
 
-// The opening paragraph under a page heading.
 export function Lead({
   children,
   className,
