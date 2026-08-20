@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { ReviewCard } from './review-card'
 import type { ApprovedReview } from '@/lib/repositories/reviews'
+import { cx } from '@/lib/utils/cx'
 
 const PX_PER_SECOND = 40
 const FRICTION_PER_FRAME = 0.94 // share of speed kept per 16ms of coasting
@@ -167,11 +168,14 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
   return (
     <div
       ref={viewportRef}
-      className="overflow-x-auto py-[15px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="select-none overflow-x-auto py-[15px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
         ref={trackRef}
-        className="flex w-max cursor-grab gap-[14px] perspective-[1000px] transform-3d hover:[animation-play-state:paused] active:cursor-grabbing"
+        className={cx(
+          'flex w-max gap-[14px] perspective-[1000px] transform-3d hover:[animation-play-state:paused]',
+          loops ? 'active:cursor-grabbing cursor-grab' : 'cursor-auto'
+        )}
       >
         {reviewsList.map((review, i) => (
           <ReviewCard key={`${review.id}-${i}`} review={review} />
