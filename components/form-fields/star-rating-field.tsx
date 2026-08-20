@@ -26,7 +26,7 @@ export function StarRatingField({
 
   return (
     <fieldset className="m-0 flex flex-col items-start gap-[7px] border-0 p-0">
-      <legend>{label}</legend>
+      <legend className={error ? 'text-error' : ''}>{label}</legend>
       <div className="flex gap-1" onMouseLeave={() => setHovered(null)}>
         {STARS.map((n) => {
           const id = `${name}-${n}`
