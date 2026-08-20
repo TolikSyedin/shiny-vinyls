@@ -19,7 +19,7 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
   useEffect(() => {
     const viewport = viewportRef.current
     const track = trackRef.current
-    if (!viewport || !track || !loops) return
+    if (!viewport || !track) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     // Native listeners throughout: React's onWheel/onPointer* are passive,
@@ -39,7 +39,11 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
       let drag: { id: number; x: number; scrollLeft: number } | null = null
 
       on('pointerdown', (e) => {
-        drag = { id: e.pointerId, x: e.clientX, scrollLeft: viewport.scrollLeft }
+        drag = {
+          id: e.pointerId,
+          x: e.clientX,
+          scrollLeft: viewport.scrollLeft,
+        }
         viewport.setPointerCapture(e.pointerId)
       })
       on('pointermove', (e) => {
