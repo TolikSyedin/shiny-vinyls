@@ -1,6 +1,5 @@
 import { PageContainer } from '@/components/layout'
 import { PageHeader, Section, SectionHeading } from '@/components/common'
-import { VinylCalculator } from '@/components/calculator'
 import {
   Card,
   CardGrid,
@@ -87,8 +86,6 @@ export default function HowItWorksPage() {
         title="Основні кроки які продляють життя вашому вінілу"
         lead="Кожна платівка мріє про такий спа-салон, в якому її викупають в теплій ванні, помиють, посушать, і щайсливу й радісну відправлять назад до власників."
       />
-
-      <VinylCalculator />
 
       <Section>
         <SectionHeading eyebrow="Процес">Як це відбувається</SectionHeading>
