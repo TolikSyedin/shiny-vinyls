@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { CtaLink, Eyebrow, Lead, PriceTag, Row } from '@/components/ui'
+import { basePricePerVinyl } from '@/lib/pricing'
 import { VinylDisc } from './vinyl-disc'
 
 export function HeroSection() {
@@ -26,7 +27,7 @@ export function HeroSection() {
           <CtaLink href="/how-it-works" variant="ghost">
             Як це працює
           </CtaLink>
-          <PriceTag>130 ₴ / шт</PriceTag>
+          <PriceTag>{basePricePerVinyl()} ₴ / шт</PriceTag>
         </Row>
       </div>
       <div className="flex min-w-0 grow basis-[320px] flex-col items-center justify-center">
