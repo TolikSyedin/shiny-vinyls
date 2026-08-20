@@ -16,6 +16,7 @@
   --rule: #c0bfb3;
   --stamp: #5537c0;
   --sticker: #e64a00;
+  --error: #c0392b;
   --lamp: #c9913f;
   --lamp-wash: #e7dcc2;
   --metal: #c3c3bd;
@@ -49,6 +50,7 @@
   --rule: #2a2633;
   --stamp: #8b6bf0;
   --sticker: #ff5c16;
+  --error: #ef4444;
   --lamp: #4a4450;
   --lamp-wash: transparent;
   --metal: #211f26;
@@ -68,6 +70,15 @@
 }
 
 @theme inline {
+  --animate-marquee: marquee var(--marquee-duration, 20s) linear
+    var(--marquee-delay, 0s) infinite;
+
+  --font-display: var(--f-display), 'Arial Black', sans-serif;
+  --font-body: var(--f-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--f-mono), ui-monospace, monospace;
+
+  --color-error: var(--error);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
@@ -99,62 +110,140 @@
       transform: rotate(360deg);
     }
   }
-}
 
-/* Duration and delay are set per-instance in ReviewsSlider (they depend on
-   the rendered content width), so this isn't registered as a Tailwind
-   --animate-* utility like the keyframes above. */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-h1 {
-  font-family: var(--f-display);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
-  font-size: clamp(1.9rem, 5.6vw, 3.4rem);
-  margin: 0;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-/* the pitch fader is the only visible scroll indicator — this hides the
-   browser's drawn scrollbar without touching scroll behaviour itself */
-html {
-  scrollbar-width: none;
-}
+  html {
+    scrollbar-width: none;
+  }
 
-html::-webkit-scrollbar {
-  display: none;
-}
+  html::-webkit-scrollbar {
+    display: none;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family:
-    var(--f-body),
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
 
-input,
-textarea {
-  background-color: var(--surface-2);
-}
+  ::selection {
+    background: var(--stamp);
+    color: #fff;
+  }
 
-button {
-  cursor: pointer;
-}
+  img,
+  svg {
+    max-width: 100%;
+  }
 
-button:disabled {
-  cursor: not-allowed;
+  :focus-visible {
+    outline: 2px solid var(--stamp);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    font-size: clamp(1.9rem, 5.6vw, 3.4rem);
+    margin: 0;
+    overflow-wrap: break-word;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+    margin: 0;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  p {
+    line-height: 1.62;
+    margin: 0;
+  }
+
+  a {
+    color: var(--stamp);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  label,
+  legend {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input:not([type='checkbox']):not([type='radio']),
+  textarea {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background-color: var(--surface-2);
+    border: 1px solid var(--field-border, var(--rule));
+    border-radius: 4px;
+    padding: 12px 13px;
+    width: 100%;
+  }
+
+  input:not([type='checkbox']):not([type='radio']):focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--field-ring, var(--stamp));
+    outline-offset: -2px;
+  }
+
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    --field-border: var(--error);
+    --field-ring: var(--error);
+  }
+
+  textarea {
+    min-height: 104px;
+    resize: vertical;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }

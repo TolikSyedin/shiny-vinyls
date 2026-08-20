@@ -8,7 +8,7 @@ export const metadata = {
 export default function AdminLoginPage() {
   return (
     <PageContainer>
-      <h1 className="text-2xl font-semibold">Вхід для адміністратора</h1>
+      <h1>Вхід</h1>
       <AdminLoginForm />
     </PageContainer>
   )

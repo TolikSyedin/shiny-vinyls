@@ -1,14 +1,15 @@
 import Link from 'next/link'
+import { Wordmark } from '@/components/ui'
 import { DiscLogo } from './disc-logo'
 
 export function BrandLink() {
   return (
     <Link
       href="/"
-      className="group flex items-center gap-[10px] font-[family-name:var(--f-display)] text-[13px] font-black tracking-[-0.01em] text-[var(--ink)] uppercase hover:no-underline"
+      className="group flex items-center gap-[10px] hover:no-underline"
     >
       <DiscLogo />
-      Shiny Vinyls
+      <Wordmark>Shiny Vinyls</Wordmark>
     </Link>
   )
 }

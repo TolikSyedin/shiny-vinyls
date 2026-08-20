@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Note } from '@/components/ui'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
@@ -30,7 +31,6 @@ export function RequestForm() {
     formState: { errors, isSubmitting },
   } = useForm<RequestInput>({
     resolver: zodResolver(requestSchema),
-    shouldFocusError: false,
   })
 
   async function onSubmit(data: RequestInput) {
@@ -64,57 +64,54 @@ export function RequestForm() {
     <div className="flex flex-col gap-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[18px]"
+        className="flex flex-col gap-[18px]"
       >
-        <TextField
-          id="name"
-          label="Ім'я"
-          autocomplete="name"
-          placeholder={NAME_PLACEHOLDER}
-          error={errors.name?.message}
-          {...register('name')}
-        />
+        <div className="flex flex-col gap-[18px] sm:flex-row">
+          <TextField
+            className="min-w-0 flex-1"
+            id="name"
+            label="Ім'я"
+            autocomplete="name"
+            placeholder={NAME_PLACEHOLDER}
+            error={errors.name?.message}
+            {...register('name')}
+          />
 
-        <TextField
-          id="phone"
-          label="Телефон"
-          type="tel"
-          autocomplete="tel"
-          placeholder={PHONE_PLACEHOLDER}
-          error={errors.phone?.message}
-          {...register('phone')}
-        />
-
-        <div className="col-span-full">
-          <TextAreaField
-            id="comment"
-            label="Коментар (необов'язково)"
-            placeholder={COMMENT_PLACEHOLDER}
-            error={errors.comment?.message}
-            {...register('comment')}
+          <TextField
+            className="min-w-0 flex-1"
+            id="phone"
+            label="Телефон"
+            type="tel"
+            autocomplete="tel"
+            placeholder={PHONE_PLACEHOLDER}
+            error={errors.phone?.message}
+            {...register('phone')}
           />
         </div>
+
+        <TextAreaField
+          id="comment"
+          label="Коментар (необов'язково)"
+          placeholder={COMMENT_PLACEHOLDER}
+          error={errors.comment?.message}
+          {...register('comment')}
+        />
 
         <HoneypotField register={register} name="website" />
 
-        <div className="col-span-full">
-          <FieldError message={submitError ?? undefined} />
-        </div>
+        <FieldError message={submitError ?? undefined} />
 
-        <div className="col-span-full">
-          <SubmitButton
-            isSubmitting={isSubmitting || isRedirecting}
-            label="Надіслати заявку"
-          />
-        </div>
+        <SubmitButton
+          className="self-start"
+          isSubmitting={isSubmitting || isRedirecting}
+          label="Надіслати заявку"
+        />
       </form>
 
-      <p className="text-sm text-muted-foreground">
+      <Note>
         Не вдається надіслати заявку?{' '}
-        <Link href="/contacts" className="underline">
-          Звʼяжіться з нами напряму
-        </Link>
-      </p>
+        <Link href="/contacts">Звʼяжіться з нами напряму</Link>
+      </Note>
     </div>
   )
 }

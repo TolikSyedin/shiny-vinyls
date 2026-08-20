@@ -1,17 +1,17 @@
 import { NextResponse, after } from 'next/server'
-import { parseCommand } from '@/lib/telegram-commands'
+import { parseCommand } from '@/lib/telegram/telegram-commands'
 import {
   linkTelegramChat,
   getLatestRequestStatusByChatId,
 } from '@/lib/repositories/requests'
-import { requestStatusLabels } from '@/lib/request-status-labels'
+import { requestStatusLabels } from '@/lib/data/request-statuses/constants'
 import {
   notifyClient,
   formatLinkedMessage,
   formatInvalidLinkMessage,
   formatNotLinkedMessage,
   formatHelpMessage,
-} from '@/lib/telegram'
+} from '@/lib/telegram/telegram'
 
 async function handleMessage(chatId: string, text: string): Promise<void> {
   const { command, payload } = parseCommand(text)

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@/lib/supabase/browser'
+import { FieldError } from '@/components/form-fields'
 
 export function AdminNav() {
   const router = useRouter()
@@ -38,7 +39,7 @@ export function AdminNav() {
         <Link href="/admin/reviews">Відгуки</Link>
       </div>
       <div className="flex items-center gap-2">
-        {error && <span className="text-sm text-red-500">Помилка виходу</span>}
+        {error && <FieldError message="Помилка виходу" />}
         <button
           onClick={handleSignOut}
           disabled={isSigningOut}

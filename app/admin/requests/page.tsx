@@ -1,8 +1,9 @@
 import { listRequests } from '@/lib/repositories/requests'
-import { adminRequestStatusLabels } from '@/lib/admin-status-labels'
+import { adminRequestStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { AdminNav } from '@/components/admin/admin-nav'
 import { RequestStatusControl } from '@/components/admin/request-status-control'
 import { PageContainer } from '@/components/layout'
+import { Note } from '@/components/ui'
 
 export const metadata = {
   title: 'Заявки — Адмін — Shiny Vinyls',
@@ -16,10 +17,10 @@ export default async function AdminRequestsPage() {
   return (
     <PageContainer>
       <AdminNav />
-      <h1 className="text-2xl font-semibold">Заявки</h1>
+      <h1>Заявки</h1>
 
       {requests.length === 0 ? (
-        <p className="text-muted-foreground">Заявок ще немає.</p>
+        <Note>Заявок ще немає.</Note>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] border-collapse text-left">

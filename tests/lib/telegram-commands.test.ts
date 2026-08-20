@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { parseCommand } from '@/lib/telegram-commands'
+import { parseCommand } from '@/lib/telegram/telegram-commands'
 
 describe('parseCommand', () => {
   it('розбирає команду без payload', () => {

@@ -1,9 +1,6 @@
 import type { UseFormRegisterReturn } from 'react-hook-form'
 import { FieldError } from '@/components/form-fields/field-error'
-import {
-  FIELD_LABEL_CLASS_NAME,
-  INPUT_CLASS_NAME,
-} from '@/lib/data/form-fields/form-field-class-names/constants'
+import { cx } from '@/lib/utils/cx'
 
 type TextFieldProps = {
   id: string
@@ -12,6 +9,7 @@ type TextFieldProps = {
   error?: string
   type?: string
   autocomplete?: string
+  className?: string
 } & UseFormRegisterReturn
 
 export function TextField({
@@ -21,19 +19,18 @@ export function TextField({
   error,
   autocomplete,
   type = 'text',
+  className,
   ...registerProps
 }: TextFieldProps) {
   return (
-    <div className="grid gap-[7px]">
-      <label htmlFor={id} className={FIELD_LABEL_CLASS_NAME}>
-        {label}
-      </label>
+    <div className={cx('flex flex-col gap-[7px]', className)}>
+      <label className={error ? 'text-error' : ''} htmlFor={id}>{label}</label>
       <input
         id={id}
         type={type}
         placeholder={placeholder}
         autoComplete={autocomplete}
-        className={`${INPUT_CLASS_NAME} ${error ? 'border-red-500' : 'border-[var(--rule)]'}`}
+        aria-invalid={Boolean(error)}
         {...registerProps}
       />
       <FieldError message={error} />

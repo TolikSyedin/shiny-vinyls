@@ -6,8 +6,8 @@ import {
   InvalidStatusTransitionError,
   StatusConflictError,
 } from '@/lib/repositories/requests'
-import { notifyClient } from '@/lib/telegram'
-import { requestStatusLabels } from '@/lib/request-status-labels'
+import { notifyClient } from '@/lib/telegram/telegram'
+import { requestStatusLabels } from '@/lib/data/request-statuses/constants'
 import { REQUEST_STATUSES } from '@/types/database'
 
 const patchSchema = z.object({

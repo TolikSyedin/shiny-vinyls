@@ -1,10 +1,5 @@
 import type { RequestStatus } from '@/types/database'
 
-/**
- * Дозволені переходи статусу заявки. `cancelled` — термінальний стан,
- * з нього немає повернення (якщо це колись знадобиться — окреме
- * усвідомлене рішення, не побічний ефект).
- */
 const ALLOWED_TRANSITIONS: Record<RequestStatus, RequestStatus[]> = {
   new: ['contacted', 'cancelled'],
   contacted: ['in_progress', 'cancelled'],

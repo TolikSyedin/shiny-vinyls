@@ -1,6 +1,8 @@
 import { listApprovedReviews } from '@/lib/repositories/reviews'
 import { ReviewForm } from '@/components/forms'
 import { PageContainer } from '@/components/layout'
+import { PageHeader } from '@/components/common'
+import { Note } from '@/components/ui'
 import { ReviewsSlider } from '@/components/reviews/reviews-slider'
 
 export const metadata = {
@@ -17,17 +19,20 @@ export default async function ReviewsPage() {
 
   return (
     <PageContainer>
-      <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold">Відгуки</h1>
-        {reviews.length === 0 ? (
-          <p className="text-muted-foreground">Поки що немає відгуків.</p>
-        ) : (
-          <ReviewsSlider reviews={reviews} />
-        )}
-      </div>
+      <PageHeader
+        eyebrow="Відгуки"
+        title="Нам важлива ваша думка"
+        lead="Ми завжди раді бачити коментарі та відгуки від наших клієнтів"
+      />
+
+      {reviews.length === 0 ? (
+        <Note>Поки що немає відгуків.</Note>
+      ) : (
+        <ReviewsSlider reviews={reviews} />
+      )}
 
       <div className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold">Залишити відгук</h2>
+        <h2>Залишити відгук</h2>
         <ReviewForm />
       </div>
     </PageContainer>
