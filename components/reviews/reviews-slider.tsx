@@ -9,6 +9,7 @@ const FRICTION_PER_FRAME = 0.94 // share of speed kept per 16ms of coasting
 const MIN_COAST_SPEED = 0.02 // px/ms at which a coast is over
 const WHEEL_IDLE_MS = 180 // a wheel gesture has no end event; a pause stands in
 const MIN_REVIEWS_FOR_LOOP = 5
+const MARQUEE_CLASS = 'animate-marquee'
 
 export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
   const viewportRef = useRef<HTMLDivElement>(null)
@@ -78,7 +79,7 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
     // never write `transform` in the same frame.
     const move = (by: number) => {
       offset = normalize(offset + by)
-      track.style.animationName = 'none'
+      track.classList.remove(MARQUEE_CLASS)
       track.style.transform = `translateX(${offset}px)`
     }
 
@@ -90,17 +91,18 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
       move(0)
     }
 
-    // Hands `transform` back, entering the cycle at the current offset so
-    // the handover is invisible. Longhands, because the `animation`
-    // shorthand would also write an inline animation-play-state and so
-    // outrank the hover-to-pause rule.
+    // Hands `transform` back, entering the cycle at the current offset so the
+    // handover is invisible. Everything constant about the animation lives in
+    // the theme; only the two figures that depend on the rendered width are
+    // passed in, as custom properties.
     const release = () => {
       track.style.transform = ''
-      track.style.animationName = 'marquee'
-      track.style.animationDuration = `${duration}s`
-      track.style.animationTimingFunction = 'linear'
-      track.style.animationIterationCount = 'infinite'
-      track.style.animationDelay = `${(offset / loopWidth) * duration}s`
+      track.style.setProperty('--marquee-duration', `${duration}s`)
+      track.style.setProperty(
+        '--marquee-delay',
+        `${(offset / loopWidth) * duration}s`,
+      )
+      track.classList.add(MARQUEE_CLASS)
     }
 
     const coast = (speed: number) => {
