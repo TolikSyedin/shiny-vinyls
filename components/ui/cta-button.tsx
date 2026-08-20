@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import type { ComponentProps } from 'react'
+import { cx } from '@/lib/cx'
 
 type CtaSize = 'default' | 'sm'
 type CtaVariant = 'default' | 'ghost'
 
 const BASE =
-  'relative inline-flex cursor-pointer items-center gap-[11px] overflow-hidden rounded-[4px] text-left font-[family-name:var(--f-mono)] font-medium uppercase transition-[filter_0.2s_ease,transform_0.15s_ease,box-shadow_0.2s_ease]'
+  'relative inline-flex cursor-pointer items-center gap-[11px] overflow-hidden rounded-[4px] text-left font-mono font-medium uppercase transition-[filter_0.2s_ease,transform_0.15s_ease,box-shadow_0.2s_ease]'
 
 const SIZE: Record<CtaSize, string> = {
   default: 'px-[26px] py-[15px] text-[12px] tracking-[0.13em]',
@@ -27,9 +28,7 @@ const VARIANT: Record<CtaVariant, string> = {
 }
 
 function ctaClassName(size: CtaSize, variant: CtaVariant, className?: string) {
-  return [BASE, SIZE[size], VARIANT[variant], className]
-    .filter(Boolean)
-    .join(' ')
+  return cx(BASE, SIZE[size], VARIANT[variant], className)
 }
 
 export function CtaLink({
