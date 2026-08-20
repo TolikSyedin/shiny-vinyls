@@ -1,7 +1,7 @@
 import { NextResponse, after } from 'next/server'
 import { reviewSchema } from '@/lib/schemas/review'
 import { createReview } from '@/lib/repositories/reviews'
-import { notifyNewReview } from '@/lib/telegram'
+import { notifyNewReview } from '@/lib/telegram/telegram'
 
 export async function POST(req: Request) {
   const body = await req.json()

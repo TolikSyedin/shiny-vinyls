@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { isValidStatusTransition } from '@/lib/request-status'
-import { adminRequestStatusLabels } from '@/lib/admin-status-labels'
+import { adminRequestStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { REQUEST_STATUSES, type RequestStatus } from '@/types/database'
 
 export function RequestStatusControl({

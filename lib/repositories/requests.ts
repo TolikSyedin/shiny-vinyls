@@ -2,7 +2,7 @@ import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createSessionClient } from '@/lib/supabase/session'
 import { isValidStatusTransition } from '@/lib/request-status'
-import { uuidSchema } from '@/lib/uuid'
+import { uuidSchema } from '@/lib/utils/uuid'
 import type { RequestStatus } from '@/types/database'
 
 type CreateRequestInput = {

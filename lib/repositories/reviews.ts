@@ -1,7 +1,7 @@
 import { createAnonClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createSessionClient } from '@/lib/supabase/session'
-import { uuidSchema } from '@/lib/uuid'
+import { uuidSchema } from '@/lib/utils/uuid'
 import type { ReviewStatus } from '@/types/database'
 
 type CreateReviewInput = {

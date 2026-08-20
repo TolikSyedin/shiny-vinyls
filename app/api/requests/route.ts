@@ -1,7 +1,7 @@
 import { NextResponse, after } from 'next/server'
 import { requestSchema } from '@/lib/schemas/request'
 import { createRequest } from '@/lib/repositories/requests'
-import { notifyNewRequest } from '@/lib/telegram'
+import { notifyNewRequest } from '@/lib/telegram/telegram'
 
 export async function POST(req: Request) {
   const body = await req.json()

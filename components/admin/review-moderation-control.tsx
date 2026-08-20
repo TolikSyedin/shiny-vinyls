@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { adminReviewStatusLabels } from '@/lib/admin-status-labels'
+import { adminReviewStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { REVIEW_STATUSES, type ReviewStatus } from '@/types/database'
 
 export function ReviewModerationControl({

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getRequestStatus } from '@/lib/repositories/requests'
-import { requestStatusLabels } from '@/lib/request-status-labels'
+import { requestStatusLabels } from '@/lib/data/request-statuses/constants'
 import { PageContainer } from '@/components/layout'
 import { PageHeader } from '@/components/common'
 import { Mono } from '@/components/ui'

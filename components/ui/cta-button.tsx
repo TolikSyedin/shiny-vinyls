@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { ComponentProps } from 'react'
-import { cx } from '@/lib/cx'
+import { cx } from '@/lib/utils/cx'
 
 type CtaSize = 'default' | 'sm'
 type CtaVariant = 'default' | 'ghost'

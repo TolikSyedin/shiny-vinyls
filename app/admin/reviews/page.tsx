@@ -1,5 +1,5 @@
 import { listAllReviews } from '@/lib/repositories/reviews'
-import { adminReviewStatusLabels } from '@/lib/admin-status-labels'
+import { adminReviewStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { AdminNav } from '@/components/admin/admin-nav'
 import { ReviewModerationControl } from '@/components/admin/review-moderation-control'
 import { PageContainer } from '@/components/layout'

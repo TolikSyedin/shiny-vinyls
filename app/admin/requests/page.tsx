@@ -1,5 +1,5 @@
 import { listRequests } from '@/lib/repositories/requests'
-import { adminRequestStatusLabels } from '@/lib/admin-status-labels'
+import { adminRequestStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { AdminNav } from '@/components/admin/admin-nav'
 import { RequestStatusControl } from '@/components/admin/request-status-control'
 import { PageContainer } from '@/components/layout'

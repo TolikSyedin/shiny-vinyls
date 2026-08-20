@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { cx } from '@/lib/cx'
+import { cx } from '@/lib/utils/cx'
 
 type NoteTone = 'muted' | 'ink'
 

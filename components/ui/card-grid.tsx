@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { cx } from '@/lib/cx'
+import { cx } from '@/lib/utils/cx'
 
 // Column count is a hint, not a fixed number: each value sets the narrowest a
 // column may get before the grid reflows, matching .g2/.g3/.g4 in the brandbook.
