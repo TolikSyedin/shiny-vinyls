@@ -3,6 +3,7 @@ import { adminReviewStatusLabels } from '@/lib/admin-status-labels'
 import { AdminNav } from '@/components/admin/admin-nav'
 import { ReviewModerationControl } from '@/components/admin/review-moderation-control'
 import { PageContainer } from '@/components/layout'
+import { Note } from '@/components/ui'
 
 export const metadata = {
   title: 'Відгуки — Адмін — Shiny Vinyls',
@@ -16,10 +17,10 @@ export default async function AdminReviewsPage() {
   return (
     <PageContainer>
       <AdminNav />
-      <h1 className="text-2xl font-semibold">Відгуки</h1>
+      <h1>Відгуки</h1>
 
       {reviews.length === 0 ? (
-        <p className="text-muted-foreground">Відгуків ще немає.</p>
+        <Note>Відгуків ще немає.</Note>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] border-collapse text-left">
