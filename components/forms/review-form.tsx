@@ -65,15 +65,8 @@ export function ReviewForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-[18px]"
-    >
-      <StarRatingField
-        label="Оцінка"
-        name="rating"
-        value={rating}
-        error={errors.rating?.message}
-        onChange={onRatingChange}
-      />
 
+    >
       <TextField
         id="name"
         label="Ім'я"
@@ -81,6 +74,14 @@ export function ReviewForm() {
         placeholder={NAME_PLACEHOLDER}
         error={errors.name?.message}
         {...register('name')}
+      />
+
+      <StarRatingField
+        label="Оцінка"
+        name="rating"
+        value={rating}
+        error={errors.rating?.message}
+        onChange={onRatingChange}
       />
 
       <TextAreaField
