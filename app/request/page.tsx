@@ -1,6 +1,6 @@
 import { RequestForm } from '@/components/forms'
 import { PageContainer } from '@/components/layout'
-import { PageHeader } from '@/components/common'
+import { PageHeader, Section, SectionHeading } from '@/components/common'
 import { VinylCalculator } from '@/components/calculator'
 
 export const metadata = {
@@ -16,7 +16,12 @@ export default function RequestPage() {
         lead="Напишіть кількість платівок і в якому вони стані — повернемось із терміном і сумою."
       />
       <VinylCalculator />
-      <RequestForm />
+      <Section>
+        <div className="flex flex-col gap-[1.5rem]">
+          <SectionHeading eyebrow="Заявка">Відправити заявку</SectionHeading>
+          <RequestForm />
+        </div>
+      </Section>
     </PageContainer>
   )
 }
