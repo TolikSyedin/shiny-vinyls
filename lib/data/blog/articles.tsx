@@ -206,7 +206,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: 'yak-pomyty-vinilovu-plativku',
     category: 'Інструкція',
-    readingTime: '11 хв читання',
+    readingTime: '(11 хвилин)',
     title: 'Як помити вінілову платівку: 4 способи вдома, переваги і недоліки кожного',
     shortTitle: 'Як помити платівку',
     metaTitle: 'Як помити вінілову платівку — 4 способи вдома, переваги і недоліки кожного',
@@ -381,7 +381,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: 'chomu-vinil-trishchyt',
     category: 'Розбір',
-    readingTime: '9 хв читання',
+    readingTime: '(9 хвилин)',
     title: 'Чому вініл тріщить і що з цим можна зробити',
     shortTitle: 'Чому вініл тріщить',
     metaTitle: 'Чому вініл тріщить і що з цим можна зробити',
