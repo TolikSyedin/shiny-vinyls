@@ -53,9 +53,9 @@ export function CounterweightKnob({
   }
 
   return (
-    <div className="flex items-center gap-[24px]">
+    <div className="flex items-center gap-[1.5rem]">
       <svg
-        className="flex-none cursor-ew-resize touch-pan-y select-none active:cursor-grabbing focus-visible:rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--stamp)]"
+        className="flex-none cursor-ew-resize touch-pan-y select-none focus-visible:!outline-[0.15rem_solid_var(--stamp)] focus-visible:!outline-offset-[0.2rem] focus-visible:!shadow-none"
         width="92"
         height="92"
         viewBox="0 0 92 92"
@@ -107,7 +107,7 @@ export function CounterweightKnob({
 
       <div>
         <Readout unit={vinylsWord(value)}>{value}</Readout>
-        <Mono className="mt-[7px] block">
+        <Mono className="mt-[0.5rem] block">
           Тягніть противагу вбік або стрілками
         </Mono>
       </div>

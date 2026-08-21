@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { clampQuantity, priceTierRanges } from '@/lib/pricing'
-import { Card, Eyebrow, Note } from '@/components/ui'
+import { Note } from '@/components/ui'
+import { Section, SectionHeading } from '@/components/common'
 import { CounterweightKnob } from './counterweight-knob'
 import { QuantityInput } from './quantity-input'
 import { PricePanel } from './price-panel'
@@ -20,35 +21,40 @@ export function VinylCalculator({
   const [quantity, setQuantity] = useState(() => clampQuantity(initialQuantity))
 
   return (
-    <Card className="gap-[26px]">
-      <header className="grid gap-[8px]">
-        <Eyebrow>Розрахунок</Eyebrow>
-        <h2>Кількість платівок</h2>
+    <Section>
+      <div className="grid gap-[1.5rem]">
+        <SectionHeading eyebrow="Розрахунок">Кількість платівок</SectionHeading>
+
         <Note>
           Противага показує обсяг замовлення, сума перераховується одразу. Це
           попередній розрахунок — остаточний фіксуємо після огляду.
         </Note>
-      </header>
 
-      <div className="grid justify-items-start gap-[22px]">
-        <CounterweightKnob quantity={quantity} onQuantityChange={setQuantity} />
+        <div className="grid gap-[1.5rem] lg:grid-cols-2 lg:items-start">
+          <div className="grid justify-items-start gap-[1.25rem]">
+            <CounterweightKnob
+              quantity={quantity}
+              onQuantityChange={setQuantity}
+            />
 
-        <QuantityInput quantity={quantity} onQuantityChange={setQuantity} />
+            <QuantityInput quantity={quantity} onQuantityChange={setQuantity} />
 
-        <Note>
-          Кількість можна ввести числом або накрутити противагою — це те саме
-          значення. Тариф залежить від обсягу:{' '}
-          {priceTierRanges()
-            .map(
-              ({ rangeLabel, pricePerVinyl }) =>
-                `${rangeLabel} — ${pricePerVinyl} ₴`,
-            )
-            .join(', ')}{' '}
-          за платівку.
-        </Note>
+            <Note>
+              Кількість можна ввести числом або накрутити противагою — це те
+              саме значення. Тариф залежить від обсягу:{' '}
+              {priceTierRanges()
+                .map(
+                  ({ rangeLabel, pricePerVinyl }) =>
+                    `${rangeLabel} — ${pricePerVinyl} ₴`,
+                )
+                .join(', ')}{' '}
+              за платівку.
+            </Note>
+          </div>
+
+          <PricePanel quantity={quantity} />
+        </div>
       </div>
-
-      <PricePanel quantity={quantity} />
-    </Card>
+    </Section>
   )
 }

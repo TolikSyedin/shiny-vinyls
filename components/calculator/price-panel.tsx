@@ -17,7 +17,7 @@ export function PricePanel({ quantity }: { quantity: number }) {
   const upcoming = nextTier(value)
 
   return (
-    <Card className="gap-[14px]">
+    <Card className="gap-[1rem]">
       <Eyebrow>Попередня сума</Eyebrow>
 
       <Readout size="xl">{formatHryvnia(totalPrice(value))} ₴</Readout>

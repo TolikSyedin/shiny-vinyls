@@ -22,7 +22,7 @@ export function QuantityInput({
   const [draft, setDraft] = useState<string | null>(null)
 
   return (
-    <div className="flex flex-col items-start gap-[7px]">
+    <div className="flex flex-col items-start gap-[0.5rem]">
       <label htmlFor="vinyl-quantity">Кількість</label>
       <input
         id="vinyl-quantity"
@@ -47,7 +47,7 @@ export function QuantityInput({
             setDraft(null)
           }
         }}
-        className="w-[104px] text-center tabular-nums"
+        className="w-[6.5rem] text-center tabular-nums"
       />
     </div>
   )
