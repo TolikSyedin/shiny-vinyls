@@ -17,30 +17,32 @@ export function PricePanel({ quantity }: { quantity: number }) {
   const upcoming = nextTier(value)
 
   return (
-    <Card className="gap-[1rem]">
-      <Eyebrow>Попередня сума</Eyebrow>
+    <Card>
+      <div className="grid gap-[1rem]">
+        <Eyebrow>Попередня сума</Eyebrow>
 
-      <Readout size="xl">{formatHryvnia(totalPrice(value))} ₴</Readout>
+        <Readout size="xl">{formatHryvnia(totalPrice(value))} ₴</Readout>
 
-      <Mono>
-        {value} {vinylsWord(value)} × {perVinyl} ₴
-      </Mono>
+        <Mono>
+          {value} {vinylsWord(value)} × {perVinyl} ₴
+        </Mono>
 
-      <div className="h-px bg-[var(--rule)]" />
+        <div className="h-px bg-[var(--rule)]" />
 
-      <Mono>Термін: {turnaroundEstimate(value)}</Mono>
+        <Mono>Термін: {turnaroundEstimate(value)}</Mono>
 
-      {upcoming ? (
-        <Note>
-          Ще{' '}
-          <span className="text-[var(--stamp)]">
-            {upcoming.vinylsUntil} {vinylsWord(upcoming.vinylsUntil)}
-          </span>{' '}
-          — і тариф впаде до {upcoming.pricePerVinyl} ₴ за платівку.
-        </Note>
-      ) : (
-        <Note>Це найкращий тариф — {perVinyl} ₴ за платівку.</Note>
-      )}
+        {upcoming ? (
+          <Note>
+            Ще{' '}
+            <span className="text-[var(--stamp)]">
+              {upcoming.vinylsUntil} {vinylsWord(upcoming.vinylsUntil)}
+            </span>{' '}
+            — і тариф впаде до {upcoming.pricePerVinyl} ₴ за платівку.
+          </Note>
+        ) : (
+          <Note>Це найкращий тариф — {perVinyl} ₴ за платівку.</Note>
+        )}
+      </div>
     </Card>
   )
 }
