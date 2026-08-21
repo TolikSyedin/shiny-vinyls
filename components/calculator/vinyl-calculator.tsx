@@ -8,7 +8,7 @@ import { CounterweightKnob } from './counterweight-knob'
 import { QuantityInput } from './quantity-input'
 import { PricePanel } from './price-panel'
 
-const DEFAULT_QUANTITY = 12
+const DEFAULT_QUANTITY = 13
 
 // Owns the quantity and hands it to all three parts. Purely a price beacon:
 // the real numbers are entered by hand in the request form, so nothing here is
@@ -25,7 +25,7 @@ export function VinylCalculator({
       <div className="grid gap-[1.5rem]">
         <SectionHeading eyebrow="Розрахунок">Кількість платівок</SectionHeading>
 
-        <Note>
+        <Note className="max-w-none">
           Противага показує обсяг замовлення, сума перераховується одразу. Це
           попередній розрахунок — остаточний фіксуємо після огляду.
         </Note>
@@ -38,22 +38,22 @@ export function VinylCalculator({
             />
 
             <QuantityInput quantity={quantity} onQuantityChange={setQuantity} />
-
-            <Note>
-              Кількість можна ввести числом або накрутити противагою — це те
-              саме значення. Тариф залежить від обсягу:{' '}
-              {priceTierRanges()
-                .map(
-                  ({ rangeLabel, pricePerVinyl }) =>
-                    `${rangeLabel} — ${pricePerVinyl} ₴`,
-                )
-                .join(', ')}{' '}
-              за платівку.
-            </Note>
           </div>
 
           <PricePanel quantity={quantity} />
         </div>
+
+        <Note className="max-w-none">
+          Кількість можна ввести числом або накрутити противагою — це те саме
+          значення. Тариф залежить від обсягу:{' '}
+          {priceTierRanges()
+            .map(
+              ({ rangeLabel, pricePerVinyl }) =>
+                `${rangeLabel} — ${pricePerVinyl} ₴`,
+            )
+            .join(', ')}{' '}
+          за платівку.
+        </Note>
       </div>
     </Section>
   )
