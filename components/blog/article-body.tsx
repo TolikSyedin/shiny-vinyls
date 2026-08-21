@@ -4,7 +4,7 @@ import { ArticleTable } from './article-table'
 
 export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
   return (
-    <div className="mt-[2.25rem] flex max-w-[68ch] flex-col gap-[1.05rem]">
+    <div className="mt-[2.25rem] flex flex-col gap-[1.05rem]">
       {blocks.map((block, index) => {
         switch (block.type) {
           case 'heading':

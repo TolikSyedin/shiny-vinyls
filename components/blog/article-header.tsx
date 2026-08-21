@@ -14,7 +14,7 @@ export function ArticleHeader({
         <Breadcrumbs items={[{ label: 'Блог', href: '/blog' }, { label: category }]} />
         <Eyebrow>{readingTime}</Eyebrow>
       </div>
-      <h1 className="max-w-[22ch]">{title}</h1>
+      <h1>{title}</h1>
       <Lead>{lead}</Lead>
     </header>
   )
