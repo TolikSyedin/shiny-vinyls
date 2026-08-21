@@ -32,7 +32,10 @@ export function StarRatingField({
       <legend className={error ? 'text-error' : ''}>{label}</legend>
       <div
         aria-invalid={Boolean(error)}
-        className={cx('mt-4 flex rounded-[0.1rem]', error ? 'outline-1 outline-[var(--error)]' : '')}
+        className={cx(
+          'mt-4 flex rounded-[0.1rem]',
+          error ? 'outline-1 outline-[var(--error)]' : '',
+        )}
         onMouseLeave={() => setHovered(null)}
       >
         {STARS.map((n) => {

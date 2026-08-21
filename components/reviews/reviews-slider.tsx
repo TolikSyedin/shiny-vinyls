@@ -174,7 +174,7 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
         ref={trackRef}
         className={cx(
           'flex w-max gap-[1rem] perspective-[62.5rem] transform-3d hover:[animation-play-state:paused]',
-          loops ? 'active:cursor-grabbing cursor-grab' : 'cursor-auto'
+          loops ? 'active:cursor-grabbing cursor-grab' : 'cursor-auto',
         )}
       >
         {reviewsList.map((review, i) => (
