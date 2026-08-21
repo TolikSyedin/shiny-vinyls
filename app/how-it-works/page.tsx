@@ -1,5 +1,10 @@
 import { PageContainer } from '@/components/layout'
-import { PageHeader, Section, SectionHeading } from '@/components/common'
+import {
+  ColumnContentSection,
+  PageHeader,
+  Section,
+  SectionHeading,
+} from '@/components/common'
 import {
   Card,
   CardGrid,
@@ -10,7 +15,6 @@ import {
   Readout,
   Row,
 } from '@/components/ui'
-import { cx } from '@/lib/utils/cx'
 
 const PROCESS_STEPS = [
   {
@@ -122,8 +126,7 @@ const FAQ = [
   },
   {
     question: 'Скільки це триває?',
-    answer:
-      'До 10 платівок — 2–3 робочі дні. Великі колекції — від тижня, залежно від стану. Термін узгоджуємо та фіксуємо перед початком.',
+    answer: 'До 10 платівок — 2–3 робочі дні. Великі колекції — від тижня, залежно від стану. Термін узгоджуємо та фіксуємо перед початком.',
   },
 ]
 
@@ -166,45 +169,25 @@ export default function HowItWorksPage() {
         </CardGrid>
       </Section>
 
-      <Section>
-        <SectionHeading eyebrow="Порівняння">
-          Ультразвук проти інших методів
-        </SectionHeading>
-        <div className="mt-[1.5rem] flex flex-col">
-          {COMPARISON.map(({ kicker, body, highlight }, index) => (
-            <div
-              key={kicker}
-              className={cx(
-                'border border-[var(--rule)] p-[clamp(1rem,2.5vw,1.5rem)]',
-                index > 0 && '-mt-px',
-                index === 0 && 'rounded-t-[0.3rem]',
-                index === COMPARISON.length - 1 && 'rounded-b-[0.3rem]',
-                highlight
-                  ? 'relative z-10 border-[var(--stamp)]'
-                  : 'bg-[var(--surface-2)]',
-              )}
-            >
-              <Mono
-                tone={highlight ? 'stamp' : 'muted'}
-                className="uppercase tracking-[0.08em]"
-              >
-                {kicker}
-              </Mono>
-              <Note className="mt-[0.5rem] max-w-none">{body}</Note>
-            </div>
-          ))}
-        </div>
-        <Note className="mt-[1.125rem]">
-          Чесна межа: ультразвук прибирає <strong>бруд</strong>. Мікроподряпини,
-          зношену канавку й глибокі риски він не лікує — це фізична втрата
-          матеріалу, і ми кажемо про це на огляді, а не після оплати.
-        </Note>
+      <ColumnContentSection
+        eyebrow="Порівняння"
+        heading="Ультразвук проти інших методів"
+        items={COMPARISON}
+        footnote={
+          <>
+            Слід зауважити: ультразвук прибирає <strong>бруд</strong>.
+            Мікроподряпини, зношену канавку й глибокі риски він не лікує — це
+            фізична втрата матеріалу, і ми кажемо про це на огляді, а не
+            після оплати.
+          </>
+        }
+      >
         <Row className="mt-[1.5rem]">
           <CtaLink href="/blog" variant="ghost">
             Розгорнуте порівняння
           </CtaLink>
         </Row>
-      </Section>
+      </ColumnContentSection>
 
       <Section>
         <SectionHeading eyebrow="Входить у ціну">
