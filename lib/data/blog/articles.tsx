@@ -23,6 +23,7 @@ export type BlogArticle = {
   ctaSecondary: { label: string; href: string }
 }
 
+// TODO: move articles to the database once there's a need to edit/add them without a deploy
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: 'ultrazvuk-chy-vakuumna-myika',

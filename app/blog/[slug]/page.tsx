@@ -13,6 +13,7 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
+// TODO: add canonical/OG tags, JSON-LD, and metadataBase once the domain is purchased
 export async function generateMetadata({
   params,
 }: {
