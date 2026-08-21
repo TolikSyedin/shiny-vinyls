@@ -1,3 +1,4 @@
+export { Breadcrumbs, type BreadcrumbItem } from './breadcrumbs'
 export { CardGridSection, type CardGridItem } from './card-grid-section'
 export {
   ColumnContentSection,

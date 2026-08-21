@@ -7,8 +7,9 @@
 }
 
 .nav a:hover {
-  color: var(--ink);
-  text-decoration: none;
+  color: var(--stamp);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .nav a[aria-current='page'] {
