@@ -6,6 +6,8 @@ import { Section, SectionHeading } from './section'
 
 export type ColumnContentItem = {
   kicker: string
+  meta?: string
+  title?: ReactNode
   body: ReactNode
   highlight?: boolean
   href?: string
@@ -13,24 +15,29 @@ export type ColumnContentItem = {
 
 function ColumnContentRow({
   kicker,
+  meta,
+  title,
   body,
   highlight,
   href,
   className,
 }: ColumnContentItem & { className?: string }) {
   const classes = cx(
-    'block border border-[var(--rule)] p-[clamp(1rem,2.5vw,1.5rem)] text-[var(--ink)] no-underline',
+    'block rounded-[0.3rem] border border-[var(--rule)] p-[clamp(1rem,2.5vw,1.5rem)] text-[var(--ink)]',
     highlight
       ? 'relative z-10 border-[var(--stamp)] bg-[var(--stamp)]/10'
       : 'bg-[var(--surface-2)]',
-    href && 'transition-colors hover:border-[var(--stamp)]',
     className,
   )
   const content = (
     <>
-      <Mono tone={highlight ? 'stamp' : 'muted'} className="uppercase tracking-[0.08em]">
-        {kicker}
-      </Mono>
+      <div className="flex flex-wrap items-center gap-[0.5rem]">
+        <Mono tone={highlight ? 'stamp' : 'muted'} className="uppercase tracking-[0.08em]">
+          {kicker}
+        </Mono>
+        {meta ? <Mono className="uppercase tracking-[0.08em]">{meta}</Mono> : null}
+      </div>
+      {title ? <h3 className="mt-[0.5rem] text-[var(--stamp)]">{title}</h3> : null}
       <Note className="mt-[0.5rem] max-w-none">{body}</Note>
     </>
   )
@@ -67,11 +74,7 @@ export function ColumnContentSection({
           <ColumnContentRow
             key={item.kicker}
             {...item}
-            className={cx(
-              index > 0 && '-mt-px',
-              index === 0 && 'rounded-t-[0.3rem]',
-              index === items.length - 1 && 'rounded-b-[0.3rem]',
-            )}
+            className={index > 0 ? 'mt-[2px]' : undefined}
           />
         ))}
       </div>
