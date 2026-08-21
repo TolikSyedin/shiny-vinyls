@@ -53,12 +53,12 @@ const EQUIPMENT_SPECS = [
   {
     value: '6 л · сталь 304',
     title: 'Ванна',
-    note: 'Нержавіюча ванна, розчин фільтрується й міняється за графіком, а не «поки не потемніє».',
+    note: 'Нержавіюча ванна, розчин фільтрується й міняється після кожного циклу помивки.',
   },
   {
     value: '20–40 хв',
     title: 'Цикл',
-    note: 'До чотирьох платівок за раз. Час залежить від ступеня забруднення, а не від того, скільки нам зручно.',
+    note: 'Час залежить здебільшого від ступеня забруднення. Кожна партія уважно оглядається і оцінюється перед початком процесу.',
   },
 ]
 
@@ -80,14 +80,13 @@ const COMPARISON = [
 
 const INCLUDED_LEFT = [
   'Ультразвукова ванна 40 кГц із підігрівом',
-  'Ополіскування чистою водою й сушіння без розводів',
   'Обидві сторони за один цикл',
+  'Ополіскування чистою водою й сушіння без розводів',
 ]
 
 const INCLUDED_RIGHT = [
   'Огляд до і після, зі звітом про стан',
-  'Чищення етикетки по краю без намокання',
-  'Код замовлення для відстеження партії',
+  'Зворотня відправка',
 ]
 
 const PRICE_TIERS = [
@@ -197,6 +196,11 @@ export default function HowItWorksPage() {
           <NeedleList items={INCLUDED_LEFT} />
           <NeedleList items={INCLUDED_RIGHT} />
         </div>
+        <Row className="mt-[1.5rem]">
+          <CtaLink href="/reviews" variant="ghost">
+            Відгуки наших клієнтів
+          </CtaLink>
+        </Row>
       </Section>
 
       <Section>
@@ -237,6 +241,16 @@ export default function HowItWorksPage() {
             </Card>
           ))}
         </CardGrid>
+      </Section>
+
+      <Section>
+        <div className="flex flex-col items-start gap-[0.75rem]">
+          <h3>Чогось не вистачає?</h3>
+          <Note>Маєте питання, відповіді на яке тут нема? Напишіть нам.</Note>
+          <CtaLink href="/contacts" className="mt-[0.25rem]">
+            Написати нам
+          </CtaLink>
+        </div>
       </Section>
     </PageContainer>
   )
