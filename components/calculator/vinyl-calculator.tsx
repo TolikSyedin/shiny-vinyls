@@ -22,38 +22,38 @@ export function VinylCalculator({
 
   return (
     <Section>
-      <div className="grid gap-[1.5rem]">
+      <div className="flex flex-col gap-[1.5rem]">
         <SectionHeading eyebrow="Розрахунок">Кількість платівок</SectionHeading>
 
-        <Note className="max-w-none">
+        <Note>
           Противага показує обсяг замовлення, сума перераховується одразу. Це
           попередній розрахунок — остаточний фіксуємо після огляду.
         </Note>
 
-        <div className="grid gap-[1.5rem] lg:grid-cols-2 lg:items-start">
-          <div className="grid justify-items-start gap-[1.25rem]">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(17.5rem,1fr))] items-start gap-[1.5rem]">
+          <div className="flex flex-col items-start gap-[1.25rem]">
             <CounterweightKnob
               quantity={quantity}
               onQuantityChange={setQuantity}
             />
 
             <QuantityInput quantity={quantity} onQuantityChange={setQuantity} />
+
+            <Note>
+              Кількість можна ввести числом або накрутити противагою — це те
+              саме значення. Тариф залежить від обсягу:{' '}
+              {priceTierRanges()
+                .map(
+                  ({ rangeLabel, pricePerVinyl }) =>
+                    `${rangeLabel} — ${pricePerVinyl} ₴`,
+                )
+                .join(', ')}{' '}
+              за платівку.
+            </Note>
           </div>
 
           <PricePanel quantity={quantity} />
         </div>
-
-        <Note className="max-w-none">
-          Кількість можна ввести числом або накрутити противагою — це те саме
-          значення. Тариф залежить від обсягу:{' '}
-          {priceTierRanges()
-            .map(
-              ({ rangeLabel, pricePerVinyl }) =>
-                `${rangeLabel} — ${pricePerVinyl} ₴`,
-            )
-            .join(', ')}{' '}
-          за платівку.
-        </Note>
       </div>
     </Section>
   )
