@@ -66,9 +66,7 @@ export function ReviewForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-[1rem]"
-
     >
-
       <StarRatingField
         label="Оцінка"
         name="rating"

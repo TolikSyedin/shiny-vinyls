@@ -17,7 +17,9 @@ export function TextAreaField({
 }: TextAreaFieldProps) {
   return (
     <div className="flex flex-col gap-[0.5rem]">
-      <label className={error ? 'text-error' : ''} htmlFor={id}>{label}</label>
+      <label className={error ? 'text-error' : ''} htmlFor={id}>
+        {label}
+      </label>
       <textarea
         id={id}
         placeholder={placeholder}

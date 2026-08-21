@@ -20,7 +20,11 @@ export function CardGrid({
 }) {
   return (
     <div
-      className={cx('grid gap-[clamp(0.75rem,2vw,1.5rem)]', COLS[cols], className)}
+      className={cx(
+        'grid gap-[clamp(0.75rem,2vw,1.5rem)]',
+        COLS[cols],
+        className,
+      )}
     >
       {children}
     </div>
