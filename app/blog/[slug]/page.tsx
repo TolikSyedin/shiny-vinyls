@@ -11,6 +11,8 @@ export function generateStaticParams() {
   return BLOG_ARTICLES.map(({ slug }) => ({ slug }))
 }
 
+export const dynamicParams = false
+
 export async function generateMetadata({
   params,
 }: {
