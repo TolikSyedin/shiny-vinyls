@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type Ref } from 'react'
 import { FieldError } from '@/components/form-fields/field-error'
 import { StarIcon } from '@/components/icons'
+import { cx } from '@/lib/utils/cx'
 
 const STARS = [1, 2, 3, 4, 5] as const
 
@@ -12,6 +13,7 @@ type StarRatingFieldProps = {
   value?: number
   error?: string
   onChange: (rating: number) => void
+  ref: Ref<HTMLInputElement>
 }
 
 export function StarRatingField({
@@ -20,14 +22,22 @@ export function StarRatingField({
   value,
   error,
   onChange,
+  ref,
 }: StarRatingFieldProps) {
   const [hovered, setHovered] = useState<number | null>(null)
   const display = hovered ?? value ?? 0
 
   return (
-    <fieldset className="m-0 flex flex-col items-start gap-[7px] border-0 p-0">
+    <fieldset className="flex flex-col items-start gap-[0.5rem] border-0 p-0">
       <legend className={error ? 'text-error' : ''}>{label}</legend>
-      <div className="flex gap-1" onMouseLeave={() => setHovered(null)}>
+      <div
+        aria-invalid={Boolean(error)}
+        className={cx(
+          'mt-4 flex rounded-[0.1rem]',
+          error ? 'outline-1 outline-[var(--error)]' : '',
+        )}
+        onMouseLeave={() => setHovered(null)}
+      >
         {STARS.map((n) => {
           const id = `${name}-${n}`
           const filled = n <= display
@@ -36,7 +46,7 @@ export function StarRatingField({
               key={n}
               htmlFor={id}
               onMouseEnter={() => setHovered(n)}
-              className="cursor-pointer rounded-[2px] has-[:focus-visible]:outline-2 has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-[var(--stamp)]"
+              className="cursor-pointer rounded-[0.1rem] has-[:focus-visible]:outline-[0.1rem] has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-[var(--stamp)]"
             >
               <input
                 id={id}
@@ -44,6 +54,7 @@ export function StarRatingField({
                 name={name}
                 checked={value === n}
                 onChange={() => onChange(n)}
+                ref={n === 1 ? ref : undefined}
                 className="sr-only"
               />
               <StarIcon

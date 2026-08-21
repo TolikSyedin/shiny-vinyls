@@ -13,7 +13,7 @@ export function PageHeader({
   children?: ReactNode
 }) {
   return (
-    <section className="flex flex-col items-start gap-[20px] pt-[clamp(40px,6vw,72px)]">
+    <section className="flex flex-col items-start gap-[1.25rem] pt-[clamp(2.5rem,6vw,4.5rem)]">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h1>{title}</h1>
       {lead ? <Lead>{lead}</Lead> : null}

@@ -1,14 +1,15 @@
 .nav a {
   font-family: var(--f-mono);
-  font-size: 11px;
+  font-size: 0.6rem;
   letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .nav a:hover {
-  color: var(--ink);
-  text-decoration: none;
+  color: var(--stamp);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .nav a[aria-current='page'] {

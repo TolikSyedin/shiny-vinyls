@@ -4,9 +4,9 @@ import { cx } from '@/lib/utils/cx'
 type CardGridCols = 2 | 3 | 4
 
 const COLS: Record<CardGridCols, string> = {
-  2: 'grid-cols-[repeat(auto-fit,minmax(300px,1fr))]',
-  3: 'grid-cols-[repeat(auto-fit,minmax(250px,1fr))]',
-  4: 'grid-cols-[repeat(auto-fit,minmax(200px,1fr))]',
+  2: 'grid-cols-[repeat(auto-fit,minmax(18.75rem,1fr))]',
+  3: 'grid-cols-[repeat(auto-fit,minmax(15.75rem,1fr))]',
+  4: 'grid-cols-[repeat(auto-fit,minmax(12.5rem,1fr))]',
 }
 
 export function CardGrid({
@@ -20,7 +20,11 @@ export function CardGrid({
 }) {
   return (
     <div
-      className={cx('grid gap-[clamp(14px,2vw,22px)]', COLS[cols], className)}
+      className={cx(
+        'grid gap-[clamp(0.75rem,2vw,1.5rem)]',
+        COLS[cols],
+        className,
+      )}
     >
       {children}
     </div>

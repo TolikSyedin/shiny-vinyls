@@ -64,10 +64,7 @@ export function PitchFader() {
     const measure = rafThrottle(() => setFraction(computeScrollFraction()))
 
     setFraction(computeScrollFraction())
-    // `document`, not `window`: the root layout sets `overflow-x: hidden` on
-    // <html>, which makes the element its own scroll container. Scroll events
-    // don't bubble, so they're dispatched to `document` and never reach
-    // `window` — a window listener here silently never fires.
+    // Listen on the document so the fader tracks the root page scroll.
     document.addEventListener('scroll', measure, { passive: true })
     window.addEventListener('resize', measure)
     return () => {
