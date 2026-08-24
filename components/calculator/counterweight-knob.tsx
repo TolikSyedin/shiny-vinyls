@@ -55,7 +55,7 @@ export function CounterweightKnob({
   return (
     <div className="flex items-center gap-[1.5rem]">
       <svg
-        className="flex-none cursor-ew-resize touch-pan-y select-none focus-visible:rounded-full focus-visible:outline-[0.1rem_solid_var(--stamp)] focus-visible:-outline-offset-[0.75rem]"
+        className="flex-none cursor-ew-resize touch-pan-y select-none outline-none"
         width="92"
         height="92"
         viewBox="0 0 92 92"
