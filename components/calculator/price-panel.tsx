@@ -9,8 +9,6 @@ import {
 import { vinylsWord } from '@/lib/utils/plural'
 import { Card, Eyebrow, Mono, Note, Readout } from '@/components/ui'
 
-// The read-only half of the calculator: it derives everything from the
-// quantity it is given and holds no state of its own.
 export function PricePanel({ quantity }: { quantity: number }) {
   const value = clampQuantity(quantity)
   const perVinyl = pricePerVinyl(value)

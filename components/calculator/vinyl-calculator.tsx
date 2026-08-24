@@ -10,9 +10,6 @@ import { PricePanel } from './price-panel'
 
 const DEFAULT_QUANTITY = 13
 
-// Owns the quantity and hands it to all three parts. Purely a price beacon:
-// the real numbers are entered by hand in the request form, so nothing here is
-// submitted anywhere.
 export function VinylCalculator({
   initialQuantity = DEFAULT_QUANTITY,
 }: {

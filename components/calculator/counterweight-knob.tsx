@@ -6,8 +6,6 @@ import { vinylsWord } from '@/lib/utils/plural'
 import { Mono, Readout } from '@/components/ui'
 import { CounterweightKnobDial } from './counterweight-knob-dial'
 
-// How far the pointer travels sideways for one vinyl. Small enough that the
-// knob feels geared to the hand, large enough not to skip on a shaky drag.
 const PIXELS_PER_VINYL = 7
 
 function keyboardStep(key: string): number {
@@ -37,12 +35,8 @@ export function CounterweightKnob({
   const [isDragging, setIsDragging] = useState(false)
   const value = clampQuantity(quantity)
 
-  // Pointer moves arrive faster than React re-renders, so the drag maths reads
-  // the committed quantity from a ref instead of the render closure. Both
-  // gestures seed it from the current props before they touch it.
   const valueRef = useRef(value)
   const lastXRef = useRef(0)
-  // Sideways travel not yet worth a whole vinyl, carried into the next move.
   const remainderRef = useRef(0)
 
   function commit(next: number) {
