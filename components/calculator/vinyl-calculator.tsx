@@ -8,7 +8,7 @@ import { CounterweightKnob } from './counterweight-knob'
 import { QuantityInput } from './quantity-input'
 import { PricePanel } from './price-panel'
 
-const DEFAULT_QUANTITY = 12
+const DEFAULT_QUANTITY = 13
 
 // Owns the quantity and hands it to all three parts. Purely a price beacon:
 // the real numbers are entered by hand in the request form, so nothing here is
@@ -22,7 +22,7 @@ export function VinylCalculator({
 
   return (
     <Section>
-      <div className="grid gap-[1.5rem]">
+      <div className="flex flex-col gap-[1.5rem]">
         <SectionHeading eyebrow="Розрахунок">Кількість платівок</SectionHeading>
 
         <Note>
@@ -30,8 +30,8 @@ export function VinylCalculator({
           попередній розрахунок — остаточний фіксуємо після огляду.
         </Note>
 
-        <div className="grid gap-[1.5rem] lg:grid-cols-2 lg:items-start">
-          <div className="grid justify-items-start gap-[1.25rem]">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(17.5rem,1fr))] items-start gap-[1.5rem]">
+          <div className="flex flex-col items-start gap-[1.25rem]">
             <CounterweightKnob
               quantity={quantity}
               onQuantityChange={setQuantity}

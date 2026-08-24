@@ -18,7 +18,7 @@ export function PricePanel({ quantity }: { quantity: number }) {
 
   return (
     <Card>
-      <div className="grid gap-[1rem]">
+      <div className="flex flex-col gap-[1rem]">
         <Eyebrow>Попередня сума</Eyebrow>
 
         <Readout size="xl">{formatHryvnia(totalPrice(value))} ₴</Readout>
