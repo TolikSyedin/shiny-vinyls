@@ -47,6 +47,7 @@ export function QuantityInput({
             setDraft(null)
           }
         }}
+        onWheel={(event) => event.currentTarget.blur()}
         className="w-[6.5rem] text-center tabular-nums"
       />
     </div>
