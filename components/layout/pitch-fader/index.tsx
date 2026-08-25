@@ -48,6 +48,22 @@ function rafThrottle(fn: () => void) {
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect
 
+function scrollToFraction(fraction: number) {
+  const scrollHeight = document.documentElement.scrollHeight
+  const viewportHeight = window.innerHeight
+  if (scrollHeight <= viewportHeight) return
+  window.scrollTo({ top: fraction * (scrollHeight - viewportHeight) })
+}
+
+function fractionFromPointer(event: {
+  clientX: number
+  currentTarget: Element
+}) {
+  const rect = event.currentTarget.getBoundingClientRect()
+  const raw = (event.clientX - rect.left) / rect.width
+  return Math.min(1, Math.max(0, raw))
+}
+
 export function PitchFader() {
   // This component lives in the root layout and never unmounts across
   // client-side navigation, so without `pathname` as a dependency below,
@@ -55,6 +71,7 @@ export function PitchFader() {
   // the next scroll/resize on the new page.
   const pathname = usePathname()
   const [fraction, setFraction] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
 
   // Throttled to one measurement per animation frame so raw scroll events
   // don't trigger layout work on every pixel. A layout effect (not a plain
@@ -89,7 +106,24 @@ export function PitchFader() {
             <div className="pitch-fader__slot" />
           </div>
 
-          <div className="pitch-fader__travel">
+          <div
+            className="pitch-fader__travel"
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId)
+              setIsDragging(true)
+              const next = fractionFromPointer(event)
+              setFraction(next)
+              scrollToFraction(next)
+            }}
+            onPointerMove={(event) => {
+              if (!isDragging) return
+              const next = fractionFromPointer(event)
+              setFraction(next)
+              scrollToFraction(next)
+            }}
+            onPointerUp={() => setIsDragging(false)}
+            onPointerCancel={() => setIsDragging(false)}
+          >
             <div
               className="pitch-fader__trail"
               style={{ width: `${fraction * 100}%` }}

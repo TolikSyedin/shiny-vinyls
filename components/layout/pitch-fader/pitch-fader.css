@@ -118,6 +118,8 @@
   inset-block: 0;
   left: 1.05rem;
   right: 1.05rem;
+  touch-action: none;
+  cursor: ew-resize;
 }
 
 .pitch-fader__trail {
