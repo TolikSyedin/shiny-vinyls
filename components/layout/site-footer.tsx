@@ -4,6 +4,27 @@ import { Mono, Wordmark } from '@/components/ui'
 const LINK_CLASS_NAME =
   'text-[0.88rem] text-[var(--muted)] no-underline hover:text-[var(--ink)]'
 
+type FooterLink = { href: string; label: string; external?: boolean }
+
+const FOOTER_LINK_COLUMNS: FooterLink[][] = [
+  [
+    { href: '/how-it-works', label: 'Послуга' },
+    { href: '/reviews', label: 'Відгуки' },
+  ],
+  [
+    { href: '/request', label: 'Заявка' },
+    { href: '/contacts', label: 'Контакти' },
+  ],
+  [
+    { href: 'tel:+38067XXXXXXX', label: '+38 067 XXX XX XX', external: true },
+    {
+      href: 'https://t.me/dirtyenterta1n3r',
+      label: 'Telegram',
+      external: true,
+    },
+  ],
+]
+
 export function SiteFooter() {
   return (
     <footer className="mt-4 md:mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
@@ -12,30 +33,24 @@ export function SiteFooter() {
           <Wordmark size="sm">Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
         </div>
-        <div className="flex flex-col items-start gap-[0.5rem]">
-          <Link href="/how-it-works" className={LINK_CLASS_NAME}>
-            Послуга
-          </Link>
-          <Link href="/reviews" className={LINK_CLASS_NAME}>
-            Відгуки
-          </Link>
-        </div>
-        <div className="flex flex-col items-start gap-[0.5rem]">
-          <Link href="/request" className={LINK_CLASS_NAME}>
-            Заявка
-          </Link>
-          <Link href="/contacts" className={LINK_CLASS_NAME}>
-            Контакти
-          </Link>
-        </div>
-        <div className="flex flex-col items-start gap-[0.5rem]">
-          <a href="tel:+38067XXXXXXX" className={LINK_CLASS_NAME}>
-            +38 067 XXX XX XX
-          </a>
-          <a href="https://t.me/dirtyenterta1n3r" className={LINK_CLASS_NAME}>
-            Telegram
-          </a>
-        </div>
+        {FOOTER_LINK_COLUMNS.map((column) => (
+          <div
+            key={column[0].href}
+            className="flex flex-col items-start gap-[0.5rem]"
+          >
+            {column.map(({ href, label, external }) =>
+              external ? (
+                <a key={href} href={href} className={LINK_CLASS_NAME}>
+                  {label}
+                </a>
+              ) : (
+                <Link key={href} href={href} className={LINK_CLASS_NAME}>
+                  {label}
+                </Link>
+              ),
+            )}
+          </div>
+        ))}
       </div>
     </footer>
   )
