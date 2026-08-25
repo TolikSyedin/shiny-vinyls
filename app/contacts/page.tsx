@@ -10,6 +10,7 @@ import {
   PriceTag,
   Row,
 } from '@/components/ui'
+import { ContactForm } from '@/components/forms'
 import { cx } from '@/lib/utils/cx'
 import { CONTACT_INFO } from '@/lib/data/contact-info/constants'
 
@@ -122,16 +123,23 @@ export default function ContactsPage() {
 
       <Section>
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
-        <NeedleList items={PACKING_TIPS} className="mt-[1.375rem] max-w-[60ch]" />
+        <NeedleList items={PACKING_TIPS} className="mt-[1.5rem] max-w-[60ch]" />
         <Note fullWidth className="mt-[1.125rem]">
           Зворотна відправка — за наш рахунок, якщо в замовленні більше 10 платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
-        <Row className="mt-[1.75rem]">
+        <Row className="mt-[1.5rem]">
           <CtaLink href="/request">Залишити заявку</CtaLink>
           <CtaLink href="/how-it-works" variant="ghost">
             Подивитися ціни
           </CtaLink>
         </Row>
+      </Section>
+
+      <Section>
+        <SectionHeading eyebrow="Написати нам">
+          Залишити повідомлення
+        </SectionHeading>
+        <ContactForm />
       </Section>
     </PageContainer>
   )

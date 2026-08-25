@@ -34,6 +34,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_messages: {
+        Row: {
+          contact: string
+          created_at: string
+          id: string
+          message: string
+          name: string
+        }
+        Insert: {
+          contact: string
+          created_at?: string
+          id?: string
+          message: string
+          name: string
+        }
+        Update: {
+          contact?: string
+          created_at?: string
+          id?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
       request_audit_log: {
         Row: {
           changed_at: string

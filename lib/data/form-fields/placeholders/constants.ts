@@ -4,6 +4,8 @@ export const PLACEHOLDERS = {
   COMMENT_PLACEHOLDER:
     "Кілька слів про платівки, які треба почистити (необов'язково)",
   REVIEW_TEXT_PLACEHOLDER: 'Розкажіть про свій досвід',
+  CONTACT_PLACEHOLDER: '+380XX XXX XX XX або @nickname',
+  MESSAGE_PLACEHOLDER: 'Ваше повідомлення',
   EMAIL_PLACEHOLDER: 'you@example.com',
   PASSWORD_PLACEHOLDER: '••••••••',
 }
@@ -13,6 +15,8 @@ export const {
   PHONE_PLACEHOLDER,
   COMMENT_PLACEHOLDER,
   REVIEW_TEXT_PLACEHOLDER,
+  CONTACT_PLACEHOLDER,
+  MESSAGE_PLACEHOLDER,
   EMAIL_PLACEHOLDER,
   PASSWORD_PLACEHOLDER,
 } = PLACEHOLDERS
