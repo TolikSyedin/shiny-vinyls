@@ -19,6 +19,10 @@ const PACKING_TIPS = [
   'Щільна коробка з запасом 2–3 см з кожного боку, порожнини заповніть папером.',
 ]
 
+const MAP_EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
+  `${CONTACT_INFO.address.street}, ${CONTACT_INFO.address.city}`,
+)}&output=embed`
+
 export const metadata = {
   title: 'Контакти — Shiny Vinyls',
 }
@@ -104,6 +108,15 @@ export default function ContactsPage() {
               ))}
             </div>
           </Card>
+        </div>
+        <div className="mt-[1.5rem] overflow-hidden rounded-[0.3rem] border border-[var(--rule)]">
+          <iframe
+            src={MAP_EMBED_SRC}
+            title="Shiny Vinyls на мапі"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="aspect-[16/9] w-full border-0 dark:invert dark:hue-rotate-180 md:aspect-[21/9]"
+          />
         </div>
       </Section>
 
