@@ -38,7 +38,7 @@ function ColumnContentRow({
         {meta ? <Mono className="uppercase tracking-[0.08em]">{meta}</Mono> : null}
       </div>
       {title ? <h3 className="mt-[0.5rem] text-[var(--stamp)]">{title}</h3> : null}
-      <Note className="mt-[0.5rem] max-w-none">{body}</Note>
+      <Note fullWidth className="mt-[0.5rem]">{body}</Note>
     </>
   )
 
