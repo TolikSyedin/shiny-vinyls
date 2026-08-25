@@ -12,7 +12,7 @@ export function SiteFooter() {
           <Wordmark size="sm">Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
         </div>
-        <div className="flex flex-col gap-[0.5rem]">
+        <div className="flex flex-col items-start gap-[0.5rem]">
           <Link href="/how-it-works" className={LINK_CLASS_NAME}>
             Послуга
           </Link>
@@ -20,7 +20,7 @@ export function SiteFooter() {
             Відгуки
           </Link>
         </div>
-        <div className="flex flex-col gap-[0.5rem]">
+        <div className="flex flex-col items-start gap-[0.5rem]">
           <Link href="/request" className={LINK_CLASS_NAME}>
             Заявка
           </Link>
@@ -28,7 +28,7 @@ export function SiteFooter() {
             Контакти
           </Link>
         </div>
-        <div className="flex flex-col gap-[0.5rem]">
+        <div className="flex flex-col items-start gap-[0.5rem]">
           <a href="tel:+38067XXXXXXX" className={LINK_CLASS_NAME}>
             +38 067 XXX XX XX
           </a>
