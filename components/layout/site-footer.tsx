@@ -7,7 +7,7 @@ const LINK_CLASS_NAME =
 export function SiteFooter() {
   return (
     <footer className="mt-4 md:mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
-      <div className="mx-auto flex max-w-[70rem] flex-wrap items-start justify-between gap-[1.5rem] px-[clamp(1rem,4vw,2.5rem)] py-[2rem]">
+      <div className="mx-auto flex max-w-[70rem] flex-col gap-[1.5rem] px-[clamp(1rem,4vw,2.5rem)] py-[2rem] sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
         <div className="flex flex-col gap-[0.5rem]">
           <Wordmark size="sm">Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
