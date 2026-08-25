@@ -9,6 +9,7 @@ import {
   MIN,
   TICKS,
 } from '@/lib/data/layout/pitch-fader/constants'
+import { PitchFaderCompact } from './compact'
 import { PitchFaderThumb } from './thumb'
 import './pitch-fader.css'
 
@@ -47,6 +48,22 @@ function rafThrottle(fn: () => void) {
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect
 
+function scrollToFraction(fraction: number) {
+  const scrollHeight = document.documentElement.scrollHeight
+  const viewportHeight = window.innerHeight
+  if (scrollHeight <= viewportHeight) return
+  window.scrollTo({ top: fraction * (scrollHeight - viewportHeight) })
+}
+
+function fractionFromPointer(event: {
+  clientX: number
+  currentTarget: Element
+}) {
+  const rect = event.currentTarget.getBoundingClientRect()
+  const raw = (event.clientX - rect.left) / rect.width
+  return Math.min(1, Math.max(0, raw))
+}
+
 export function PitchFader() {
   // This component lives in the root layout and never unmounts across
   // client-side navigation, so without `pathname` as a dependency below,
@@ -54,6 +71,7 @@ export function PitchFader() {
   // the next scroll/resize on the new page.
   const pathname = usePathname()
   const [fraction, setFraction] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
 
   // Throttled to one measurement per animation frame so raw scroll events
   // don't trigger layout work on every pixel. A layout effect (not a plain
@@ -77,50 +95,73 @@ export function PitchFader() {
   const isCentered = Math.abs(fraction - 0.5) <= CENTER_LED_THRESHOLD
 
   return (
-    <div aria-hidden="true" className="pitch-fader">
-      <div className="pitch-fader__frame">
-        <div className="pitch-fader__groove">
-          <div className="pitch-fader__slot" />
-        </div>
+    <>
+      <div className="hidden fader-compact:block">
+        <PitchFaderCompact fraction={fraction} />
+      </div>
 
-        <div className="pitch-fader__travel">
+      <div aria-hidden="true" className="pitch-fader fader-compact:hidden">
+        <div className="pitch-fader__frame">
+          <div className="pitch-fader__groove">
+            <div className="pitch-fader__slot" />
+          </div>
+
           <div
-            className="pitch-fader__trail"
-            style={{ width: `${fraction * 100}%` }}
-          />
-          <div
-            className="pitch-fader__thumb"
-            style={{ left: `${fraction * 100}%` }}
+            className="pitch-fader__travel"
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId)
+              setIsDragging(true)
+              const next = fractionFromPointer(event)
+              setFraction(next)
+              scrollToFraction(next)
+            }}
+            onPointerMove={(event) => {
+              if (!isDragging) return
+              const next = fractionFromPointer(event)
+              setFraction(next)
+              scrollToFraction(next)
+            }}
+            onPointerUp={() => setIsDragging(false)}
+            onPointerCancel={() => setIsDragging(false)}
           >
-            <PitchFaderThumb />
+            <div
+              className="pitch-fader__trail"
+              style={{ width: `${fraction * 100}%` }}
+            />
+            <div
+              className="pitch-fader__thumb"
+              style={{ left: `${fraction * 100}%` }}
+            >
+              <PitchFaderThumb />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="pitch-fader__ticks">
-        {TICKS.map((value) => {
-          const isMajor = value % MAJOR_STEP === 0
-          return (
-            <div
-              key={value}
-              className={`pitch-fader__tick pitch-fader__tick--${isMajor ? 'major' : 'minor'}`}
-              style={{ left: `${((value - MIN) / (MAX - MIN)) * 100}%` }}
-            >
-              {isMajor && value === 0 && (
-                <div
-                  className={`pitch-fader__led ${isCentered ? 'pitch-fader__led--on' : ''}`}
-                />
-              )}
-              {isMajor && value !== 0 && (
-                <span className="pitch-fader__num">
-                  {value > 0 ? `+${value}` : value}
-                </span>
-              )}
-              <span className="pitch-fader__mark" />
-            </div>
-          )
-        })}
+        <div className="pitch-fader__ticks">
+          {TICKS.map((value) => {
+            const isMajor = value % MAJOR_STEP === 0
+            return (
+              <div
+                key={value}
+                className={`pitch-fader__tick pitch-fader__tick--${isMajor ? 'major' : 'minor'}`}
+                style={{ left: `${((value - MIN) / (MAX - MIN)) * 100}%` }}
+              >
+                {isMajor && value === 0 && (
+                  <div
+                    className={`pitch-fader__led ${isCentered ? 'pitch-fader__led--on' : ''}`}
+                  />
+                )}
+                {isMajor && value !== 0 && (
+                  <span className="pitch-fader__num">
+                    {value > 0 ? `+${value}` : value}
+                  </span>
+                )}
+                <span className="pitch-fader__mark" />
+              </div>
+            )
+          })}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
