@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant fader-compact (@media (max-height: 430px) and (orientation: landscape));
 
 :root {
   --background: var(--surface);
