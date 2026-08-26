@@ -1,7 +1,7 @@
 .pitch-fader {
   padding: 0.5rem 2rem;
   background: var(--metal);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--rule);
 }
 
 .dark .pitch-fader {
@@ -11,7 +11,7 @@
 .pitch-fader__led {
   width: 0.5rem;
   height: 0.75rem;
-  border-radius: 0.15rem;
+  border-radius: 0.3rem;
   background: #2f5c3a;
   transition:
     background-color 120ms ease,
@@ -89,7 +89,7 @@
   margin: 0 -0.5rem 0.4rem;
   padding: 0.5rem 0;
   border: 1px solid var(--metal-edge);
-  border-radius: 0.2rem;
+  border-radius: 0.3rem;
 }
 
 .pitch-fader__groove {
@@ -147,7 +147,7 @@
 
 .pitch-fader-compact {
   height: 2px;
-  background: var(--border);
+  background: var(--rule);
 }
 
 .pitch-fader-compact__fill {

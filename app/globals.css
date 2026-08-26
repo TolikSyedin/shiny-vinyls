@@ -7,7 +7,6 @@
   --background: var(--surface);
   --foreground: var(--ink);
   --muted-foreground: #737373;
-  --border: #e5e5e5;
   --surface: #d9d8ce;
   --surface-2: #edece5;
   --ink: #17151a;
@@ -39,7 +38,6 @@
   --background: var(--surface);
   --foreground: var(--ink);
   --muted-foreground: #a3a3a3;
-  --border: #424242;
   --surface: #261f32;
   --surface-2: #1b1822;
   --ink: #f0ece4;
