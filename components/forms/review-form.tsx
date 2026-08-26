@@ -63,10 +63,7 @@ export function ReviewForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-[1rem]"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       <StarRatingField
         label="Оцінка"
         name="rating"
@@ -97,9 +94,11 @@ export function ReviewForm() {
 
       <FieldError message={submitError ?? undefined} />
 
-      <div className="self-start">
-        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
-      </div>
+      <SubmitButton
+        className="self-start"
+        isSubmitting={isSubmitting}
+        label="Залишити відгук"
+      />
     </form>
   )
 }

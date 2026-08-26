@@ -9,7 +9,7 @@ export function Row({
   className?: string
 }) {
   return (
-    <div className={cx('flex flex-wrap items-center gap-[0.75rem]', className)}>
+    <div className={cx('flex flex-wrap items-center gap-4', className)}>
       {children}
     </div>
   )

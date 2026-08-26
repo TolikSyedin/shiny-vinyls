@@ -37,7 +37,7 @@ export default function ContactsPage() {
         lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо замовлення по всій Україні. м. Київ. Самовивіз / доставка"
       />
 
-      <Note fullWidth className="mt-[1.5rem]">
+      <Note className="mt-[1.5rem]">
         Можна звʼязатися з нами будь-яким зручним способом. Найшвидше — через
         Telegram.
       </Note>
@@ -132,7 +132,7 @@ export default function ContactsPage() {
       <Section>
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
         <NeedleList items={PACKING_TIPS} className="mt-[1.5rem]" />
-        <Note fullWidth className="mt-[1.125rem]">
+        <Note className="mt-[1.125rem]">
           Зворотня відправка — за наш рахунок, якщо в замовленні більше 10
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>

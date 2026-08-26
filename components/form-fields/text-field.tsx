@@ -23,7 +23,7 @@ export function TextField({
   ...registerProps
 }: TextFieldProps) {
   return (
-    <div className={cx('flex flex-col gap-[0.5rem]', className)}>
+    <div className={cx('flex flex-col gap-4', className)}>
       <label className={error ? 'text-error' : ''} htmlFor={id}>
         {label}
       </label>

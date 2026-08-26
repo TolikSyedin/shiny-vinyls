@@ -22,7 +22,7 @@ export function VinylCalculator({
       <div className="flex flex-col gap-[1.5rem]">
         <SectionHeading eyebrow="Розрахунок">Кількість платівок</SectionHeading>
 
-        <Note fullWidth>
+        <Note>
           Противага показує обсяг замовлення, сума перераховується одразу. Це
           попередній розрахунок — остаточний фіксуємо після огляду.
         </Note>

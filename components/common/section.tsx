@@ -12,7 +12,7 @@ export function Section({
   return (
     <section
       className={cx(
-        'mt-[clamp(1rem,2vw,3rem)] border-t border-[var(--rule)] pt-[1.5rem]',
+        'flex flex-col gap-4 border-t border-[var(--rule)] pt-8',
         className,
       )}
     >
@@ -21,8 +21,6 @@ export function Section({
   )
 }
 
-// Label plus section title. Headings themselves carry no margin, so the gap
-// between the two lives here — the one place that decides it.
 export function SectionHeading({
   eyebrow,
   children,
@@ -31,7 +29,7 @@ export function SectionHeading({
   children: ReactNode
 }) {
   return (
-    <div className="flex flex-col items-start gap-[0.6rem]">
+    <div className="flex flex-col items-start gap-4">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2>{children}</h2>
     </div>

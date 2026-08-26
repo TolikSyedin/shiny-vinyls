@@ -28,12 +28,12 @@ export function StarRatingField({
   const display = hovered ?? value ?? 0
 
   return (
-    <fieldset className="flex flex-col items-start gap-[0.5rem] border-0 p-0">
+    <fieldset className="flex flex-col items-start gap-4 border-0 p-0">
       <legend className={error ? 'text-error' : ''}>{label}</legend>
       <div
         aria-invalid={Boolean(error)}
         className={cx(
-          'mt-4 flex rounded-[0.1rem]',
+          'flex rounded-[0.1rem]',
           error ? 'outline-1 outline-[var(--error)]' : '',
         )}
         onMouseLeave={() => setHovered(null)}

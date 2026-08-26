@@ -23,7 +23,7 @@ function ColumnContentRow({
   className,
 }: ColumnContentItem & { className?: string }) {
   const classes = cx(
-    'block rounded-[0.3rem] border border-[var(--rule)] p-[clamp(1rem,2.5vw,1.5rem)] text-[var(--ink)]',
+    'flex flex-col gap-4 rounded-[0.3rem] border border-[var(--rule)] p-4 text-[var(--ink)]',
     highlight
       ? 'relative z-10 border-[var(--stamp)] bg-[var(--stamp)]/10'
       : 'bg-[var(--surface-2)]',
@@ -31,7 +31,7 @@ function ColumnContentRow({
   )
   const content = (
     <>
-      <div className="flex flex-wrap items-center gap-[0.5rem]">
+      <div className="flex flex-wrap items-center gap-4">
         <Mono
           tone={highlight ? 'stamp' : 'muted'}
           className="uppercase tracking-[0.08em]"
@@ -42,12 +42,8 @@ function ColumnContentRow({
           <Mono className="uppercase tracking-[0.08em]">{meta}</Mono>
         ) : null}
       </div>
-      {title ? (
-        <h3 className="mt-[0.5rem] text-[var(--stamp)]">{title}</h3>
-      ) : null}
-      <Note fullWidth className="mt-[0.5rem]">
-        {body}
-      </Note>
+      {title ? <h3 className="text-[var(--stamp)]">{title}</h3> : null}
+      <Note>{body}</Note>
     </>
   )
 
@@ -78,16 +74,12 @@ export function ColumnContentSection({
   return (
     <Section>
       <SectionHeading eyebrow={eyebrow}>{heading}</SectionHeading>
-      <div className="mt-[1.5rem] flex flex-col">
-        {items.map((item, index) => (
-          <ColumnContentRow
-            key={item.kicker}
-            {...item}
-            className={index > 0 ? 'mt-[2px]' : undefined}
-          />
+      <div className="flex flex-col gap-4">
+        {items.map((item) => (
+          <ColumnContentRow key={item.kicker} {...item} />
         ))}
       </div>
-      {footnote ? <Note className="mt-[1.125rem]">{footnote}</Note> : null}
+      {footnote ? <Note>{footnote}</Note> : null}
       {children}
     </Section>
   )
