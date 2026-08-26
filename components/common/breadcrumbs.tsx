@@ -15,10 +15,17 @@ export function Breadcrumbs({
   className?: string
 }) {
   return (
-    <nav aria-label="Breadcrumb" className={cx('flex flex-wrap items-center gap-[0.5rem]', className)}>
+    <nav
+      aria-label="Breadcrumb"
+      className={cx('flex flex-wrap items-center gap-[0.5rem]', className)}
+    >
       {items.map(({ label, href }) =>
         href ? (
-          <Link key={label} href={href} className={cx(EYEBROW_CLASS, 'hover:text-[var(--stamp)]')}>
+          <Link
+            key={label}
+            href={href}
+            className={cx(EYEBROW_CLASS, 'hover:text-[var(--stamp)]')}
+          >
             {label}
           </Link>
         ) : (

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Mono, Wordmark } from '@/components/ui'
+import { CONTACT_INFO } from '@/lib/data/contact-info/constants'
 
 const LINK_CLASS_NAME =
   'text-[0.88rem] text-[var(--muted)] no-underline hover:text-[var(--ink)]'
@@ -16,12 +17,12 @@ const FOOTER_LINK_COLUMNS: FooterLink[][] = [
     { href: '/contacts', label: 'Контакти' },
   ],
   [
-    { href: 'tel:+38067XXXXXXX', label: '+38 067 XXX XX XX', external: true },
     {
-      href: 'https://t.me/dirtyenterta1n3r',
-      label: 'Telegram',
+      href: `tel:${CONTACT_INFO.phone.raw}`,
+      label: CONTACT_INFO.phone.display,
       external: true,
     },
+    { href: CONTACT_INFO.telegram.url, label: 'Telegram', external: true },
   ],
 ]
 

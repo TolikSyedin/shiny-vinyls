@@ -14,6 +14,12 @@ type NewReviewNotification = {
   adminUrl: string
 }
 
+type NewContactMessageNotification = {
+  name: string
+  contact: string
+  message: string
+}
+
 // Telegram's parse_mode: 'HTML' requires escaping any user-supplied text
 // interpolated into the message — an unescaped `<`/`&` (e.g. in a client's
 // comment) would make sendMessage fail with "can't parse entities", which
@@ -82,6 +88,17 @@ export function formatNewReviewMessage(input: NewReviewNotification): string {
   ].join('\n')
 }
 
+export function formatNewContactMessage(
+  input: NewContactMessageNotification,
+): string {
+  return [
+    `Нове повідомлення з форми контактів:`,
+    `Ім'я: ${escapeHtml(input.name)}`,
+    `Контакт: ${escapeHtml(input.contact)}`,
+    `Повідомлення: ${escapeHtml(input.message)}`,
+  ].join('\n')
+}
+
 // Token-agnostic on purpose: shared by the admin bot (notifyAdmin) and the
 // client bot (notifyClient) below — each passes its own bot token.
 async function sendTelegramMessage(
@@ -140,6 +157,12 @@ export async function notifyNewReview(
   input: NewReviewNotification,
 ): Promise<void> {
   await notifyAdmin(formatNewReviewMessage(input))
+}
+
+export async function notifyNewContactMessage(
+  input: NewContactMessageNotification,
+): Promise<void> {
+  await notifyAdmin(formatNewContactMessage(input))
 }
 
 export async function notifyClient(

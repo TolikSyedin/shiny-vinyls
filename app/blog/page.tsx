@@ -20,28 +20,29 @@ export default function BlogPage() {
       >
         <Note>
           Три тексти, які покривають майже все, що питають перед замовленням:
-          чим ультразвук відрізняється від вакуумної мийки, як помити
-          платівку самому, і звідки береться тріск.
+          чим ультразвук відрізняється від вакуумної мийки, як помити платівку
+          самому, і звідки береться тріск.
         </Note>
       </PageHeader>
 
       <ColumnContentSection
         eyebrow="Читати"
         heading="Три тексти"
-        items={BLOG_ARTICLES.map(({ slug, category, readingTime, title, indexNote }) => ({
-          href: `/blog/${slug}`,
-          kicker: category,
-          meta: readingTime,
-          title,
-          body: indexNote,
-        }))}
+        items={BLOG_ARTICLES.map(
+          ({ slug, category, readingTime, title, indexNote }) => ({
+            href: `/blog/${slug}`,
+            kicker: category,
+            meta: readingTime,
+            title,
+            body: indexNote,
+          }),
+        )}
       />
 
       <Note className="mt-[2rem]">
-        Далі в планах: чи варто чистити нові платівки з магазину, і як
-        зберігати колекцію в квартирі. Якщо є питання, на яке немає
-        нормальної відповіді українською —{' '}
-        <Link href="/contacts">напишіть нам</Link>
+        Далі в планах: чи варто чистити нові платівки з магазину, і як зберігати
+        колекцію в квартирі. Якщо є питання, на яке немає нормальної відповіді
+        українською — <Link href="/contacts">напишіть нам</Link>
       </Note>
     </PageContainer>
   )
