@@ -1,11 +1,9 @@
 import type { ReactNode } from 'react'
-import { cx } from '@/lib/utils/cx'
 
 export type AdminTableColumn<T> = {
   key: string
-  header: string
+  header?: string
   cell: (row: T) => ReactNode
-  className?: string
 }
 
 export function AdminTable<T>({
@@ -33,7 +31,7 @@ export function AdminTable<T>({
           {rows.map((row) => (
             <tr key={rowKey(row)} className="border-b border-[var(--rule)]">
               {columns.map((column) => (
-                <td key={column.key} className={cx('p-2', column.className)}>
+                <td key={column.key} className="p-2">
                   {column.cell(row)}
                 </td>
               ))}

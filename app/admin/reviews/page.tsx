@@ -22,8 +22,7 @@ const columns: AdminTableColumn<ReviewRow>[] = [
   {
     key: 'text',
     header: 'Текст',
-    cell: (review) => review.text,
-    className: 'max-w-sm',
+    cell: (review) => <div className="max-w-sm">{review.text}</div>,
   },
   {
     key: 'status',
