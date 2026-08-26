@@ -133,7 +133,7 @@ export default function ContactsPage() {
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
         <NeedleList items={PACKING_TIPS} className="mt-[1.5rem]" />
         <Note fullWidth className="mt-[1.125rem]">
-          Зворотна відправка — за наш рахунок, якщо в замовленні більше 10
+          Зворотня відправка — за наш рахунок, якщо в замовленні більше 10
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
         <Row className="mt-[1.5rem]">
