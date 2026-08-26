@@ -36,10 +36,7 @@ export default async function RequestStatusPage({
       </PageHeader>
       {botUsername && (
         <CtaSection>
-          <CtaLink
-            href={`https://t.me/${botUsername}?start=${result.id}`}
-            variant="ghost"
-          >
+          <CtaLink href={`https://t.me/${botUsername}?start=${result.id}`}>
             Слідкувати за статусом замовлення в Telegram
           </CtaLink>
         </CtaSection>
