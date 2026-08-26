@@ -20,7 +20,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-30">
-      <div className="relative flex items-center justify-between border-b border-border bg-background p-4">
+      <div className="relative flex items-center justify-between border-b border-[var(--rule)] bg-[var(--surface)] p-4">
         <BrandLink ref={brandRef} />
         <SiteNav />
         <div className="flex items-center gap-4">

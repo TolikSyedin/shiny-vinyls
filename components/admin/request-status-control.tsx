@@ -59,7 +59,7 @@ export function RequestStatusControl({
           type="button"
           disabled={isUpdating}
           onClick={() => handleTransition(next)}
-          className="rounded-md border border-border p-1 text-sm disabled:opacity-50"
+          className="rounded-md border border-[var(--rule)] p-1 text-sm disabled:opacity-50"
         >
           → {adminRequestStatusLabels[next]}
         </button>
