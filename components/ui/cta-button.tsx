@@ -10,7 +10,7 @@ const BASE =
 
 const SIZE: Record<CtaSize, string> = {
   default: 'cta px-6 py-4',
-  sm: 'cta-sm px-4 py-2',
+  sm: 'cta px-4 py-2',
 }
 
 const VARIANT: Record<CtaVariant, string> = {

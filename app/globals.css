@@ -308,9 +308,4 @@
     font-size: var(--text-xs);
     letter-spacing: var(--ls);
   }
-
-  .cta-sm {
-    font-size: var(--text-xs);
-    letter-spacing: var(--ls);
-  }
 }
