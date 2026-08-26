@@ -9,6 +9,7 @@ import {
 import { notifyClient } from '@/lib/telegram/telegram'
 import { requestStatusLabels } from '@/lib/data/request-statuses/constants'
 import { REQUEST_STATUSES } from '@/types/database'
+import { readJsonBody } from '@/lib/api/json-body'
 
 const patchSchema = z.object({
   status: z.enum(REQUEST_STATUSES),
@@ -19,8 +20,11 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params
-  const body = await req.json()
-  const parsed = patchSchema.safeParse(body)
+
+  const body = await readJsonBody(req)
+  if (!body.ok) return body.response
+
+  const parsed = patchSchema.safeParse(body.data)
 
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 })

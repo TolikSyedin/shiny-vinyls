@@ -2,16 +2,13 @@ import { NextResponse, after } from 'next/server'
 import { contactMessageSchema } from '@/lib/schemas/contact-message'
 import { createContactMessage } from '@/lib/repositories/contact-messages'
 import { notifyNewContactMessage } from '@/lib/telegram/telegram'
+import { readJsonBody } from '@/lib/api/json-body'
 
 export async function POST(req: Request) {
-  let body: unknown
-  try {
-    body = await req.json()
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
-  }
+  const body = await readJsonBody(req)
+  if (!body.ok) return body.response
 
-  const parsed = contactMessageSchema.safeParse(body)
+  const parsed = contactMessageSchema.safeParse(body.data)
 
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 })

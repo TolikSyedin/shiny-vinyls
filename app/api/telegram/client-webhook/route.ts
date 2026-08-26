@@ -51,7 +51,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const update = await req.json()
+  // A malformed body is treated the same as an update with nothing to act
+  // on: acknowledge with 200 so Telegram doesn't retry or disable the
+  // webhook over it.
+  let update: { message?: { chat?: { id?: unknown }; text?: unknown } }
+  try {
+    update = await req.json()
+  } catch {
+    return NextResponse.json({ ok: true })
+  }
+
   const chatId = update?.message?.chat?.id
   const text = update?.message?.text
 
