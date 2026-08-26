@@ -15,10 +15,7 @@ const PHONE_CHARS_REGEX = /^[\d+()\-\s]+$/
 const TELEGRAM_HANDLE_REGEX = /^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/
 
 function isPhoneLike(value: string): boolean {
-  return (
-    PHONE_CHARS_REGEX.test(value) &&
-    (value.match(/\d/g) ?? []).length >= 7
-  )
+  return PHONE_CHARS_REGEX.test(value) && (value.match(/\d/g) ?? []).length >= 7
 }
 
 export const contactMessageSchema = z.object({

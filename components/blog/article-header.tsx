@@ -11,7 +11,9 @@ export function ArticleHeader({
   return (
     <header className="flex flex-col items-start gap-[1.25rem] pt-[clamp(2.5rem,6vw,4.5rem)]">
       <div className="flex flex-wrap items-center gap-[0.5rem]">
-        <Breadcrumbs items={[{ label: 'Блог', href: '/blog' }, { label: category }]} />
+        <Breadcrumbs
+          items={[{ label: 'Блог', href: '/blog' }, { label: category }]}
+        />
         <Eyebrow>{readingTime}</Eyebrow>
       </div>
       <h1>{title}</h1>

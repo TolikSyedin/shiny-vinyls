@@ -26,9 +26,17 @@ export function ArticleTable({
         </thead>
         <tbody>
           {rows.map((row, rowIndex) => (
-            <tr key={row[0]} className={rowIndex > 0 ? 'border-t border-[var(--rule)]' : undefined}>
+            <tr
+              key={row[0]}
+              className={
+                rowIndex > 0 ? 'border-t border-[var(--rule)]' : undefined
+              }
+            >
               {row.map((cell, cellIndex) => (
-                <td key={cellIndex} className="px-[0.9rem] py-[0.6rem] align-top">
+                <td
+                  key={cellIndex}
+                  className="px-[0.9rem] py-[0.6rem] align-top"
+                >
                   {cell}
                 </td>
               ))}

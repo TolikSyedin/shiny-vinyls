@@ -45,7 +45,9 @@ export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
               </Callout>
             )
           case 'table':
-            return <ArticleTable key={index} head={block.head} rows={block.rows} />
+            return (
+              <ArticleTable key={index} head={block.head} rows={block.rows} />
+            )
           default:
             return null
         }

@@ -38,11 +38,14 @@ export default function ContactsPage() {
       />
 
       <Note fullWidth className="mt-[1.5rem]">
-        Можна зв'язатися з нами будь-яким зручним способом. Найшвидше — через Telegram.
+        Можна зв'язатися з нами будь-яким зручним способом. Найшвидше — через
+        Telegram.
       </Note>
 
       <Section>
-        <SectionHeading eyebrow="Зв'язок">Оберіть найзручніший для вас варіант</SectionHeading>
+        <SectionHeading eyebrow="Зв'язок">
+          Оберіть найзручніший для вас варіант
+        </SectionHeading>
         <CardGrid cols={3} className="mt-[1.5rem]">
           <Card>
             <Mono tone="stamp">Телефон</Mono>
@@ -59,7 +62,10 @@ export default function ContactsPage() {
           </Card>
           <Card>
             <Mono tone="stamp">Telegram</Mono>
-            <a href={CONTACT_INFO.telegram.url} className="font-mono text-[1rem]">
+            <a
+              href={CONTACT_INFO.telegram.url}
+              className="font-mono text-[1rem]"
+            >
               {CONTACT_INFO.telegram.handle}
             </a>
             <Note>Можна одразу надіслати фото стану платівок</Note>
@@ -78,7 +84,9 @@ export default function ContactsPage() {
       </Section>
 
       <Section>
-        <SectionHeading eyebrow="Самовивіз">Адреса і графік роботи</SectionHeading>
+        <SectionHeading eyebrow="Самовивіз">
+          Адреса і графік роботи
+        </SectionHeading>
         <div className="mt-[1.5rem] grid gap-[1.5rem] md:grid-cols-2">
           <div className="flex flex-col items-start gap-[0.875rem]">
             <p className="text-[1.05rem] leading-[1.55]">
@@ -87,8 +95,8 @@ export default function ContactsPage() {
               {CONTACT_INFO.address.city}
             </p>
             <Note>
-              Двір із боку вулиці, друга брама. Дзвоніть за 15 хвилин —
-              вийдемо назустріч, щоб ви не носили ящик через двір.
+              Двір із боку вулиці, друга брама. Дзвоніть за 15 хвилин — вийдемо
+              назустріч, щоб ви не носили ящик через двір.
             </Note>
             <PriceTag>Без передоплати</PriceTag>
           </div>
@@ -125,7 +133,8 @@ export default function ContactsPage() {
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
         <NeedleList items={PACKING_TIPS} className="mt-[1.5rem] max-w-[60ch]" />
         <Note fullWidth className="mt-[1.125rem]">
-          Зворотна відправка — за наш рахунок, якщо в замовленні більше 10 платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
+          Зворотна відправка — за наш рахунок, якщо в замовленні більше 10
+          платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
         <Row className="mt-[1.5rem]">
           <CtaLink href="/request">Залишити заявку</CtaLink>
