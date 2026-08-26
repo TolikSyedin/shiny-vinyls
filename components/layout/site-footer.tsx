@@ -29,7 +29,7 @@ const FOOTER_LINK_COLUMNS: FooterLink[][] = [
 export function SiteFooter() {
   return (
     <footer className="mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
-      <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-4 px-4 py-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full flex-col gap-4 px-4 py-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:px-6 lg:max-w-[60rem] lg:px-8 xl:max-w-[70rem]">
         <div className="flex flex-col gap-4">
           <Wordmark>Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
