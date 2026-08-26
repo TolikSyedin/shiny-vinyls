@@ -37,7 +37,7 @@ export default async function ReviewsPage() {
       </Section>
 
       <Section>
-        <SectionHeading eyebrow="Форма">Залишити відгук</SectionHeading>
+        <SectionHeading eyebrow="Ваш відгук">Залишити відгук</SectionHeading>
         <ReviewForm />
       </Section>
     </PageContainer>
