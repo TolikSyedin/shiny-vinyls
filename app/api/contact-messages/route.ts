@@ -4,7 +4,13 @@ import { createContactMessage } from '@/lib/repositories/contact-messages'
 import { notifyNewContactMessage } from '@/lib/telegram/telegram'
 
 export async function POST(req: Request) {
-  const body = await req.json()
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+  }
+
   const parsed = contactMessageSchema.safeParse(body)
 
   if (!parsed.success) {
