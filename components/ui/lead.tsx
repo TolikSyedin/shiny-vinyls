@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { cx } from '@/lib/utils/cx'
 
 export function Lead({
   children,
@@ -8,5 +7,5 @@ export function Lead({
   children: ReactNode
   className?: string
 }) {
-  return <p className={cx('max-w-[var(--measure)]', className)}>{children}</p>
+  return <p className={className}>{children}</p>
 }
