@@ -7,9 +7,9 @@
   --background: var(--surface);
   --foreground: var(--ink);
   --muted-foreground: #737373;
-  --ls-wide: 0.16em;
-  --ls: 0.12em;
-  --ls-normal: 0.08em;
+  --tracking-wide: 0.16em;
+  --tracking: 0.12em;
+  --tracking-tight: 0.08em;
   --radius: 0.3rem;
   --text-sm: 0.875rem;
   --text-xs: 0.75rem;
@@ -206,7 +206,7 @@
   legend {
     font-family: var(--font-mono);
     font-size: var(--text-micro);
-    letter-spacing: var(--ls);
+    letter-spacing: var(--tracking);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -257,7 +257,7 @@
   .eyebrow {
     font-family: var(--font-mono);
     font-size: var(--text-micro);
-    letter-spacing: var(--ls-wide);
+    letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -269,7 +269,7 @@
 
   .mono-label {
     text-transform: uppercase;
-    letter-spacing: var(--ls-normal);
+    letter-spacing: var(--tracking-tight);
   }
 
   .readout {
@@ -306,6 +306,6 @@
 
   .cta {
     font-size: var(--text-xs);
-    letter-spacing: var(--ls);
+    letter-spacing: var(--tracking);
   }
 }
