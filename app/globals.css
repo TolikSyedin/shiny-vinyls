@@ -294,6 +294,10 @@
     color: var(--ink);
   }
 
+  footer .wordmark {
+    font-size: var(--text-sm);
+  }
+
   .price-tag {
     font-family: var(--font-mono);
     font-weight: 500;
