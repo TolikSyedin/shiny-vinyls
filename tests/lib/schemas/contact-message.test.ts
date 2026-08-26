@@ -4,7 +4,7 @@ import { contactMessageSchema } from '@/lib/schemas/contact-message'
 describe('contactMessageSchema', () => {
   it('приймає валідне повідомлення з телефоном', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '+380501234567',
       message: 'Питання щодо чищення платівок',
     })
@@ -13,8 +13,8 @@ describe('contactMessageSchema', () => {
 
   it('приймає валідне повідомлення з Telegram-нікнеймом (з @)', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
-      contact: '@oleh_vinyl',
+      name: 'Ксенія',
+      contact: '@xeniia_vinyl',
       message: 'Питання щодо чищення платівок',
     })
     expect(result.success).toBe(true)
@@ -22,8 +22,8 @@ describe('contactMessageSchema', () => {
 
   it('приймає Telegram-нікнейм без @', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
-      contact: 'oleh_vinyl',
+      name: 'Ксенія',
+      contact: 'xeniia_vinyl',
       message: 'Питання щодо чищення платівок',
     })
     expect(result.success).toBe(true)
@@ -31,7 +31,7 @@ describe('contactMessageSchema', () => {
 
   it('відхиляє надто короткий Telegram-нікнейм (менше 5 символів)', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '@abc',
       message: 'Питання щодо чищення платівок',
     })
@@ -40,8 +40,8 @@ describe('contactMessageSchema', () => {
 
   it('відхиляє нікнейм, що починається з цифри', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
-      contact: '1oleh_vinyl',
+      name: 'Ксенія',
+      contact: '1xeniia_vinyl',
       message: 'Питання щодо чищення платівок',
     })
     expect(result.success).toBe(false)
@@ -49,7 +49,7 @@ describe('contactMessageSchema', () => {
 
   it('відхиляє телефон із недостатньою кількістю цифр', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '123',
       message: 'Питання щодо чищення платівок',
     })
@@ -58,7 +58,7 @@ describe('contactMessageSchema', () => {
 
   it('відхиляє довільний текст, що не є ні телефоном, ні Telegram-нікнеймом', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: 'напишіть мені будь ласка',
       message: 'Питання щодо чищення платівок',
     })
@@ -67,7 +67,7 @@ describe('contactMessageSchema', () => {
 
   it('приймає телефон із дужками, пробілами й дефісами', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '+38 (050) 123-45-67',
       message: 'Питання щодо чищення платівок',
     })
@@ -76,7 +76,7 @@ describe('contactMessageSchema', () => {
 
   it('відхиляє занадто коротке повідомлення', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '+380501234567',
       message: 'Хай',
     })
@@ -94,21 +94,21 @@ describe('contactMessageSchema', () => {
 
   it('обрізає пробіли навколо всіх полів (trim)', () => {
     const result = contactMessageSchema.safeParse({
-      name: '  Олена  ',
-      contact: '  @oleh_vinyl  ',
+      name: '  Ксенія  ',
+      contact: '  @xeniia_vinyl  ',
       message: '  Питання щодо чищення платівок  ',
     })
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.name).toBe('Олена')
-      expect(result.data.contact).toBe('@oleh_vinyl')
+      expect(result.data.name).toBe('Ксенія')
+      expect(result.data.contact).toBe('@xeniia_vinyl')
       expect(result.data.message).toBe('Питання щодо чищення платівок')
     }
   })
 
   it('тримає honeypot-поле опціональним і порожнім за замовчуванням', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '+380501234567',
       message: 'Питання щодо чищення платівок',
     })
@@ -120,7 +120,7 @@ describe('contactMessageSchema', () => {
 
   it('схема сама НЕ визначає бот-логіку — заповнене honeypot-поле все ще валідне значення для zod', () => {
     const result = contactMessageSchema.safeParse({
-      name: 'Олена',
+      name: 'Ксенія',
       contact: '+380501234567',
       message: 'Питання щодо чищення платівок',
       website: 'http://spam.example',
