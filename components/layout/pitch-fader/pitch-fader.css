@@ -11,7 +11,7 @@
 .pitch-fader__led {
   width: 0.5rem;
   height: 0.75rem;
-  border-radius: 0.3rem;
+  border-radius: var(--radius);
   background: #2f5c3a;
   transition:
     background-color 120ms ease,
@@ -89,7 +89,7 @@
   margin: 0 -0.5rem 0.4rem;
   padding: 0.5rem 0;
   border: 1px solid var(--metal-edge);
-  border-radius: 0.3rem;
+  border-radius: var(--radius);
 }
 
 .pitch-fader__groove {

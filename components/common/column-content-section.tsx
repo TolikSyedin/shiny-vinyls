@@ -23,7 +23,7 @@ function ColumnContentRow({
   className,
 }: ColumnContentItem & { className?: string }) {
   const classes = cx(
-    'flex flex-col gap-4 rounded-[0.3rem] border border-[var(--rule)] p-4 text-[var(--ink)]',
+    'flex flex-col gap-4 rounded-[var(--radius)] border border-[var(--rule)] p-4 text-[var(--ink)]',
     highlight
       ? 'relative z-10 border-[var(--stamp)] bg-[var(--stamp)]/10'
       : 'bg-[var(--surface-2)]',

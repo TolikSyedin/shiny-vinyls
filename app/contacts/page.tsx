@@ -114,7 +114,7 @@ export default function ContactsPage() {
             </div>
           </Card>
         </div>
-        <div className="overflow-hidden rounded-[0.3rem] border border-[var(--rule)]">
+        <div className="overflow-hidden rounded-[var(--radius)] border border-[var(--rule)]">
           <iframe
             src={MAP_EMBED_SRC}
             title="Shiny Vinyls на мапі"

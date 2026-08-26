@@ -10,6 +10,7 @@
   --ls-wide: 0.16em;
   --ls: 0.12em;
   --ls-normal: 0.08em;
+  --radius: 0.3rem;
   --surface: #d9d8ce;
   --surface-2: #edece5;
   --ink: #17151a;
@@ -143,7 +144,7 @@
   :focus-visible {
     outline: 0.1rem solid var(--stamp);
     outline-offset: 0.2rem;
-    border-radius: 0.3rem;
+    border-radius: var(--radius);
   }
 
   h1 {
@@ -213,7 +214,7 @@
     color: var(--ink);
     background-color: var(--surface-2);
     border: 1px solid var(--field-border, var(--rule));
-    border-radius: 0.3rem;
+    border-radius: var(--radius);
     padding: 0.75rem 0.8rem;
     width: 100%;
   }

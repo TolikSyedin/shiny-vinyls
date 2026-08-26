@@ -8,7 +8,7 @@ export function ArticleTable({
   rows: string[][]
 }) {
   return (
-    <div className="overflow-x-auto rounded-[0.3rem] border border-[var(--rule)]">
+    <div className="overflow-x-auto rounded-[var(--radius)] border border-[var(--rule)]">
       <table className="w-full border-collapse">
         <thead>
           <tr>
