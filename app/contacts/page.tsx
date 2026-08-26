@@ -38,12 +38,12 @@ export default function ContactsPage() {
       />
 
       <Note fullWidth className="mt-[1.5rem]">
-        Можна зв'язатися з нами будь-яким зручним способом. Найшвидше — через
+        Можна звʼязатися з нами будь-яким зручним способом. Найшвидше — через
         Telegram.
       </Note>
 
       <Section>
-        <SectionHeading eyebrow="Зв'язок">
+        <SectionHeading eyebrow="Звʼязок">
           Оберіть найзручніший для вас варіант
         </SectionHeading>
         <CardGrid cols={3} className="mt-[1.5rem]">

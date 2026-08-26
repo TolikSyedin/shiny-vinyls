@@ -70,7 +70,7 @@ export function RequestForm() {
           <TextField
             className="min-w-0 flex-1"
             id="name"
-            label="Ім'я"
+            label="Імʼя"
             autocomplete="name"
             placeholder={NAME_PLACEHOLDER}
             error={errors.name?.message}
@@ -91,7 +91,7 @@ export function RequestForm() {
 
         <TextAreaField
           id="comment"
-          label="Коментар (необов'язково)"
+          label="Коментар (необовʼязково)"
           placeholder={COMMENT_PLACEHOLDER}
           error={errors.comment?.message}
           {...register('comment')}

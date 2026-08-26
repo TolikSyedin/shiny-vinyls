@@ -47,7 +47,7 @@ type LinkedRequestInfo = {
 export function formatLinkedMessage(input: LinkedRequestInfo): string {
   const lines = [
     `Telegram привʼязано до замовлення:`,
-    `Ім'я: ${escapeHtml(input.name)}`,
+    `Імʼя: ${escapeHtml(input.name)}`,
     `Телефон: ${escapeHtml(input.phone)}`,
   ]
   if (input.comment) lines.push(`Коментар: ${escapeHtml(input.comment)}`)
@@ -70,7 +70,7 @@ export function formatHelpMessage(): string {
 export function formatNewRequestMessage(input: NewRequestNotification): string {
   const lines = [
     `Нове замовлення:`,
-    `Ім'я: ${escapeHtml(input.name)}`,
+    `Імʼя: ${escapeHtml(input.name)}`,
     `Телефон: ${escapeHtml(input.phone)}`,
   ]
   if (input.comment) lines.push(`Коментар: ${escapeHtml(input.comment)}`)
@@ -81,7 +81,7 @@ export function formatNewRequestMessage(input: NewRequestNotification): string {
 export function formatNewReviewMessage(input: NewReviewNotification): string {
   return [
     `Новий відгук:`,
-    `Ім'я: ${escapeHtml(input.name)}`,
+    `Імʼя: ${escapeHtml(input.name)}`,
     `Рейтинг: ${input.rating}/5`,
     `Текст: ${escapeHtml(input.text)}`,
     formatAdminLink(input.adminUrl, 'Обробити відгук'),
@@ -93,7 +93,7 @@ export function formatNewContactMessage(
 ): string {
   return [
     `Нове повідомлення з форми контактів:`,
-    `Ім'я: ${escapeHtml(input.name)}`,
+    `Імʼя: ${escapeHtml(input.name)}`,
     `Контакт: ${escapeHtml(input.contact)}`,
     `Повідомлення: ${escapeHtml(input.message)}`,
   ].join('\n')
