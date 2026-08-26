@@ -27,7 +27,7 @@ export function CardGridSection({
         {items.map(({ href, label, title, note }) => (
           <Card key={title} href={href}>
             {label && <Mono tone="stamp">{label}</Mono>}
-            <h3 className="flex items-center gap-4">
+            <h3 className="flex items-center gap-2">
               <NeedleIcon />
               {title}
             </h3>

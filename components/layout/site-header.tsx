@@ -23,7 +23,7 @@ export function SiteHeader() {
       <div className="relative flex items-center justify-between border-b border-[var(--rule)] bg-[var(--surface)] p-4">
         <BrandLink ref={brandRef} />
         <SiteNav />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <div className="hidden md:block">
             <CtaLink href="/request" size="sm">
               Замовлення

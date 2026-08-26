@@ -6,7 +6,7 @@ type CtaSize = 'default' | 'sm'
 type CtaVariant = 'default' | 'ghost'
 
 const BASE =
-  'relative inline-flex cursor-pointer items-center gap-[0.75rem] overflow-hidden rounded-[0.25rem] text-left font-mono font-medium uppercase transition-[filter_0.2s_ease,transform_0.15s_ease,box-shadow_0.2s_ease]'
+  'relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-[0.25rem] text-left font-mono font-medium uppercase transition-[filter_0.2s_ease,transform_0.15s_ease,box-shadow_0.2s_ease]'
 
 const SIZE: Record<CtaSize, string> = {
   default: 'px-[1.5rem] py-[0.95rem] text-[0.75rem] tracking-[0.13em]',

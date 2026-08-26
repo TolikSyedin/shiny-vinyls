@@ -33,7 +33,7 @@ export function StarRatingField({
       <div
         aria-invalid={Boolean(error)}
         className={cx(
-          'flex rounded-[0.1rem]',
+          'flex gap-2 rounded-[0.1rem]',
           error ? 'outline-1 outline-[var(--error)]' : '',
         )}
         onMouseLeave={() => setHovered(null)}

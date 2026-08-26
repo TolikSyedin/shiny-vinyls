@@ -13,9 +13,9 @@ export function NeedleList({
       {items.map((item) => (
         <li
           key={item}
-          className="flex items-start gap-4 text-[1rem] leading-[1.5]"
+          className="flex items-start gap-2 text-[1rem] leading-[1.5]"
         >
-          <NeedleIcon size={22} className="mt-[0.2rem] flex-none" />
+          <NeedleIcon size={22} className="flex-none" />
           {item}
         </li>
       ))}

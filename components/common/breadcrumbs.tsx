@@ -17,7 +17,7 @@ export function Breadcrumbs({
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cx('flex flex-wrap items-center gap-[0.5rem]', className)}
+      className={cx('flex flex-wrap items-center gap-2', className)}
     >
       {items.map(({ label, href }) =>
         href ? (

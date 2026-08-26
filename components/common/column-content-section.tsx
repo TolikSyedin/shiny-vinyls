@@ -31,7 +31,7 @@ function ColumnContentRow({
   )
   const content = (
     <>
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-2">
         <Mono
           tone={highlight ? 'stamp' : 'muted'}
           className="uppercase tracking-[0.08em]"
