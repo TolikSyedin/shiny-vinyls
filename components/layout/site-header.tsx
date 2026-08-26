@@ -10,18 +10,26 @@ import { PitchFader } from './pitch-fader'
 import { SiteNav } from './site-nav'
 
 export function SiteHeader() {
-  const brandRef = useRef<HTMLAnchorElement>(null)
   const pathname = usePathname()
+  const firstRender = useRef(true)
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
     window.scrollTo(0, 0)
-    brandRef.current?.focus()
+    const target =
+      document.getElementById('main-content') ?? document.querySelector('main')
+    if (target instanceof HTMLElement) {
+      target.focus({ preventScroll: true })
+    }
   }, [pathname])
 
   return (
     <header className="sticky top-0 z-30">
       <div className="relative flex items-center justify-between border-b border-[var(--rule)] bg-[var(--surface)] p-4">
-        <BrandLink ref={brandRef} />
+        <BrandLink />
         <SiteNav />
         <div className="flex items-center gap-2">
           <div className="hidden md:block">
