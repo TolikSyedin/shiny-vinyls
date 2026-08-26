@@ -74,7 +74,7 @@ export function ColumnContentSection({
   return (
     <Section>
       <SectionHeading eyebrow={eyebrow}>{heading}</SectionHeading>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
         {items.map((item) => (
           <ColumnContentRow key={item.kicker} {...item} />
         ))}
