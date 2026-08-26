@@ -9,7 +9,7 @@ export function ArticleTable({
 }) {
   return (
     <div className="overflow-x-auto rounded-[0.3rem] border border-[var(--rule)]">
-      <table className="w-full border-collapse text-[0.9rem]">
+      <table className="w-full border-collapse">
         <thead>
           <tr>
             {head.map((label) => (

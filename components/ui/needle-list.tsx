@@ -11,10 +11,7 @@ export function NeedleList({
   return (
     <ul className={cx('m-0 flex list-none flex-col gap-4 p-0', className)}>
       {items.map((item) => (
-        <li
-          key={item}
-          className="flex items-start gap-2 text-[1rem] leading-[1.5]"
-        >
+        <li key={item} className="flex items-start gap-2">
           <NeedleIcon size={22} className="flex-none" />
           {item}
         </li>

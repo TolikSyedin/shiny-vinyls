@@ -56,7 +56,7 @@ export function ReviewModerationControl({
           type="button"
           disabled={isUpdating}
           onClick={() => handleChange(next)}
-          className="rounded-[0.3rem] border border-[var(--rule)] p-1 text-sm disabled:opacity-50"
+          className="rounded-[0.3rem] border border-[var(--rule)] p-1 disabled:opacity-50"
         >
           → {adminReviewStatusLabels[next]}
         </button>

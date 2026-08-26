@@ -11,11 +11,7 @@ export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
           case 'heading':
             return <h2 key={index}>{block.text}</h2>
           case 'paragraph':
-            return (
-              <p key={index} className="text-[1.02rem] leading-[1.68]">
-                {block.content}
-              </p>
-            )
+            return <p key={index}>{block.content}</p>
           case 'list': {
             const ListTag = block.ordered ? 'ol' : 'ul'
             return (
@@ -28,9 +24,7 @@ export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
                 }
               >
                 {block.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="leading-[1.6]">
-                    {item}
-                  </li>
+                  <li key={itemIndex}>{item}</li>
                 ))}
               </ListTag>
             )

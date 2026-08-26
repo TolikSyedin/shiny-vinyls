@@ -3,7 +3,7 @@ import { Mono, Wordmark } from '@/components/ui'
 import { CONTACT_INFO } from '@/lib/data/contact-info/constants'
 
 const LINK_CLASS_NAME =
-  'text-[0.88rem] text-[var(--muted)] no-underline hover:text-[var(--ink)]'
+  'text-[var(--muted)] no-underline hover:text-[var(--ink)]'
 
 type FooterLink = { href: string; label: string; external?: boolean }
 

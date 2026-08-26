@@ -4,8 +4,8 @@ import { cx } from '@/lib/utils/cx'
 type ReadoutSize = 'lg' | 'xl'
 
 const SIZE: Record<ReadoutSize, string> = {
-  lg: 'text-[clamp(1.6rem,4vw,2.2rem)]',
-  xl: 'text-[clamp(1.8rem,9vw,2.6rem)]',
+  lg: 'text-[2rem]',
+  xl: 'text-[2.5rem]',
 }
 
 export function Readout({
@@ -32,7 +32,7 @@ export function Readout({
       {unit ? (
         <>
           {' '}
-          <small className="font-mono text-[0.8rem] font-normal tracking-[0.08em] text-[var(--muted)] uppercase">
+          <small className="mono font-normal tracking-[0.08em] text-[var(--muted)] uppercase">
             {unit}
           </small>
         </>

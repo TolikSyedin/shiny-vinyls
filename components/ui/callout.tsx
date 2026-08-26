@@ -18,13 +18,7 @@ export function Callout({
   className?: string
 }) {
   return (
-    <div
-      className={cx(
-        'border-l-2 py-[0.15rem] pl-[1.1rem] text-[1rem] leading-[1.62]',
-        TONE[tone],
-        className,
-      )}
-    >
+    <div className={cx('border-l-2 py-1 pl-4', TONE[tone], className)}>
       {children}
     </div>
   )

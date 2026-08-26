@@ -53,10 +53,7 @@ export default function ContactsPage() {
         <CardGrid cols={3}>
           <Card>
             <Mono tone="stamp">Телефон</Mono>
-            <a
-              href={`tel:${CONTACT_INFO.phone.raw}`}
-              className="font-mono text-[1rem]"
-            >
+            <a href={`tel:${CONTACT_INFO.phone.raw}`} className="font-mono">
               {CONTACT_INFO.phone.display}
             </a>
             <Note>
@@ -66,10 +63,7 @@ export default function ContactsPage() {
           </Card>
           <Card>
             <Mono tone="stamp">Telegram</Mono>
-            <a
-              href={CONTACT_INFO.telegram.url}
-              className="font-mono text-[1rem]"
-            >
+            <a href={CONTACT_INFO.telegram.url} className="font-mono">
               {CONTACT_INFO.telegram.handle}
             </a>
             <Note>Можна одразу надіслати фото стану платівок</Note>
@@ -94,7 +88,7 @@ export default function ContactsPage() {
         </SectionHeading>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="flex flex-col items-start gap-4">
-            <p className="text-[1.05rem] leading-[1.55]">
+            <p>
               {CONTACT_INFO.address.street}
               <br />
               {CONTACT_INFO.address.city}
@@ -104,7 +98,7 @@ export default function ContactsPage() {
           </div>
           <Card>
             <Mono tone="stamp">Графік</Mono>
-            <div className="flex flex-col gap-4 font-mono text-[0.9rem] text-[var(--ink)]">
+            <div className="flex flex-col gap-4 font-mono text-[var(--ink)]">
               {CONTACT_INFO.hours.map(({ days, time }) => (
                 <div
                   key={days}
