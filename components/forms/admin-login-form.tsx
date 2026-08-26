@@ -14,6 +14,7 @@ import {
 } from '@/lib/data/form-fields/placeholders/constants'
 import { LOGIN_ERROR_MESSAGE } from '@/lib/data/form-fields/error-messages/constants'
 import { FieldError, TextField, SubmitButton } from '@/components/form-fields'
+import { CtaSection } from '@/components/common'
 import { createBrowserClient } from '@/lib/supabase/browser'
 
 export function AdminLoginForm() {
@@ -52,31 +53,35 @@ export function AdminLoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <TextField
-        id="email"
-        label="Email"
-        placeholder={EMAIL_PLACEHOLDER}
-        error={errors.email?.message}
-        {...register('email')}
-      />
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+      <div className="flex flex-col gap-4">
+        <TextField
+          id="email"
+          label="Email"
+          placeholder={EMAIL_PLACEHOLDER}
+          error={errors.email?.message}
+          {...register('email')}
+        />
 
-      <TextField
-        id="password"
-        label="Пароль"
-        type="password"
-        placeholder={PASSWORD_PLACEHOLDER}
-        error={errors.password?.message}
-        {...register('password')}
-      />
+        <TextField
+          id="password"
+          label="Пароль"
+          type="password"
+          placeholder={PASSWORD_PLACEHOLDER}
+          error={errors.password?.message}
+          {...register('password')}
+        />
 
-      <FieldError message={submitError ?? undefined} />
+        <FieldError message={submitError ?? undefined} />
+      </div>
 
-      <SubmitButton
-        isSubmitting={isSubmitting || isRedirecting}
-        label="Увійти"
-        loadingLabel="Входимо..."
-      />
+      <CtaSection>
+        <SubmitButton
+          isSubmitting={isSubmitting || isRedirecting}
+          label="Увійти"
+          loadingLabel="Входимо..."
+        />
+      </CtaSection>
     </form>
   )
 }

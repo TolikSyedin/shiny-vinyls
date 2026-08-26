@@ -168,12 +168,12 @@ export function ReviewsSlider({ reviews }: { reviews: ApprovedReview[] }) {
   return (
     <div
       ref={viewportRef}
-      className="select-none overflow-x-auto py-[1rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="select-none overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
         ref={trackRef}
         className={cx(
-          'flex w-max gap-[1rem] perspective-[62.5rem] transform-3d hover:[animation-play-state:paused]',
+          'flex w-max gap-4 perspective-[62.5rem] transform-3d hover:[animation-play-state:paused]',
           loops ? 'active:cursor-grabbing cursor-grab' : 'cursor-auto',
         )}
       >

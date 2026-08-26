@@ -1,7 +1,7 @@
 import { listApprovedReviews } from '@/lib/repositories/reviews'
 import { ReviewForm } from '@/components/forms'
 import { PageContainer } from '@/components/layout'
-import { PageHeader } from '@/components/common'
+import { PageHeader, Section, SectionHeading } from '@/components/common'
 import { Note } from '@/components/ui'
 import { ReviewsSlider } from '@/components/reviews/reviews-slider'
 
@@ -25,16 +25,21 @@ export default async function ReviewsPage() {
         lead="Ми завжди раді бачити коментарі та відгуки від наших клієнтів"
       />
 
-      {reviews.length === 0 ? (
-        <Note>Поки що немає відгуків.</Note>
-      ) : (
-        <ReviewsSlider reviews={reviews} />
-      )}
+      <Section>
+        <SectionHeading eyebrow="Досвід клієнтів">
+          Що кажуть власники
+        </SectionHeading>
+        {reviews.length === 0 ? (
+          <Note>Поки що немає відгуків.</Note>
+        ) : (
+          <ReviewsSlider reviews={reviews} />
+        )}
+      </Section>
 
-      <div className="flex flex-col gap-4">
-        <h2>Залишити відгук</h2>
+      <Section>
+        <SectionHeading eyebrow="Ваш відгук">Залишити відгук</SectionHeading>
         <ReviewForm />
-      </div>
+      </Section>
     </PageContainer>
   )
 }

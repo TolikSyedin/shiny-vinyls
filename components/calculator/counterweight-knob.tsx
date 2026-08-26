@@ -47,7 +47,7 @@ export function CounterweightKnob({
   }
 
   return (
-    <div className="flex items-center gap-[1.5rem]">
+    <div className="flex items-center gap-4">
       <svg
         className="flex-none cursor-ew-resize touch-pan-y select-none outline-none"
         width="92"
@@ -99,11 +99,9 @@ export function CounterweightKnob({
         <CounterweightKnobDial value={value} isDragging={isDragging} />
       </svg>
 
-      <div>
+      <div className="flex flex-col gap-4">
         <Readout unit={vinylsWord(value)}>{value}</Readout>
-        <Mono className="mt-[0.5rem] block">
-          Тягніть противагу вбік або стрілками
-        </Mono>
+        <Mono>Тягніть противагу вбік або стрілками</Mono>
       </div>
     </div>
   )

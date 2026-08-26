@@ -7,9 +7,13 @@
   --background: var(--surface);
   --foreground: var(--ink);
   --muted-foreground: #737373;
-  --border: #e5e5e5;
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
+  --tracking-wide: 0.16em;
+  --tracking: 0.12em;
+  --tracking-tight: 0.08em;
+  --radius: 0.3rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  --text-micro: 0.6rem;
   --surface: #d9d8ce;
   --surface-2: #edece5;
   --ink: #17151a;
@@ -41,14 +45,11 @@
   --background: var(--surface);
   --foreground: var(--ink);
   --muted-foreground: #a3a3a3;
-  --border: #424242;
-  --accent: #262626;
-  --accent-foreground: #ededed;
   --surface: #261f32;
   --surface-2: #1b1822;
   --ink: #f0ece4;
   --muted: #8c8593;
-  --rule: #2a2633;
+  --rule: #3a3648;
   --stamp: #8b6bf0;
   --sticker: #ff5c16;
   --error: #ef4444;
@@ -79,13 +80,6 @@
   --font-mono: var(--f-mono), ui-monospace, monospace;
 
   --color-error: var(--error);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
 }
 
 @theme {
@@ -135,6 +129,8 @@
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.62;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -151,7 +147,7 @@
   :focus-visible {
     outline: 0.1rem solid var(--stamp);
     outline-offset: 0.2rem;
-    border-radius: 0.1rem;
+    border-radius: var(--radius);
   }
 
   h1 {
@@ -170,7 +166,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: -0.01em;
-    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+    font-size: 1.25rem;
     margin: 0;
   }
 
@@ -184,8 +180,15 @@
   }
 
   p {
-    line-height: 1.62;
     margin: 0;
+  }
+
+  table {
+    font-size: var(--text-sm);
+  }
+
+  footer {
+    font-size: var(--text-sm);
   }
 
   a {
@@ -201,8 +204,8 @@
   label,
   legend {
     font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
+    font-size: var(--text-micro);
+    letter-spacing: var(--tracking);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -210,12 +213,12 @@
   input:not([type='checkbox']):not([type='radio']),
   textarea {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--ink);
     background-color: var(--surface-2);
     border: 1px solid var(--field-border, var(--rule));
-    border-radius: 4px;
-    padding: 0.75rem 0.8rem;
+    border-radius: var(--radius);
+    padding: 0.75rem;
     width: 100%;
   }
 
@@ -242,5 +245,66 @@
 
   button:disabled {
     cursor: not-allowed;
+  }
+
+  li {
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .mono-label {
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .readout {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .readout-xl {
+    font-size: 2.5rem;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: var(--text-xs);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  footer .wordmark {
+    font-size: var(--text-sm);
+  }
+
+  .price-tag {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-xs);
+  }
+
+  .cta {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking);
   }
 }

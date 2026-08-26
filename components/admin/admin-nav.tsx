@@ -33,8 +33,8 @@ export function AdminNav() {
   }
 
   return (
-    <nav className="flex items-center justify-between border-b border-border pb-4">
-      <div className="flex gap-4">
+    <nav className="flex items-center justify-between border-b border-[var(--rule)] pb-4">
+      <div className="flex gap-2">
         <Link href="/admin/requests">Замовлення</Link>
         <Link href="/admin/reviews">Відгуки</Link>
       </div>

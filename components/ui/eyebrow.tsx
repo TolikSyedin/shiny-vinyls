@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
 import { cx } from '@/lib/utils/cx'
 
-export const EYEBROW_CLASS =
-  'font-mono text-[0.6rem] tracking-[0.16em] text-[var(--muted)] uppercase'
+export const EYEBROW_CLASS = 'eyebrow'
 
 export function Eyebrow({
   children,

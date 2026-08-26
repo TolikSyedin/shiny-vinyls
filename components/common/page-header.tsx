@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Eyebrow, Lead } from '@/components/ui'
+import { Eyebrow } from '@/components/ui'
 
 export function PageHeader({
   eyebrow,
@@ -13,10 +13,10 @@ export function PageHeader({
   children?: ReactNode
 }) {
   return (
-    <section className="flex flex-col items-start gap-[1.25rem] pt-[clamp(2.5rem,6vw,4.5rem)]">
+    <section className="flex flex-col items-start gap-4 pt-8">
       <Eyebrow>{eyebrow}</Eyebrow>
       <h1>{title}</h1>
-      {lead ? <Lead>{lead}</Lead> : null}
+      {lead ? <p>{lead}</p> : null}
       {children}
     </section>
   )

@@ -1,16 +1,13 @@
 import type { ReactNode } from 'react'
 import { cx } from '@/lib/utils/cx'
+import { Row } from '@/components/ui'
 
-export function Row({
+export function CtaSection({
   children,
   className,
 }: {
   children: ReactNode
   className?: string
 }) {
-  return (
-    <div className={cx('flex flex-wrap items-center gap-4', className)}>
-      {children}
-    </div>
-  )
+  return <Row className={cx('mt-8', className)}>{children}</Row>
 }

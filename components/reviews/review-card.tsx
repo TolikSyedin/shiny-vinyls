@@ -10,7 +10,7 @@ export function ReviewCard({ review }: { review: ApprovedReview }) {
       <div
         role="img"
         aria-label={`Оцінка ${review.rating} з 5`}
-        className="flex gap-[0.05rem]"
+        className="flex gap-2"
       >
         {STARS.map((n) => (
           <StarIcon

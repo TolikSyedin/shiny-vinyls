@@ -10,25 +10,12 @@ const TONE: Record<NoteTone, string> = {
 
 export function Note({
   tone = 'muted',
-  fullWidth = false,
   children,
   className,
 }: {
   tone?: NoteTone
-  fullWidth?: boolean
   children: ReactNode
   className?: string
 }) {
-  return (
-    <p
-      className={cx(
-        fullWidth ? 'max-w-none' : 'max-w-[56ch]',
-        'text-[0.87rem] leading-[1.62]',
-        TONE[tone],
-        className,
-      )}
-    >
-      {children}
-    </p>
-  )
+  return <p className={cx(TONE[tone], className)}>{children}</p>
 }

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm, useController } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
+import { CtaSection } from '@/components/common'
 import { Note } from '@/components/ui'
 import {
   NAME_PLACEHOLDER,
@@ -63,43 +64,42 @@ export function ReviewForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-[1rem]"
-    >
-      <StarRatingField
-        label="Оцінка"
-        name="rating"
-        value={rating}
-        error={errors.rating?.message}
-        onChange={onRatingChange}
-        ref={ratingRef}
-      />
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+      <div className="flex flex-col gap-4">
+        <StarRatingField
+          label="Оцінка"
+          name="rating"
+          value={rating}
+          error={errors.rating?.message}
+          onChange={onRatingChange}
+          ref={ratingRef}
+        />
 
-      <TextField
-        id="name"
-        label="Імʼя"
-        autocomplete="name"
-        placeholder={NAME_PLACEHOLDER}
-        error={errors.name?.message}
-        {...register('name')}
-      />
+        <TextField
+          id="name"
+          label="Імʼя"
+          autocomplete="name"
+          placeholder={NAME_PLACEHOLDER}
+          error={errors.name?.message}
+          {...register('name')}
+        />
 
-      <TextAreaField
-        id="text"
-        label="Відгук"
-        placeholder={REVIEW_TEXT_PLACEHOLDER}
-        error={errors.text?.message}
-        {...register('text')}
-      />
+        <TextAreaField
+          id="text"
+          label="Відгук"
+          placeholder={REVIEW_TEXT_PLACEHOLDER}
+          error={errors.text?.message}
+          {...register('text')}
+        />
 
-      <HoneypotField register={register} name="website" />
+        <HoneypotField register={register} name="website" />
 
-      <FieldError message={submitError ?? undefined} />
-
-      <div className="self-start">
-        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+        <FieldError message={submitError ?? undefined} />
       </div>
+
+      <CtaSection>
+        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      </CtaSection>
     </form>
   )
 }

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { PageContainer } from '@/components/layout'
-import { ColumnContentSection, PageHeader } from '@/components/common'
+import { ColumnContentSection, PageHeader, Section } from '@/components/common'
 import { Note } from '@/components/ui'
 import { BLOG_ARTICLES } from '@/lib/data/blog/articles'
 
@@ -39,11 +39,13 @@ export default function BlogPage() {
         )}
       />
 
-      <Note className="mt-[2rem]">
-        Далі в планах: чи варто чистити нові платівки з магазину, і як зберігати
-        колекцію в квартирі. Якщо є питання, на яке немає нормальної відповіді
-        українською — <Link href="/contacts">напишіть нам</Link>
-      </Note>
+      <Section>
+        <Note>
+          Далі в планах: чи варто чистити нові платівки з магазину, і як
+          зберігати колекцію в квартирі. Якщо є питання, на яке немає нормальної
+          відповіді українською — <Link href="/contacts">напишіть нам</Link>
+        </Note>
+      </Section>
     </PageContainer>
   )
 }

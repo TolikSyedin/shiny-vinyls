@@ -8,7 +8,7 @@ export function BrandLink({ ref }: { ref?: Ref<HTMLAnchorElement> }) {
     <Link
       ref={ref}
       href="/"
-      className="group flex items-center gap-[0.6rem] hover:no-underline"
+      className="group flex items-center gap-2 hover:no-underline"
     >
       <DiscLogo />
       <Wordmark>Shiny Vinyls</Wordmark>

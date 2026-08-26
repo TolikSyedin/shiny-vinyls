@@ -1,5 +1,5 @@
 import { Breadcrumbs } from '@/components/common'
-import { Eyebrow, Lead } from '@/components/ui'
+import { Eyebrow } from '@/components/ui'
 import type { BlogArticle } from '@/lib/data/blog/articles'
 
 export function ArticleHeader({
@@ -9,15 +9,15 @@ export function ArticleHeader({
   lead,
 }: Pick<BlogArticle, 'category' | 'readingTime' | 'title' | 'lead'>) {
   return (
-    <header className="flex flex-col items-start gap-[1.25rem] pt-[clamp(2.5rem,6vw,4.5rem)]">
-      <div className="flex flex-wrap items-center gap-[0.5rem]">
+    <header className="flex flex-col items-start gap-4 pt-8">
+      <div className="flex flex-wrap items-center gap-2">
         <Breadcrumbs
           items={[{ label: 'Блог', href: '/blog' }, { label: category }]}
         />
         <Eyebrow>{readingTime}</Eyebrow>
       </div>
       <h1>{title}</h1>
-      <Lead>{lead}</Lead>
+      <p>{lead}</p>
     </header>
   )
 }

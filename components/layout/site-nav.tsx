@@ -14,6 +14,7 @@ export function SiteNav() {
         <Link
           key={href}
           href={href}
+          className="eyebrow"
           aria-current={pathname === href ? 'page' : undefined}
         >
           {label}

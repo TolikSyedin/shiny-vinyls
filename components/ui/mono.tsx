@@ -18,9 +18,5 @@ export function Mono({
   children: ReactNode
   className?: string
 }) {
-  return (
-    <span className={cx('font-mono text-[0.82rem]', TONE[tone], className)}>
-      {children}
-    </span>
-  )
+  return <span className={cx('mono', TONE[tone], className)}>{children}</span>
 }

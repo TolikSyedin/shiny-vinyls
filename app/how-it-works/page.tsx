@@ -1,7 +1,9 @@
+import Link from 'next/link'
 import { PageContainer } from '@/components/layout'
 import {
   CardGridSection,
   ColumnContentSection,
+  CtaSection,
   PageHeader,
   Section,
   SectionHeading,
@@ -14,7 +16,6 @@ import {
   NeedleList,
   Note,
   Readout,
-  Row,
 } from '@/components/ui'
 
 const PROCESS_STEPS = [
@@ -144,7 +145,7 @@ export default function HowItWorksPage() {
 
       <Section>
         <SectionHeading eyebrow="Процес">Як це відбувається</SectionHeading>
-        <CardGrid cols={4} className="mt-[1.5rem]">
+        <CardGrid cols={4}>
           {PROCESS_STEPS.map(({ number, title, note }) => (
             <Card key={number}>
               <Mono tone="stamp">{number}</Mono>
@@ -175,31 +176,31 @@ export default function HowItWorksPage() {
           </>
         }
       >
-        <Row className="mt-[1.5rem]">
+        <CtaSection>
           <CtaLink href="/blog" variant="ghost">
             Розгорнуте порівняння
           </CtaLink>
-        </Row>
+        </CtaSection>
       </ColumnContentSection>
 
       <Section>
         <SectionHeading eyebrow="Входить у ціну">
           Без окремих доплат
         </SectionHeading>
-        <div className="mt-[1.5rem] grid gap-[1.5rem] md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           <NeedleList items={INCLUDED_LEFT} />
           <NeedleList items={INCLUDED_RIGHT} />
         </div>
-        <Row className="mt-[1.5rem]">
-          <CtaLink href="/reviews" variant="ghost">
-            Відгуки наших клієнтів
-          </CtaLink>
-        </Row>
       </Section>
+      <CtaSection>
+        <CtaLink href="/reviews" variant="ghost">
+          Відгуки наших клієнтів
+        </CtaLink>
+      </CtaSection>
 
       <Section>
         <SectionHeading eyebrow="Ціни">Одна послуга, три обсяги</SectionHeading>
-        <CardGrid cols={3} className="mt-[1.5rem]">
+        <CardGrid cols={3}>
           {PRICE_TIERS.map(({ range, price, note }, index) => (
             <Card
               key={range}
@@ -211,24 +212,24 @@ export default function HowItWorksPage() {
             </Card>
           ))}
         </CardGrid>
-        <Row className="mt-[1.5rem]">
-          <CtaLink href="/request">Порахувати замовлення</CtaLink>
-          <CtaLink href="/contacts" variant="ghost">
-            Спитати наперед
-          </CtaLink>
-        </Row>
       </Section>
+      <CtaSection>
+        <CtaLink href="/request">Порахувати замовлення</CtaLink>
+        <CtaLink href="/contacts" variant="ghost">
+          Спитати наперед
+        </CtaLink>
+      </CtaSection>
 
       <Section>
         <SectionHeading eyebrow="Часті питання">
           Що частіше за все питають про послугу
         </SectionHeading>
-        <CardGrid cols={2} className="mt-[1.5rem]">
+        <CardGrid cols={2}>
           {FAQ.map(({ question, answer }) => (
             <Card
               key={question}
               flat
-              className="rounded-none border-0 border-l-2 border-[var(--rule)] py-[0.25rem] pl-[1rem]"
+              className="border-0 border-l-2 border-[var(--rule)] py-1 pl-4"
             >
               <h3>{question}</h3>
               <Note>{answer}</Note>
@@ -238,12 +239,12 @@ export default function HowItWorksPage() {
       </Section>
 
       <Section>
-        <div className="flex flex-col items-start gap-[0.75rem]">
+        <div className="flex flex-col items-start gap-4">
           <h3>Чогось не вистачає?</h3>
-          <Note>Маєте питання, відповіді на яке тут нема? Напишіть нам.</Note>
-          <CtaLink href="/contacts" className="mt-[0.25rem]">
-            Написати нам
-          </CtaLink>
+          <Note>
+            Маєте питання, відповіді на яке тут нема?{' '}
+            <Link href="/contacts">Напишіть нам</Link>.
+          </Note>
         </div>
       </Section>
     </PageContainer>

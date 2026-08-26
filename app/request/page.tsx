@@ -17,10 +17,10 @@ export default function RequestPage() {
       />
       <VinylCalculator />
       <Section>
-        <div className="flex flex-col gap-[1.5rem]">
-          <SectionHeading eyebrow="Замовлення">Відправити замовлення</SectionHeading>
-          <RequestForm />
-        </div>
+        <SectionHeading eyebrow="Замовлення">
+          Відправити замовлення
+        </SectionHeading>
+        <RequestForm />
       </Section>
     </PageContainer>
   )

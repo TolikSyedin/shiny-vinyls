@@ -11,7 +11,7 @@ export function PriceTag({
   return (
     <span
       className={cx(
-        'inline-block -rotate-[1.5deg] rounded-[0.1rem] bg-[var(--sticker)] px-[0.75rem] py-[0.3rem] font-mono text-[0.75rem] font-medium whitespace-nowrap text-white',
+        'price-tag inline-block -rotate-[1.5deg] rounded-[var(--radius)] bg-[var(--sticker)] px-3 py-1 whitespace-nowrap text-white',
         className,
       )}
     >

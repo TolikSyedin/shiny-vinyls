@@ -13,7 +13,7 @@ export function QuantityInput({
   const [draft, setDraft] = useState<string | null>(null)
 
   return (
-    <div className="flex flex-col items-start gap-[0.5rem]">
+    <div className="flex flex-col items-start gap-4">
       <label htmlFor="vinyl-quantity">Кількість</label>
       <input
         id="vinyl-quantity"
