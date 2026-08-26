@@ -21,7 +21,7 @@ export function SubmitButton({
       disabled={isSubmitting}
       aria-busy={isSubmitting}
       className={cx(
-        'flex min-h-12 items-center justify-center gap-2 rounded-md border border-[var(--rule)] p-2 disabled:opacity-50',
+        'flex min-h-12 items-center justify-center gap-2 rounded-[0.3rem] border border-[var(--rule)] p-2 disabled:opacity-50',
         className,
       )}
     >

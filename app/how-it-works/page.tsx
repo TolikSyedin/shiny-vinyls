@@ -229,7 +229,7 @@ export default function HowItWorksPage() {
             <Card
               key={question}
               flat
-              className="rounded-none border-0 border-l-2 border-[var(--rule)] py-1 pl-4"
+              className="border-0 border-l-2 border-[var(--rule)] py-1 pl-4"
             >
               <h3>{question}</h3>
               <Note>{answer}</Note>

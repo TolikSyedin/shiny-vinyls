@@ -33,7 +33,7 @@ export function StarRatingField({
       <div
         aria-invalid={Boolean(error)}
         className={cx(
-          'flex gap-2 rounded-[0.1rem]',
+          'flex gap-2 rounded-[0.3rem]',
           error ? 'outline-1 outline-[var(--error)]' : '',
         )}
         onMouseLeave={() => setHovered(null)}
@@ -46,7 +46,7 @@ export function StarRatingField({
               key={n}
               htmlFor={id}
               onMouseEnter={() => setHovered(n)}
-              className="cursor-pointer rounded-[0.1rem] has-[:focus-visible]:outline-[0.1rem] has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-[var(--stamp)]"
+              className="cursor-pointer rounded-[0.3rem] has-[:focus-visible]:outline-[0.1rem] has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-[var(--stamp)]"
             >
               <input
                 id={id}
