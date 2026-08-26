@@ -1,5 +1,5 @@
 import { AdminLoginForm } from '@/components/forms'
-import { PageContainer } from '@/components/layout'
+import { AdminPage } from '@/components/admin/admin-page'
 
 export const metadata = {
   title: 'Вхід — Shiny Vinyls',
@@ -7,11 +7,8 @@ export const metadata = {
 
 export default function AdminLoginPage() {
   return (
-    <PageContainer>
-      <div className="flex flex-col gap-4 pt-8">
-        <h1>Вхід</h1>
-        <AdminLoginForm />
-      </div>
-    </PageContainer>
+    <AdminPage title="Вхід" nav={false}>
+      <AdminLoginForm />
+    </AdminPage>
   )
 }
