@@ -31,7 +31,7 @@ export function SiteFooter() {
     <footer className="mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
       <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-4 px-4 py-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4">
-          <Wordmark size="sm">Shiny Vinyls</Wordmark>
+          <Wordmark>Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
         </div>
         {FOOTER_LINK_COLUMNS.map((column) => (

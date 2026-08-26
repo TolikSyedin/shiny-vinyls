@@ -11,6 +11,8 @@
   --ls: 0.12em;
   --ls-normal: 0.08em;
   --radius: 0.3rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
   --surface: #d9d8ce;
   --surface-2: #edece5;
   --ink: #17151a;
@@ -181,11 +183,11 @@
   }
 
   table {
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
   }
 
   footer {
-    font-size: 0.88rem;
+    font-size: var(--text-sm);
   }
 
   a {
@@ -260,7 +262,7 @@
 
   .mono {
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: var(--text-sm);
   }
 
   .mono-label {
@@ -284,29 +286,25 @@
   .wordmark {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     letter-spacing: -0.01em;
     text-transform: uppercase;
     color: var(--ink);
   }
 
-  .wordmark-sm {
-    font-size: 0.75rem;
-  }
-
   .price-tag {
     font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
   }
 
   .cta {
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     letter-spacing: var(--ls);
   }
 
   .cta-sm {
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
     letter-spacing: var(--ls);
   }
 }
