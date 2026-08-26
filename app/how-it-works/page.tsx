@@ -86,7 +86,7 @@ const INCLUDED_LEFT = [
 
 const INCLUDED_RIGHT = [
   'Огляд до і після, зі звітом про стан',
-  'Зворотня відправка',
+  'Зворотня відправка — від 10 платівок',
 ]
 
 const PRICE_TIERS = [
