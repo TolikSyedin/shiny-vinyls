@@ -2,6 +2,7 @@ import { PageContainer } from '@/components/layout'
 import {
   CardGridSection,
   ColumnContentSection,
+  CtaSection,
   PageHeader,
   Section,
   SectionHeading,
@@ -14,7 +15,6 @@ import {
   NeedleList,
   Note,
   Readout,
-  Row,
 } from '@/components/ui'
 
 const PROCESS_STEPS = [
@@ -175,11 +175,11 @@ export default function HowItWorksPage() {
           </>
         }
       >
-        <Row>
+        <CtaSection>
           <CtaLink href="/blog" variant="ghost">
             Розгорнуте порівняння
           </CtaLink>
-        </Row>
+        </CtaSection>
       </ColumnContentSection>
 
       <Section>
@@ -190,12 +190,12 @@ export default function HowItWorksPage() {
           <NeedleList items={INCLUDED_LEFT} />
           <NeedleList items={INCLUDED_RIGHT} />
         </div>
-        <Row>
-          <CtaLink href="/reviews" variant="ghost">
-            Відгуки наших клієнтів
-          </CtaLink>
-        </Row>
       </Section>
+      <CtaSection>
+        <CtaLink href="/reviews" variant="ghost">
+          Відгуки наших клієнтів
+        </CtaLink>
+      </CtaSection>
 
       <Section>
         <SectionHeading eyebrow="Ціни">Одна послуга, три обсяги</SectionHeading>
@@ -211,13 +211,13 @@ export default function HowItWorksPage() {
             </Card>
           ))}
         </CardGrid>
-        <Row>
-          <CtaLink href="/request">Порахувати замовлення</CtaLink>
-          <CtaLink href="/contacts" variant="ghost">
-            Спитати наперед
-          </CtaLink>
-        </Row>
       </Section>
+      <CtaSection>
+        <CtaLink href="/request">Порахувати замовлення</CtaLink>
+        <CtaLink href="/contacts" variant="ghost">
+          Спитати наперед
+        </CtaLink>
+      </CtaSection>
 
       <Section>
         <SectionHeading eyebrow="Часті питання">
@@ -241,8 +241,10 @@ export default function HowItWorksPage() {
         <div className="flex flex-col items-start gap-4">
           <h3>Чогось не вистачає?</h3>
           <Note>Маєте питання, відповіді на яке тут нема? Напишіть нам.</Note>
-          <CtaLink href="/contacts">Написати нам</CtaLink>
         </div>
+        <CtaSection>
+          <CtaLink href="/contacts">Написати нам</CtaLink>
+        </CtaSection>
       </Section>
     </PageContainer>
   )

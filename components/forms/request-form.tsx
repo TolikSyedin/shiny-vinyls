@@ -7,6 +7,7 @@ import { Note } from '@/components/ui'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { requestSchema, type RequestInput } from '@/lib/schemas/request'
+import { CtaSection } from '@/components/common'
 import {
   NAME_PLACEHOLDER,
   PHONE_PLACEHOLDER,
@@ -98,11 +99,12 @@ export function RequestForm() {
 
         <FieldError message={submitError ?? undefined} />
 
-        <SubmitButton
-          className="self-start"
-          isSubmitting={isSubmitting || isRedirecting}
-          label="Надіслати замовлення"
-        />
+        <CtaSection>
+          <SubmitButton
+            isSubmitting={isSubmitting || isRedirecting}
+            label="Надіслати замовлення"
+          />
+        </CtaSection>
       </form>
 
       <Note>

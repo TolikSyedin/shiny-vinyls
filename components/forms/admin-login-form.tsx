@@ -14,6 +14,7 @@ import {
 } from '@/lib/data/form-fields/placeholders/constants'
 import { LOGIN_ERROR_MESSAGE } from '@/lib/data/form-fields/error-messages/constants'
 import { FieldError, TextField, SubmitButton } from '@/components/form-fields'
+import { CtaSection } from '@/components/common'
 import { createBrowserClient } from '@/lib/supabase/browser'
 
 export function AdminLoginForm() {
@@ -72,11 +73,13 @@ export function AdminLoginForm() {
 
       <FieldError message={submitError ?? undefined} />
 
-      <SubmitButton
-        isSubmitting={isSubmitting || isRedirecting}
-        label="Увійти"
-        loadingLabel="Входимо..."
-      />
+      <CtaSection>
+        <SubmitButton
+          isSubmitting={isSubmitting || isRedirecting}
+          label="Увійти"
+          loadingLabel="Входимо..."
+        />
+      </CtaSection>
     </form>
   )
 }

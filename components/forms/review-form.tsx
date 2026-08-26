@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm, useController } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, type ReviewInput } from '@/lib/schemas/review'
+import { CtaSection } from '@/components/common'
 import { Note } from '@/components/ui'
 import {
   NAME_PLACEHOLDER,
@@ -94,11 +95,9 @@ export function ReviewForm() {
 
       <FieldError message={submitError ?? undefined} />
 
-      <SubmitButton
-        className="self-start"
-        isSubmitting={isSubmitting}
-        label="Залишити відгук"
-      />
+      <CtaSection>
+        <SubmitButton isSubmitting={isSubmitting} label="Залишити відгук" />
+      </CtaSection>
     </form>
   )
 }

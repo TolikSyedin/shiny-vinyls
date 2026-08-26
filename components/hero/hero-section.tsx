@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { CtaSection } from '@/components/common'
 import { CtaLink, Eyebrow, Lead, PriceTag, Row } from '@/components/ui'
 import { basePricePerVinyl } from '@/lib/pricing'
 import { VinylDisc } from './vinyl-disc'
@@ -26,7 +27,7 @@ export function HeroSection() {
         </div>
 
         <div className="order-3 basis-full lg:basis-auto">
-          <Row>
+          <CtaSection>
             <CtaLink href="/request">Здати платівки</CtaLink>
             <Row>
               <CtaLink href="/how-it-works" variant="ghost">
@@ -34,7 +35,7 @@ export function HeroSection() {
               </CtaLink>
               <PriceTag>{basePricePerVinyl()} ₴ / шт</PriceTag>
             </Row>
-          </Row>
+          </CtaSection>
         </div>
       </div>
 

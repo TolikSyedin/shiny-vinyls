@@ -1,5 +1,10 @@
 import { PageContainer } from '@/components/layout'
-import { PageHeader, Section, SectionHeading } from '@/components/common'
+import {
+  CtaSection,
+  PageHeader,
+  Section,
+  SectionHeading,
+} from '@/components/common'
 import {
   Card,
   CardGrid,
@@ -8,7 +13,6 @@ import {
   NeedleList,
   Note,
   PriceTag,
-  Row,
 } from '@/components/ui'
 import { ContactForm } from '@/components/forms'
 import { cx } from '@/lib/utils/cx'
@@ -134,13 +138,13 @@ export default function ContactsPage() {
           Зворотня відправка — за наш рахунок, якщо в замовленні більше 10
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
-        <Row>
-          <CtaLink href="/request">Залишити замовлення</CtaLink>
-          <CtaLink href="/how-it-works" variant="ghost">
-            Подивитися ціни
-          </CtaLink>
-        </Row>
       </Section>
+      <CtaSection>
+        <CtaLink href="/request">Залишити замовлення</CtaLink>
+        <CtaLink href="/how-it-works" variant="ghost">
+          Подивитися ціни
+        </CtaLink>
+      </CtaSection>
 
       <Section>
         <SectionHeading eyebrow="Написати нам">

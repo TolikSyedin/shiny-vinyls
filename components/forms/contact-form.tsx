@@ -8,6 +8,7 @@ import {
   contactMessageSchema,
   type ContactMessageInput,
 } from '@/lib/schemas/contact-message'
+import { CtaSection } from '@/components/common'
 import {
   NAME_PLACEHOLDER,
   CONTACT_PLACEHOLDER,
@@ -100,11 +101,12 @@ export function ContactForm() {
 
         <FieldError message={submitError ?? undefined} />
 
-        <SubmitButton
-          className="self-start"
-          isSubmitting={isSubmitting}
-          label="Надіслати повідомлення"
-        />
+        <CtaSection>
+          <SubmitButton
+            isSubmitting={isSubmitting}
+            label="Надіслати повідомлення"
+          />
+        </CtaSection>
       </form>
 
       <Note>

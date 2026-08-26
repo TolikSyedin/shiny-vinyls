@@ -72,15 +72,17 @@ export function ColumnContentSection({
   children?: ReactNode
 }) {
   return (
-    <Section>
-      <SectionHeading eyebrow={eyebrow}>{heading}</SectionHeading>
-      <div className="flex flex-col">
-        {items.map((item) => (
-          <ColumnContentRow key={item.kicker} {...item} />
-        ))}
-      </div>
-      {footnote ? <Note>{footnote}</Note> : null}
+    <>
+      <Section>
+        <SectionHeading eyebrow={eyebrow}>{heading}</SectionHeading>
+        <div className="flex flex-col">
+          {items.map((item) => (
+            <ColumnContentRow key={item.kicker} {...item} />
+          ))}
+        </div>
+        {footnote ? <Note>{footnote}</Note> : null}
+      </Section>
       {children}
-    </Section>
+    </>
   )
 }
