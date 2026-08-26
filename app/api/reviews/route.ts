@@ -2,10 +2,13 @@ import { NextResponse, after } from 'next/server'
 import { reviewSchema } from '@/lib/schemas/review'
 import { createReview } from '@/lib/repositories/reviews'
 import { notifyNewReview } from '@/lib/telegram/telegram'
+import { readJsonBody } from '@/lib/api/json-body'
 
 export async function POST(req: Request) {
-  const body = await req.json()
-  const parsed = reviewSchema.safeParse(body)
+  const body = await readJsonBody(req)
+  if (!body.ok) return body.response
+
+  const parsed = reviewSchema.safeParse(body.data)
 
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 })
