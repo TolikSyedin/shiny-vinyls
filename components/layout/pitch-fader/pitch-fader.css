@@ -60,7 +60,7 @@
 
 .pitch-fader__num {
   font-family: var(--f-mono), ui-monospace, monospace;
-  font-size: 0.6rem;
+  font-size: var(--text-micro);
   line-height: 1;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
