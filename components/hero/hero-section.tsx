@@ -11,7 +11,7 @@ export function HeroSection() {
   const isTouched = touchCount > 0
 
   return (
-    <section className="flex flex-wrap items-center gap-4 pt-16">
+    <section className="flex flex-wrap items-center gap-4 pt-8">
       <div className="contents lg:flex lg:min-w-0 lg:grow lg:basis-[20rem] lg:flex-col lg:items-start lg:gap-4">
         <div className="order-1 flex min-w-0 grow basis-[20rem] flex-col items-start gap-4">
           <h1>
