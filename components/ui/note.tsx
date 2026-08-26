@@ -22,7 +22,7 @@ export function Note({
   return (
     <p
       className={cx(
-        compact ? 'max-w-[56ch]' : 'max-w-none',
+        compact ? 'max-w-[var(--measure)]' : 'max-w-none',
         TONE[tone],
         className,
       )}

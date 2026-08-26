@@ -8,5 +8,5 @@ export function Lead({
   children: ReactNode
   className?: string
 }) {
-  return <p className={cx('max-w-[52ch]', className)}>{children}</p>
+  return <p className={cx('max-w-[var(--measure)]', className)}>{children}</p>
 }
