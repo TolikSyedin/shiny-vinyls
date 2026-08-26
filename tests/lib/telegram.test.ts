@@ -13,17 +13,17 @@ const adminUrl = 'http://localhost:3000/admin/requests'
 describe('formatNewRequestMessage', () => {
   it("включає ім'я та телефон", () => {
     const text = formatNewRequestMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       adminUrl,
     })
-    expect(text).toContain('Олена')
+    expect(text).toContain('Аліна')
     expect(text).toContain('+380501234567')
   })
 
   it('додає коментар, якщо він переданий', () => {
     const text = formatNewRequestMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       comment: '5 платівок, є подряпини',
       adminUrl,
@@ -33,7 +33,7 @@ describe('formatNewRequestMessage', () => {
 
   it('не додає рядок коментаря, якщо його немає', () => {
     const text = formatNewRequestMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       adminUrl,
     })
@@ -42,7 +42,7 @@ describe('formatNewRequestMessage', () => {
 
   it('обгортає посилання на адмінку в клікабельний <a> тег з підписом "Обробити замовлення"', () => {
     const text = formatNewRequestMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       adminUrl,
     })
@@ -67,19 +67,19 @@ describe('formatNewReviewMessage', () => {
 
   it("включає ім'я, рейтинг і текст відгуку", () => {
     const text = formatNewReviewMessage({
-      name: 'Ігор',
+      name: 'Марічка',
       rating: 5,
       text: 'Дуже задоволений результатом',
       adminUrl: reviewAdminUrl,
     })
-    expect(text).toContain('Ігор')
+    expect(text).toContain('Марічка')
     expect(text).toContain('5/5')
     expect(text).toContain('Дуже задоволений результатом')
   })
 
   it('обгортає посилання на адмінку в клікабельний <a> тег з підписом "Обробити відгук"', () => {
     const text = formatNewReviewMessage({
-      name: 'Ігор',
+      name: 'Марічка',
       rating: 5,
       text: 'Дуже задоволений результатом',
       adminUrl: reviewAdminUrl,
@@ -89,7 +89,7 @@ describe('formatNewReviewMessage', () => {
 
   it('екранує HTML-спецсимволи в тексті відгуку', () => {
     const text = formatNewReviewMessage({
-      name: 'Ігор',
+      name: 'Марічка',
       rating: 5,
       text: '<b>дуже</b> задоволений & рекомендую',
       adminUrl: reviewAdminUrl,
@@ -104,11 +104,11 @@ describe('formatNewReviewMessage', () => {
 describe('formatLinkedMessage', () => {
   it("включає ім'я, телефон і статус-текст, щоб клієнт міг звірити заявку", () => {
     const text = formatLinkedMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       statusMessage: 'Ваші платівки миються та сушаться',
     })
-    expect(text).toContain('Олена')
+    expect(text).toContain('Аліна')
     expect(text).toContain('+380501234567')
     expect(text).toContain('Ваші платівки миються та сушаться')
     expect(text).toContain('привʼязано')
@@ -116,7 +116,7 @@ describe('formatLinkedMessage', () => {
 
   it('додає коментар, якщо він переданий', () => {
     const text = formatLinkedMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       comment: '5 платівок, є подряпини',
       statusMessage: 'Ваші платівки миються та сушаться',
@@ -126,7 +126,7 @@ describe('formatLinkedMessage', () => {
 
   it('не додає рядок коментаря, якщо його немає', () => {
     const text = formatLinkedMessage({
-      name: 'Олена',
+      name: 'Аліна',
       phone: '+380501234567',
       statusMessage: 'Ваші платівки миються та сушаться',
     })
