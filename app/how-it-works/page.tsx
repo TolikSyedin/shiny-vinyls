@@ -242,10 +242,10 @@ export default function HowItWorksPage() {
           <h3>Чогось не вистачає?</h3>
           <Note>Маєте питання, відповіді на яке тут нема? Напишіть нам.</Note>
         </div>
-        <CtaSection>
-          <CtaLink href="/contacts">Написати нам</CtaLink>
-        </CtaSection>
       </Section>
+      <CtaSection>
+        <CtaLink href="/contacts">Написати нам</CtaLink>
+      </CtaSection>
     </PageContainer>
   )
 }

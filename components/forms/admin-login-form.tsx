@@ -53,25 +53,27 @@ export function AdminLoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <TextField
-        id="email"
-        label="Email"
-        placeholder={EMAIL_PLACEHOLDER}
-        error={errors.email?.message}
-        {...register('email')}
-      />
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+      <div className="flex flex-col gap-4">
+        <TextField
+          id="email"
+          label="Email"
+          placeholder={EMAIL_PLACEHOLDER}
+          error={errors.email?.message}
+          {...register('email')}
+        />
 
-      <TextField
-        id="password"
-        label="Пароль"
-        type="password"
-        placeholder={PASSWORD_PLACEHOLDER}
-        error={errors.password?.message}
-        {...register('password')}
-      />
+        <TextField
+          id="password"
+          label="Пароль"
+          type="password"
+          placeholder={PASSWORD_PLACEHOLDER}
+          error={errors.password?.message}
+          {...register('password')}
+        />
 
-      <FieldError message={submitError ?? undefined} />
+        <FieldError message={submitError ?? undefined} />
+      </div>
 
       <CtaSection>
         <SubmitButton

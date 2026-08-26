@@ -66,40 +66,42 @@ export function ContactForm() {
 
   return (
     <div className="flex flex-col gap-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <TextField
-            className="min-w-0 flex-1"
-            id="name"
-            label="Імʼя"
-            autocomplete="name"
-            placeholder={NAME_PLACEHOLDER}
-            error={errors.name?.message}
-            {...register('name')}
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <TextField
+              className="min-w-0 flex-1"
+              id="name"
+              label="Імʼя"
+              autocomplete="name"
+              placeholder={NAME_PLACEHOLDER}
+              error={errors.name?.message}
+              {...register('name')}
+            />
+
+            <TextField
+              className="min-w-0 flex-1"
+              id="contact"
+              label="Телефон або Telegram"
+              autocomplete="tel"
+              placeholder={CONTACT_PLACEHOLDER}
+              error={errors.contact?.message}
+              {...register('contact')}
+            />
+          </div>
+
+          <TextAreaField
+            id="message"
+            label="Повідомлення"
+            placeholder={MESSAGE_PLACEHOLDER}
+            error={errors.message?.message}
+            {...register('message')}
           />
 
-          <TextField
-            className="min-w-0 flex-1"
-            id="contact"
-            label="Телефон або Telegram"
-            autocomplete="tel"
-            placeholder={CONTACT_PLACEHOLDER}
-            error={errors.contact?.message}
-            {...register('contact')}
-          />
+          <HoneypotField register={register} name="website" />
+
+          <FieldError message={submitError ?? undefined} />
         </div>
-
-        <TextAreaField
-          id="message"
-          label="Повідомлення"
-          placeholder={MESSAGE_PLACEHOLDER}
-          error={errors.message?.message}
-          {...register('message')}
-        />
-
-        <HoneypotField register={register} name="website" />
-
-        <FieldError message={submitError ?? undefined} />
 
         <CtaSection>
           <SubmitButton
