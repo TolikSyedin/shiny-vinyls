@@ -1,5 +1,6 @@
 import { PageContainer } from '@/components/layout'
 import {
+  CardGridSection,
   ColumnContentSection,
   PageHeader,
   Section,
@@ -41,22 +42,22 @@ const PROCESS_STEPS = [
 
 const EQUIPMENT_SPECS = [
   {
-    value: '40 кГц',
+    label: '40 кГц',
     title: 'Частота',
     note: 'Стандарт для вінілу. Нижчі частоти дають грубішу кавітацію, яка вже небезпечна для полімеру.',
   },
   {
-    value: '180 Вт',
+    label: '180 Вт',
     title: 'Ультразвук',
     note: 'Плюс 300 Вт підігріву: теплий розчин розчиняє жир від пальців у рази швидше за холодний.',
   },
   {
-    value: '6 л · сталь 304',
+    label: '6 л · сталь 304',
     title: 'Ванна',
     note: 'Нержавіюча ванна, розчин фільтрується й міняється після кожного циклу помивки.',
   },
   {
-    value: '20–40 хв',
+    label: '20–40 хв',
     title: 'Цикл',
     note: 'Час залежить здебільшого від ступеня забруднення. Кожна партія уважно оглядається і оцінюється перед початком процесу.',
   },
@@ -154,20 +155,12 @@ export default function HowItWorksPage() {
         </CardGrid>
       </Section>
 
-      <Section>
-        <SectionHeading eyebrow="Обладнання">
-          Характеристики ванни
-        </SectionHeading>
-        <CardGrid cols={4} className="mt-[1.5rem]">
-          {EQUIPMENT_SPECS.map(({ value, title, note }) => (
-            <Card key={title}>
-              <Mono tone="stamp">{value}</Mono>
-              <h3>{title}</h3>
-              <Note>{note}</Note>
-            </Card>
-          ))}
-        </CardGrid>
-      </Section>
+      <CardGridSection
+        eyebrow="Обладнання"
+        heading="Характеристики ванни"
+        items={EQUIPMENT_SPECS}
+        cols={4}
+      />
 
       <ColumnContentSection
         eyebrow="Порівняння"
