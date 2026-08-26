@@ -26,7 +26,7 @@ export default async function AdminRequestsPage() {
           <table className="w-full min-w-[40rem] border-collapse text-left">
             <thead>
               <tr className="border-b border-border">
-                <th className="p-2">Імʼія</th>
+                <th className="p-2">Ім'я</th>
                 <th className="p-2">Телефон</th>
                 <th className="p-2">Коментар</th>
                 <th className="p-2">Статус</th>
