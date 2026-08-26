@@ -7,8 +7,7 @@ export const ERROR_MESSAGES = {
   RATING_NOT_DEFINED: 'Будь ласка, вкажіть вашу оцінку',
   REVIEW_TOO_SHORT: 'Відгук занадто короткий',
   CONTACT_TOO_SHORT: 'Вкажіть телефон або Telegram для звʼязку',
-  CONTACT_INVALID_FORMAT:
-    'Вкажіть коректний телефон (від 7 цифр) або Telegram-нікнейм (@nickname)',
+  CONTACT_INVALID_FORMAT: 'Вкажіть коректний телефон або Telegram-нікнейм',
   MESSAGE_TOO_SHORT: 'Повідомлення занадто коротке',
   SUBMIT_ERROR_MESSAGE: 'Щось пішло не так, спробуйте ще раз',
   LOGIN_ERROR_MESSAGE: 'Невірний email або пароль',
