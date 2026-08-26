@@ -8,14 +8,14 @@ export function ArticleTable({
   rows: string[][]
 }) {
   return (
-    <div className="my-[1.75rem] overflow-x-auto rounded-[0.3rem] border border-[var(--rule)]">
+    <div className="overflow-x-auto rounded-[0.3rem] border border-[var(--rule)]">
       <table className="w-full border-collapse text-[0.9rem]">
         <thead>
           <tr>
             {head.map((label) => (
               <th
                 key={label}
-                className="border-b border-[var(--rule)] bg-[var(--surface-2)] px-[0.9rem] py-[0.6rem] text-left"
+                className="border-b border-[var(--rule)] bg-[var(--surface-2)] px-4 py-2 text-left"
               >
                 <Mono tone="stamp" className="uppercase tracking-[0.06em]">
                   {label}
@@ -33,10 +33,7 @@ export function ArticleTable({
               }
             >
               {row.map((cell, cellIndex) => (
-                <td
-                  key={cellIndex}
-                  className="px-[0.9rem] py-[0.6rem] align-top"
-                >
+                <td key={cellIndex} className="px-4 py-2 align-top">
                   {cell}
                 </td>
               ))}

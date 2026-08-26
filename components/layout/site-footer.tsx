@@ -28,17 +28,14 @@ const FOOTER_LINK_COLUMNS: FooterLink[][] = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-4 md:mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
-      <div className="mx-auto flex max-w-[70rem] flex-col gap-[1.5rem] px-[clamp(1rem,4vw,2.5rem)] py-[2rem] sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
-        <div className="flex flex-col gap-[0.5rem]">
+    <footer className="mt-8 border-t border-[var(--rule)] bg-[var(--surface-2)]">
+      <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-4 px-4 py-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-4">
           <Wordmark size="sm">Shiny Vinyls</Wordmark>
           <Mono>Ультразвукове чищення вінілу · Київ</Mono>
         </div>
         {FOOTER_LINK_COLUMNS.map((column) => (
-          <div
-            key={column[0].href}
-            className="flex flex-col items-start gap-[0.5rem]"
-          >
+          <div key={column[0].href} className="flex flex-col items-start gap-4">
             {column.map(({ href, label, external }) =>
               external ? (
                 <a key={href} href={href} className={LINK_CLASS_NAME}>

@@ -35,18 +35,18 @@ export default function ContactsPage() {
         eyebrow="Контакти"
         title="Shiny Vinyls"
         lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо замовлення по всій Україні. м. Київ. Самовивіз / доставка"
-      />
-
-      <Note className="mt-[1.5rem]">
-        Можна звʼязатися з нами будь-яким зручним способом. Найшвидше — через
-        Telegram.
-      </Note>
+      >
+        <Note>
+          Можна звʼязатися з нами будь-яким зручним способом. Найшвидше — через
+          Telegram.
+        </Note>
+      </PageHeader>
 
       <Section>
         <SectionHeading eyebrow="Звʼязок">
           Оберіть найзручніший для Вас варіант
         </SectionHeading>
-        <CardGrid cols={3} className="mt-[1.5rem]">
+        <CardGrid cols={3}>
           <Card>
             <Mono tone="stamp">Телефон</Mono>
             <a
@@ -88,26 +88,24 @@ export default function ContactsPage() {
         <SectionHeading eyebrow="Самовивіз">
           Адреса і графік роботи
         </SectionHeading>
-        <div className="mt-[1.5rem] grid gap-[1.5rem] md:grid-cols-2">
-          <div className="flex flex-col items-start gap-[0.875rem]">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="flex flex-col items-start gap-4">
             <p className="text-[1.05rem] leading-[1.55]">
               {CONTACT_INFO.address.street}
               <br />
               {CONTACT_INFO.address.city}
             </p>
-            <Note>
-              Дзвоніть за 15 хвилин — вийдемо назустріч.
-            </Note>
+            <Note>Дзвоніть за 15 хвилин — вийдемо назустріч.</Note>
             <PriceTag>Без передоплати</PriceTag>
           </div>
           <Card>
             <Mono tone="stamp">Графік</Mono>
-            <div className="flex flex-col gap-[0.44rem] font-mono text-[0.9rem] text-[var(--ink)]">
+            <div className="flex flex-col gap-4 font-mono text-[0.9rem] text-[var(--ink)]">
               {CONTACT_INFO.hours.map(({ days, time }) => (
                 <div
                   key={days}
                   className={cx(
-                    'flex justify-between gap-[1rem]',
+                    'flex justify-between gap-4',
                     days === 'Нд' && 'text-[var(--muted)]',
                   )}
                 >
@@ -118,7 +116,7 @@ export default function ContactsPage() {
             </div>
           </Card>
         </div>
-        <div className="mt-[1.5rem] overflow-hidden rounded-[0.3rem] border border-[var(--rule)]">
+        <div className="overflow-hidden rounded-[0.3rem] border border-[var(--rule)]">
           <iframe
             src={MAP_EMBED_SRC}
             title="Shiny Vinyls на мапі"
@@ -131,12 +129,12 @@ export default function ContactsPage() {
 
       <Section>
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
-        <NeedleList items={PACKING_TIPS} className="mt-[1.5rem]" />
-        <Note className="mt-[1.125rem]">
+        <NeedleList items={PACKING_TIPS} />
+        <Note>
           Зворотня відправка — за наш рахунок, якщо в замовленні більше 10
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
-        <Row className="mt-[1.5rem]">
+        <Row>
           <CtaLink href="/request">Залишити замовлення</CtaLink>
           <CtaLink href="/how-it-works" variant="ghost">
             Подивитися ціни

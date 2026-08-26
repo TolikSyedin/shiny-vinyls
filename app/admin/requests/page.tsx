@@ -1,8 +1,7 @@
 import { listRequests } from '@/lib/repositories/requests'
 import { adminRequestStatusLabels } from '@/lib/data/admin-statuses/constants'
-import { AdminNav } from '@/components/admin/admin-nav'
+import { AdminPage } from '@/components/admin/admin-page'
 import { RequestStatusControl } from '@/components/admin/request-status-control'
-import { PageContainer } from '@/components/layout'
 import { Note } from '@/components/ui'
 
 export const metadata = {
@@ -15,38 +14,35 @@ export default async function AdminRequestsPage() {
   const requests = await listRequests()
 
   return (
-    <PageContainer>
-      <AdminNav />
-      <h1>Замовлення</h1>
-
+    <AdminPage title="Замовлення">
       {requests.length === 0 ? (
         <Note>Замовлень ще немає.</Note>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[40rem] border-collapse text-left">
             <thead>
-              <tr className="border-b border-border">
-                <th className="p-2">Імʼя</th>
-                <th className="p-2">Телефон</th>
-                <th className="p-2">Коментар</th>
-                <th className="p-2">Статус</th>
-                <th className="p-2">Створено</th>
-                <th className="p-2"></th>
+              <tr className="border-b border-[var(--rule)]">
+                <th className="px-4 py-2">Імʼя</th>
+                <th className="px-4 py-2">Телефон</th>
+                <th className="px-4 py-2">Коментар</th>
+                <th className="px-4 py-2">Статус</th>
+                <th className="px-4 py-2">Створено</th>
+                <th className="px-4 py-2"></th>
               </tr>
             </thead>
             <tbody>
               {requests.map((request) => (
-                <tr key={request.id} className="border-b border-border">
-                  <td className="p-2">{request.name}</td>
-                  <td className="p-2">{request.phone}</td>
-                  <td className="p-2">{request.comment ?? '—'}</td>
-                  <td className="p-2">
+                <tr key={request.id} className="border-b border-[var(--rule)]">
+                  <td className="px-4 py-2">{request.name}</td>
+                  <td className="px-4 py-2">{request.phone}</td>
+                  <td className="px-4 py-2">{request.comment ?? '—'}</td>
+                  <td className="px-4 py-2">
                     {adminRequestStatusLabels[request.status]}
                   </td>
-                  <td className="p-2">
+                  <td className="px-4 py-2">
                     {new Date(request.created_at).toLocaleDateString('uk-UA')}
                   </td>
-                  <td className="p-2">
+                  <td className="px-4 py-2">
                     <RequestStatusControl
                       id={request.id}
                       status={request.status}
@@ -58,6 +54,6 @@ export default async function AdminRequestsPage() {
           </table>
         </div>
       )}
-    </PageContainer>
+    </AdminPage>
   )
 }

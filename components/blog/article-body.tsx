@@ -1,18 +1,15 @@
 import { Callout } from '@/components/ui'
+import { Section } from '@/components/common'
 import type { BlogContentBlock } from '@/lib/data/blog/articles'
 import { ArticleTable } from './article-table'
 
 export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
   return (
-    <div className="mt-[2.25rem] flex flex-col gap-[1.05rem]">
+    <Section>
       {blocks.map((block, index) => {
         switch (block.type) {
           case 'heading':
-            return (
-              <h2 key={index} className="mt-[1.25rem]">
-                {block.text}
-              </h2>
-            )
+            return <h2 key={index}>{block.text}</h2>
           case 'paragraph':
             return (
               <p key={index} className="text-[1.02rem] leading-[1.68]">
@@ -26,8 +23,8 @@ export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
                 key={index}
                 className={
                   block.ordered
-                    ? 'list-decimal space-y-[0.55rem] pl-[1.4rem]'
-                    : 'list-disc space-y-[0.55rem] pl-[1.4rem]'
+                    ? 'list-decimal space-y-4 pl-6'
+                    : 'list-disc space-y-4 pl-6'
                 }
               >
                 {block.items.map((item, itemIndex) => (
@@ -52,6 +49,6 @@ export function ArticleBody({ blocks }: { blocks: BlogContentBlock[] }) {
             return null
         }
       })}
-    </div>
+    </Section>
   )
 }

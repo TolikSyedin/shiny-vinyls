@@ -57,19 +57,16 @@ export function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <Note className="mt-[1.5rem]">
+      <Note>
         Дякуємо за повідомлення! Ми звʼяжемося з Вами найближчим часом.
       </Note>
     )
   }
 
   return (
-    <div className="flex flex-col gap-4 mt-[1.5rem]">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[1rem]"
-      >
-        <div className="flex flex-col gap-[1rem] sm:flex-row">
+    <div className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row">
           <TextField
             className="min-w-0 flex-1"
             id="name"

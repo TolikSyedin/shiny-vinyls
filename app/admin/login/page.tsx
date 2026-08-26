@@ -8,8 +8,10 @@ export const metadata = {
 export default function AdminLoginPage() {
   return (
     <PageContainer>
-      <h1>Вхід</h1>
-      <AdminLoginForm />
+      <div className="flex flex-col gap-4 pt-8">
+        <h1>Вхід</h1>
+        <AdminLoginForm />
+      </div>
     </PageContainer>
   )
 }

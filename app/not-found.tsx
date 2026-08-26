@@ -1,5 +1,5 @@
 import { PageContainer } from '@/components/layout'
-import { PageHeader } from '@/components/common'
+import { PageHeader, Section } from '@/components/common'
 import { CtaLink, Row } from '@/components/ui'
 
 export const metadata = {
@@ -14,12 +14,14 @@ export default function NotFound() {
         title="Голка зіскочила з доріжки"
         lead="Такої сторінки в нас немає — можливо, посилання застаріло або в адресі закралася помилка. Перевірте написання чи поверніться на головну, звідти точно знайдете дорогу."
       />
-      <Row className="mt-[2rem] gap-[1rem]">
-        <CtaLink href="/">На головну</CtaLink>
-        <CtaLink href="/blog" variant="ghost">
-          До блогу
-        </CtaLink>
-      </Row>
+      <Section>
+        <Row>
+          <CtaLink href="/">На головну</CtaLink>
+          <CtaLink href="/blog" variant="ghost">
+            До блогу
+          </CtaLink>
+        </Row>
+      </Section>
     </PageContainer>
   )
 }

@@ -9,8 +9,8 @@ export function ArticleHeader({
   lead,
 }: Pick<BlogArticle, 'category' | 'readingTime' | 'title' | 'lead'>) {
   return (
-    <header className="flex flex-col items-start gap-[1.25rem] pt-[clamp(2.5rem,6vw,4.5rem)]">
-      <div className="flex flex-wrap items-center gap-[0.5rem]">
+    <header className="flex flex-col items-start gap-4 pt-16">
+      <div className="flex flex-wrap items-center gap-4">
         <Breadcrumbs
           items={[{ label: 'Блог', href: '/blog' }, { label: category }]}
         />

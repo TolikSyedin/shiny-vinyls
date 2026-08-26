@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { getRequestStatus } from '@/lib/repositories/requests'
 import { requestStatusLabels } from '@/lib/data/request-statuses/constants'
 import { PageContainer } from '@/components/layout'
-import { PageHeader } from '@/components/common'
-import { Mono } from '@/components/ui'
+import { PageHeader, Section } from '@/components/common'
+import { CtaLink, Mono, Row } from '@/components/ui'
 
 export const metadata = {
   title: 'Статус замовлення — Shiny Vinyls',
@@ -35,12 +35,16 @@ export default async function RequestStatusPage({
         </Mono>
       </PageHeader>
       {botUsername && (
-        <a
-          href={`https://t.me/${botUsername}?start=${result.id}`}
-          className="text-sm font-medium underline underline-offset-4"
-        >
-          Слідкувати за статусом замовлення в Telegram
-        </a>
+        <Section>
+          <Row>
+            <CtaLink
+              href={`https://t.me/${botUsername}?start=${result.id}`}
+              variant="ghost"
+            >
+              Слідкувати за статусом замовлення в Telegram
+            </CtaLink>
+          </Row>
+        </Section>
       )}
     </PageContainer>
   )
