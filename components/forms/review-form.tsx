@@ -78,7 +78,7 @@ export function ReviewForm() {
 
       <TextField
         id="name"
-        label="Ім'я"
+        label="Імʼя"
         autocomplete="name"
         placeholder={NAME_PLACEHOLDER}
         error={errors.name?.message}

@@ -13,7 +13,7 @@ const FOOTER_LINK_COLUMNS: FooterLink[][] = [
     { href: '/reviews', label: 'Відгуки' },
   ],
   [
-    { href: '/request', label: 'Заявка' },
+    { href: '/request', label: 'Замовлення' },
     { href: '/contacts', label: 'Контакти' },
   ],
   [

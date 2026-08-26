@@ -6,7 +6,7 @@ import { PageContainer } from '@/components/layout'
 import { Note } from '@/components/ui'
 
 export const metadata = {
-  title: 'Заявки — Адмін — Shiny Vinyls',
+  title: 'Замовлення — Адмін — Shiny Vinyls',
 }
 
 export const dynamic = 'force-dynamic'
@@ -17,16 +17,16 @@ export default async function AdminRequestsPage() {
   return (
     <PageContainer>
       <AdminNav />
-      <h1>Заявки</h1>
+      <h1>Замовлення</h1>
 
       {requests.length === 0 ? (
-        <Note>Заявок ще немає.</Note>
+        <Note>Замовлень ще немає.</Note>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[40rem] border-collapse text-left">
             <thead>
               <tr className="border-b border-border">
-                <th className="p-2">Імʼія</th>
+                <th className="p-2">Імʼя</th>
                 <th className="p-2">Телефон</th>
                 <th className="p-2">Коментар</th>
                 <th className="p-2">Статус</th>

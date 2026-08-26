@@ -46,7 +46,7 @@ function MobileNavPanel({ pathname }: { pathname: string }) {
             href="/request"
             aria-current={pathname === '/request' ? 'page' : undefined}
           >
-            Заявка
+            Замовлення
           </Link>
         </div>
       )}

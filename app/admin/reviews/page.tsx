@@ -26,7 +26,7 @@ export default async function AdminReviewsPage() {
           <table className="w-full min-w-[40rem] border-collapse text-left">
             <thead>
               <tr className="border-b border-border">
-                <th className="p-2">Ім&apos;я</th>
+                <th className="p-2">Імʼя</th>
                 <th className="p-2">Оцінка</th>
                 <th className="p-2">Текст</th>
                 <th className="p-2">Статус</th>

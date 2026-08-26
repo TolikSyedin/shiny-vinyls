@@ -1,10 +1,10 @@
 export const PLACEHOLDERS = {
-  NAME_PLACEHOLDER: "Ваше ім'я",
-  PHONE_PLACEHOLDER: '+380XX XXX XX XX',
+  NAME_PLACEHOLDER: "Ваше імʼя",
+  PHONE_PLACEHOLDER: '+38 0XX XXX XX XX',
   COMMENT_PLACEHOLDER:
-    "Кілька слів про платівки, які треба почистити (необов'язково)",
+    "Кілька слів про платівки, які треба почистити (необовʼязково)",
   REVIEW_TEXT_PLACEHOLDER: 'Розкажіть про свій досвід',
-  CONTACT_PLACEHOLDER: '+380XX XXX XX XX або @nickname',
+  CONTACT_PLACEHOLDER: '+38 0XX XXX XX XX або @nickname',
   MESSAGE_PLACEHOLDER: 'Ваше повідомлення',
   EMAIL_PLACEHOLDER: 'you@example.com',
   PASSWORD_PLACEHOLDER: '••••••••',

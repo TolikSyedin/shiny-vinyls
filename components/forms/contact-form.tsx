@@ -58,7 +58,7 @@ export function ContactForm() {
   if (isSubmitted) {
     return (
       <Note className="mt-[1.5rem]" fullWidth>
-        Дякуємо за повідомлення! Ми зв'яжемося з вами найближчим часом.
+        Дякуємо за повідомлення! Ми звʼяжемося з Вами найближчим часом.
       </Note>
     )
   }
@@ -73,7 +73,7 @@ export function ContactForm() {
           <TextField
             className="min-w-0 flex-1"
             id="name"
-            label="Ім'я"
+            label="Імʼя"
             autocomplete="name"
             placeholder={NAME_PLACEHOLDER}
             error={errors.name?.message}

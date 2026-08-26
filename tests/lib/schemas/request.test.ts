@@ -4,7 +4,7 @@ import { requestSchema } from '@/lib/schemas/request'
 describe('requestSchema', () => {
   it('приймає валідну заявку', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '+380501234567',
       comment: '3 платівки, помірний бруд',
     })
@@ -13,7 +13,7 @@ describe('requestSchema', () => {
 
   it('приймає заявку без коментаря (optional поле)', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '+380501234567',
     })
     expect(result.success).toBe(true)
@@ -21,7 +21,7 @@ describe('requestSchema', () => {
 
   it("відхиляє занадто коротке ім'я", () => {
     const result = requestSchema.safeParse({
-      name: 'О',
+      name: 'А',
       phone: '+380501234567',
     })
     expect(result.success).toBe(false)
@@ -29,7 +29,7 @@ describe('requestSchema', () => {
 
   it('відхиляє занадто короткий телефон', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '123',
     })
     expect(result.success).toBe(false)
@@ -42,7 +42,7 @@ describe('requestSchema', () => {
 
   it('тримає honeypot-поле опціональним і порожнім за замовчуванням', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '+380501234567',
     })
     expect(result.success).toBe(true)
@@ -57,7 +57,7 @@ describe('requestSchema', () => {
     // інакше заповнений honeypot валив би всю валідацію (400) замість
     // тихої відповіді боту.
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '+380501234567',
       website: 'http://spam.example',
     })
@@ -69,7 +69,7 @@ describe('requestSchema', () => {
 
   it('відхиляє телефон з літерами', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '+380abc234567',
     })
     expect(result.success).toBe(false)
@@ -77,7 +77,7 @@ describe('requestSchema', () => {
 
   it('приймає телефон із дужками, пробілами й дефісами', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '+38 (050) 123-45-67',
     })
     expect(result.success).toBe(true)
@@ -85,7 +85,7 @@ describe('requestSchema', () => {
 
   it('відхиляє телефон із недостатньою кількістю цифр, навіть якщо довжина рядка формально валідна', () => {
     const result = requestSchema.safeParse({
-      name: 'Олена',
+      name: 'Андрій',
       phone: '-- () -- () --',
     })
     expect(result.success).toBe(false)
@@ -93,12 +93,12 @@ describe('requestSchema', () => {
 
   it('обрізає пробіли навколо імені й телефону (trim)', () => {
     const result = requestSchema.safeParse({
-      name: '  Олена  ',
+      name: '  Андрій  ',
       phone: '  +380501234567  ',
     })
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.name).toBe('Олена')
+      expect(result.data.name).toBe('Андрій')
       expect(result.data.phone).toBe('+380501234567')
     }
   })

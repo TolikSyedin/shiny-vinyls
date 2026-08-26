@@ -26,7 +26,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <div className="hidden md:block">
             <CtaLink href="/request" size="sm">
-              Заявка
+              Замовлення
             </CtaLink>
           </div>
           <StrobeToggle />

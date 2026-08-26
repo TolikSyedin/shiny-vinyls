@@ -34,17 +34,17 @@ export default function ContactsPage() {
       <PageHeader
         eyebrow="Контакти"
         title="Shiny Vinyls"
-        lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо заявки по всій Україні. м. Київ. Самовивіз / доставка"
+        lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо замовлення по всій Україні. м. Київ. Самовивіз / доставка"
       />
 
       <Note fullWidth className="mt-[1.5rem]">
-        Можна зв'язатися з нами будь-яким зручним способом. Найшвидше — через
+        Можна звʼязатися з нами будь-яким зручним способом. Найшвидше — через
         Telegram.
       </Note>
 
       <Section>
-        <SectionHeading eyebrow="Зв'язок">
-          Оберіть найзручніший для вас варіант
+        <SectionHeading eyebrow="Звʼязок">
+          Оберіть найзручніший для Вас варіант
         </SectionHeading>
         <CardGrid cols={3} className="mt-[1.5rem]">
           <Card>
@@ -133,11 +133,11 @@ export default function ContactsPage() {
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
         <NeedleList items={PACKING_TIPS} className="mt-[1.5rem]" />
         <Note fullWidth className="mt-[1.125rem]">
-          Зворотна відправка — за наш рахунок, якщо в замовленні більше 10
+          Зворотня відправка — за наш рахунок, якщо в замовленні більше 10
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
         <Row className="mt-[1.5rem]">
-          <CtaLink href="/request">Залишити заявку</CtaLink>
+          <CtaLink href="/request">Залишити замовлення</CtaLink>
           <CtaLink href="/how-it-works" variant="ghost">
             Подивитися ціни
           </CtaLink>
