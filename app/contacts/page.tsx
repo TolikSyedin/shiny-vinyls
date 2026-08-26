@@ -34,7 +34,7 @@ export default function ContactsPage() {
       <PageHeader
         eyebrow="Контакти"
         title="Shiny Vinyls"
-        lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо заявки по всій Україні. м. Київ. Самовивіз / доставка"
+        lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо замовлення по всій Україні. м. Київ. Самовивіз / доставка"
       />
 
       <Note fullWidth className="mt-[1.5rem]">
@@ -137,7 +137,7 @@ export default function ContactsPage() {
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
         </Note>
         <Row className="mt-[1.5rem]">
-          <CtaLink href="/request">Залишити заявку</CtaLink>
+          <CtaLink href="/request">Залишити замовлення</CtaLink>
           <CtaLink href="/how-it-works" variant="ghost">
             Подивитися ціни
           </CtaLink>

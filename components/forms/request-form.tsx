@@ -104,12 +104,12 @@ export function RequestForm() {
         <SubmitButton
           className="self-start"
           isSubmitting={isSubmitting || isRedirecting}
-          label="Надіслати заявку"
+          label="Надіслати замовлення"
         />
       </form>
 
       <Note>
-        Не вдається надіслати заявку?{' '}
+        Не вдається надіслати замовлення?{' '}
         <Link href="/contacts">Звʼяжіться з нами напряму</Link>
       </Note>
     </div>

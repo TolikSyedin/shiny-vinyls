@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/common'
 import { Mono } from '@/components/ui'
 
 export const metadata = {
-  title: 'Статус заявки — Shiny Vinyls',
+  title: 'Статус замовлення — Shiny Vinyls',
 }
 
 export default async function RequestStatusPage({
@@ -26,8 +26,8 @@ export default async function RequestStatusPage({
   return (
     <PageContainer>
       <PageHeader
-        eyebrow="Заявка"
-        title="Ваша заявка"
+        eyebrow="Замовлення"
+        title="Ваше замовлення"
         lead={requestStatusLabels[result.status]}
       >
         <Mono>
@@ -39,7 +39,7 @@ export default async function RequestStatusPage({
           href={`https://t.me/${botUsername}?start=${result.id}`}
           className="text-sm font-medium underline underline-offset-4"
         >
-          Слідкувати за статусом заявки в Telegram
+          Слідкувати за статусом замовлення в Telegram
         </a>
       )}
     </PageContainer>

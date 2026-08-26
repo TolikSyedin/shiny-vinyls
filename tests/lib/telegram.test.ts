@@ -40,13 +40,13 @@ describe('formatNewRequestMessage', () => {
     expect(text).not.toContain('Коментар:')
   })
 
-  it('обгортає посилання на адмінку в клікабельний <a> тег з підписом "Обробити заявку"', () => {
+  it('обгортає посилання на адмінку в клікабельний <a> тег з підписом "Обробити замовлення"', () => {
     const text = formatNewRequestMessage({
       name: 'Олена',
       phone: '+380501234567',
       adminUrl,
     })
-    expect(text).toContain(`<a href="${adminUrl}">Обробити заявку</a>`)
+    expect(text).toContain(`<a href="${adminUrl}">Обробити замовлення</a>`)
   })
 
   it('екранує HTML-спецсимволи в полях, щоб не зламати parse_mode: HTML', () => {

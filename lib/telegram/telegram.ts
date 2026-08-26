@@ -41,12 +41,12 @@ type LinkedRequestInfo = {
 }
 
 // Echoes back the request's own fields so the client can visually confirm
-// this is *their* заявка before trusting the bot — same reasoning as why
+// this is *their* замовлення before trusting the bot — same reasoning as why
 // formatNewRequestMessage escapes its input: these are user-supplied values
 // interpolated into an HTML-parsed message.
 export function formatLinkedMessage(input: LinkedRequestInfo): string {
   const lines = [
-    `Telegram привʼязано до заявки:`,
+    `Telegram привʼязано до замовлення:`,
     `Ім'я: ${escapeHtml(input.name)}`,
     `Телефон: ${escapeHtml(input.phone)}`,
   ]
@@ -56,25 +56,25 @@ export function formatLinkedMessage(input: LinkedRequestInfo): string {
 }
 
 export function formatInvalidLinkMessage(): string {
-  return 'Не вдалося знайти заявку за цим посиланням. Спробуйте перейти за посиланням ще раз зі сторінки статусу заявки на сайті.'
+  return 'Не вдалося знайти замовлення за цим посиланням. Спробуйте перейти за посиланням ще раз зі сторінки статусу замовлення на сайті.'
 }
 
 export function formatNotLinkedMessage(): string {
-  return 'До цього чату ще не привʼязано жодної заявки. Перейдіть за посиланням "Слідкувати за статусом заявки в Telegram" на сторінці статусу вашої заявки на сайті.'
+  return 'До цього чату ще не привʼязано жодного замовлення. Перейдіть за посиланням "Слідкувати за статусом замовлення в Telegram" на сторінці статусу вашого замовлення на сайті.'
 }
 
 export function formatHelpMessage(): string {
-  return 'Доступні команди:\n/status — дізнатись статус вашої заявки'
+  return 'Доступні команди:\n/status — дізнатись статус вашого замовлення'
 }
 
 export function formatNewRequestMessage(input: NewRequestNotification): string {
   const lines = [
-    `Нова заявка:`,
+    `Нове замовлення:`,
     `Ім'я: ${escapeHtml(input.name)}`,
     `Телефон: ${escapeHtml(input.phone)}`,
   ]
   if (input.comment) lines.push(`Коментар: ${escapeHtml(input.comment)}`)
-  lines.push(formatAdminLink(input.adminUrl, 'Обробити заявку'))
+  lines.push(formatAdminLink(input.adminUrl, 'Обробити замовлення'))
   return lines.join('\n')
 }
 

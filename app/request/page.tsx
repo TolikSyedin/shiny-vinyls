@@ -4,21 +4,21 @@ import { PageHeader, Section, SectionHeading } from '@/components/common'
 import { VinylCalculator } from '@/components/calculator'
 
 export const metadata = {
-  title: 'Заявка — Shiny Vinyls',
+  title: 'Замовлення — Shiny Vinyls',
 }
 
 export default function RequestPage() {
   return (
     <PageContainer>
       <PageHeader
-        eyebrow="Заявка"
-        title="Залишити заявку"
+        eyebrow="Замовлення"
+        title="Залишити замовлення"
         lead="Напишіть кількість платівок і в якому вони стані — повернемось із терміном і сумою."
       />
       <VinylCalculator />
       <Section>
         <div className="flex flex-col gap-[1.5rem]">
-          <SectionHeading eyebrow="Заявка">Відправити заявку</SectionHeading>
+          <SectionHeading eyebrow="Замовлення">Відправити замовлення</SectionHeading>
           <RequestForm />
         </div>
       </Section>
