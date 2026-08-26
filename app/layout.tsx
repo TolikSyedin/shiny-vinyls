@@ -2,6 +2,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme'
 import { SiteHeader, SiteFooter } from '@/components/layout'
 import { fontBody, fontDisplay, fontMono } from './fonts'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata = {
   title: 'Shiny Vinyls',
@@ -25,6 +26,7 @@ export default function RootLayout({
           {children}
           <SiteFooter />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
