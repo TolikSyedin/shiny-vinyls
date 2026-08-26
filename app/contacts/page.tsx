@@ -70,7 +70,8 @@ export default function ContactsPage() {
             </a>
             <Note>Можна одразу надіслати фото стану платівок</Note>
           </Card>
-          <Card>
+          {/* TODO: Add email back when it's ready */}
+          {/* <Card>
             <Mono tone="stamp">Пошта</Mono>
             <a
               href={`mailto:${CONTACT_INFO.email}`}
@@ -79,7 +80,7 @@ export default function ContactsPage() {
               {CONTACT_INFO.email}
             </a>
             <Note>Для рахунків і великих колекцій</Note>
-          </Card>
+          </Card> */}
         </CardGrid>
       </Section>
 
@@ -95,8 +96,7 @@ export default function ContactsPage() {
               {CONTACT_INFO.address.city}
             </p>
             <Note>
-              Двір із боку вулиці, друга брама. Дзвоніть за 15 хвилин — вийдемо
-              назустріч, щоб ви не носили ящик через двір.
+              Дзвоніть за 15 хвилин — вийдемо назустріч.
             </Note>
             <PriceTag>Без передоплати</PriceTag>
           </div>
@@ -131,7 +131,7 @@ export default function ContactsPage() {
 
       <Section>
         <SectionHeading eyebrow="Поштою">Як пакувати платівки</SectionHeading>
-        <NeedleList items={PACKING_TIPS} className="mt-[1.5rem] max-w-[60ch]" />
+        <NeedleList items={PACKING_TIPS} className="mt-[1.5rem]" />
         <Note fullWidth className="mt-[1.125rem]">
           Зворотна відправка — за наш рахунок, якщо в замовленні більше 10
           платівок. Платівки повертаємо в тій самій коробці, в якій прийняли.
