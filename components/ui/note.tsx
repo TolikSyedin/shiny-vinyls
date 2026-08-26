@@ -10,24 +10,12 @@ const TONE: Record<NoteTone, string> = {
 
 export function Note({
   tone = 'muted',
-  compact = false,
   children,
   className,
 }: {
   tone?: NoteTone
-  compact?: boolean
   children: ReactNode
   className?: string
 }) {
-  return (
-    <p
-      className={cx(
-        compact ? 'max-w-[var(--measure)]' : 'max-w-none',
-        TONE[tone],
-        className,
-      )}
-    >
-      {children}
-    </p>
-  )
+  return <p className={cx(TONE[tone], className)}>{children}</p>
 }
