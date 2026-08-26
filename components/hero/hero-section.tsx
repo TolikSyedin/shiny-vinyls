@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { CtaSection } from '@/components/common'
-import { CtaLink, Eyebrow, Lead, PriceTag, Row } from '@/components/ui'
+import { CtaLink, Eyebrow, PriceTag, Row } from '@/components/ui'
 import { basePricePerVinyl } from '@/lib/pricing'
 import { VinylDisc } from './vinyl-disc'
 
@@ -19,11 +19,11 @@ export function HeroSection() {
             <br />
             звучить як вперше
           </h1>
-          <Lead>
+          <p>
             Пил у звуковій доріжці стирає голку швидше за саму музику. Одне
             ультразвукове чищення повертає платівці динаміку і первинну глибину
             звуку.
-          </Lead>
+          </p>
         </div>
 
         <div className="order-3 basis-full lg:basis-auto">

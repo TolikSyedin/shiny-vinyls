@@ -1,5 +1,5 @@
 import { Breadcrumbs } from '@/components/common'
-import { Eyebrow, Lead } from '@/components/ui'
+import { Eyebrow } from '@/components/ui'
 import type { BlogArticle } from '@/lib/data/blog/articles'
 
 export function ArticleHeader({
@@ -17,7 +17,7 @@ export function ArticleHeader({
         <Eyebrow>{readingTime}</Eyebrow>
       </div>
       <h1>{title}</h1>
-      <Lead>{lead}</Lead>
+      <p>{lead}</p>
     </header>
   )
 }
