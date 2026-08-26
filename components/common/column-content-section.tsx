@@ -32,15 +32,10 @@ function ColumnContentRow({
   const content = (
     <>
       <div className="flex flex-wrap items-center gap-2">
-        <Mono
-          tone={highlight ? 'stamp' : 'muted'}
-          className="uppercase tracking-[0.08em]"
-        >
+        <Mono tone={highlight ? 'stamp' : 'muted'} className="mono-label">
           {kicker}
         </Mono>
-        {meta ? (
-          <Mono className="uppercase tracking-[0.08em]">{meta}</Mono>
-        ) : null}
+        {meta ? <Mono className="mono-label">{meta}</Mono> : null}
       </div>
       {title ? <h3 className="text-[var(--stamp)]">{title}</h3> : null}
       <Note>{body}</Note>

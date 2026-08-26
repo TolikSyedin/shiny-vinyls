@@ -3,11 +3,6 @@ import { cx } from '@/lib/utils/cx'
 
 type ReadoutSize = 'lg' | 'xl'
 
-const SIZE: Record<ReadoutSize, string> = {
-  lg: 'text-[2rem]',
-  xl: 'text-[2.5rem]',
-}
-
 export function Readout({
   size = 'lg',
   unit,
@@ -20,21 +15,12 @@ export function Readout({
   className?: string
 }) {
   return (
-    <div
-      className={cx(
-        'font-display font-black tracking-[-0.03em] tabular-nums',
-        'leading-none',
-        SIZE[size],
-        className,
-      )}
-    >
+    <div className={cx('readout', size === 'xl' && 'readout-xl', className)}>
       {children}
       {unit ? (
         <>
           {' '}
-          <small className="mono font-normal tracking-[0.08em] text-[var(--muted)] uppercase">
-            {unit}
-          </small>
+          <small className="mono mono-label text-[var(--muted)]">{unit}</small>
         </>
       ) : null}
     </div>

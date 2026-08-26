@@ -17,7 +17,7 @@ export function ArticleTable({
                 key={label}
                 className="border-b border-[var(--rule)] bg-[var(--surface-2)] px-4 py-2 text-left"
               >
-                <Mono tone="stamp" className="uppercase tracking-[0.06em]">
+                <Mono tone="stamp" className="mono-label">
                   {label}
                 </Mono>
               </th>

@@ -32,7 +32,7 @@ export function SiteFooter() {
       <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-4 px-4 py-8 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4">
           <Wordmark size="sm">Shiny Vinyls</Wordmark>
-          <Mono>Ультразвукове чищення вінілу · Київ</Mono>
+          <Mono>Ультразвукове чищення вінілу<span className="xs:visible"> · Київ</span></Mono>
         </div>
         {FOOTER_LINK_COLUMNS.map((column) => (
           <div key={column[0].href} className="flex flex-col items-start gap-4">

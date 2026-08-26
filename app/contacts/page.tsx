@@ -73,7 +73,7 @@ export default function ContactsPage() {
             <Mono tone="stamp">Пошта</Mono>
             <a
               href={`mailto:${CONTACT_INFO.email}`}
-              className="font-mono text-[0.95rem]"
+              className="font-mono"
             >
               {CONTACT_INFO.email}
             </a>
