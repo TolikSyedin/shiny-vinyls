@@ -44,7 +44,7 @@ export default function ContactsPage() {
 
       <Section>
         <SectionHeading eyebrow="Звʼязок">
-          Оберіть найзручніший для вас варіант
+          Оберіть найзручніший для Вас варіант
         </SectionHeading>
         <CardGrid cols={3} className="mt-[1.5rem]">
           <Card>

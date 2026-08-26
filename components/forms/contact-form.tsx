@@ -58,7 +58,7 @@ export function ContactForm() {
   if (isSubmitted) {
     return (
       <Note className="mt-[1.5rem]" fullWidth>
-        Дякуємо за повідомлення! Ми звʼяжемося з вами найближчим часом.
+        Дякуємо за повідомлення! Ми звʼяжемося з Вами найближчим часом.
       </Note>
     )
   }

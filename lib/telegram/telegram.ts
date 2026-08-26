@@ -60,11 +60,11 @@ export function formatInvalidLinkMessage(): string {
 }
 
 export function formatNotLinkedMessage(): string {
-  return 'До цього чату ще не привʼязано жодного замовлення. Перейдіть за посиланням "Слідкувати за статусом замовлення в Telegram" на сторінці статусу вашого замовлення на сайті.'
+  return 'До цього чату ще не привʼязано жодного замовлення. Перейдіть за посиланням "Слідкувати за статусом замовлення в Telegram" на сторінці статусу Вашого замовлення на сайті.'
 }
 
 export function formatHelpMessage(): string {
-  return 'Доступні команди:\n/status — дізнатись статус вашого замовлення'
+  return 'Доступні команди:\n/status — дізнатись статус Вашого замовлення'
 }
 
 export function formatNewRequestMessage(input: NewRequestNotification): string {

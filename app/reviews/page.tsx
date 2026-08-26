@@ -21,7 +21,7 @@ export default async function ReviewsPage() {
     <PageContainer>
       <PageHeader
         eyebrow="Відгуки"
-        title="Нам важлива ваша думка"
+        title="Нам важлива Ваша думка"
         lead="Ми завжди раді бачити коментарі та відгуки від наших клієнтів"
       />
 
