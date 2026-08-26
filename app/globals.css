@@ -162,7 +162,7 @@
     text-transform: uppercase;
     letter-spacing: -0.03em;
     line-height: 1.02;
-    font-size: 2.25rem;
+    font-size: clamp(1.9rem, 5.6vw, 3.4rem);
     margin: 0;
     overflow-wrap: break-word;
   }
@@ -191,6 +191,10 @@
 
   table {
     font-size: 0.9rem;
+  }
+
+  footer {
+    font-size: 0.88rem;
   }
 
   a {
