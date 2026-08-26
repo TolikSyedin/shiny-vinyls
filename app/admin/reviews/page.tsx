@@ -1,6 +1,10 @@
 import { listAllReviews } from '@/lib/repositories/reviews'
 import { adminReviewStatusLabels } from '@/lib/data/admin-statuses/constants'
 import { AdminPage } from '@/components/admin/admin-page'
+import {
+  AdminTable,
+  type AdminTableColumn,
+} from '@/components/admin/admin-table'
 import { ReviewModerationControl } from '@/components/admin/review-moderation-control'
 import { Note } from '@/components/ui'
 
@@ -10,6 +14,31 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic'
 
+type ReviewRow = Awaited<ReturnType<typeof listAllReviews>>[number]
+
+const columns: AdminTableColumn<ReviewRow>[] = [
+  { key: 'name', header: 'Імʼя', cell: (review) => review.name },
+  { key: 'rating', header: 'Оцінка', cell: (review) => `${review.rating}/5` },
+  {
+    key: 'text',
+    header: 'Текст',
+    cell: (review) => review.text,
+    className: 'max-w-sm',
+  },
+  {
+    key: 'status',
+    header: 'Статус',
+    cell: (review) => adminReviewStatusLabels[review.status],
+  },
+  {
+    key: 'control',
+    header: '',
+    cell: (review) => (
+      <ReviewModerationControl id={review.id} status={review.status} />
+    ),
+  },
+]
+
 export default async function AdminReviewsPage() {
   const reviews = await listAllReviews()
 
@@ -18,37 +47,11 @@ export default async function AdminReviewsPage() {
       {reviews.length === 0 ? (
         <Note>Відгуків ще немає.</Note>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[40rem] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-[var(--rule)]">
-                <th className="p-2">Імʼя</th>
-                <th className="p-2">Оцінка</th>
-                <th className="p-2">Текст</th>
-                <th className="p-2">Статус</th>
-                <th className="p-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {reviews.map((review) => (
-                <tr key={review.id} className="border-b border-[var(--rule)]">
-                  <td className="p-2">{review.name}</td>
-                  <td className="p-2">{review.rating}/5</td>
-                  <td className="max-w-sm p-2">{review.text}</td>
-                  <td className="p-2">
-                    {adminReviewStatusLabels[review.status]}
-                  </td>
-                  <td className="p-2">
-                    <ReviewModerationControl
-                      id={review.id}
-                      status={review.status}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <AdminTable
+          columns={columns}
+          rows={reviews}
+          rowKey={(review) => review.id}
+        />
       )}
     </AdminPage>
   )
