@@ -12,7 +12,7 @@ export function Section({
   return (
     <section
       className={cx(
-        'flex flex-col gap-4 border-t border-[var(--rule)] pt-8',
+        'flex flex-col gap-4 mt-8 pt-8 border-t border-[var(--rule)]',
         className,
       )}
     >
