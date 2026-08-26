@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { PageContainer } from '@/components/layout'
 import {
   CardGridSection,
@@ -240,12 +241,12 @@ export default function HowItWorksPage() {
       <Section>
         <div className="flex flex-col items-start gap-4">
           <h3>Чогось не вистачає?</h3>
-          <Note>Маєте питання, відповіді на яке тут нема? Напишіть нам.</Note>
+          <Note>
+            Маєте питання, відповіді на яке тут нема?{' '}
+            <Link href="/contacts">Напишіть нам</Link>.
+          </Note>
         </div>
       </Section>
-      <CtaSection>
-        <CtaLink href="/contacts">Написати нам</CtaLink>
-      </CtaSection>
     </PageContainer>
   )
 }
