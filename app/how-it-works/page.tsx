@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { PageContainer } from '@/components/layout'
+import { getFaqJsonLd } from '@/lib/seo/json-ld'
 import {
   CardGridSection,
   ColumnContentSection,
@@ -144,6 +145,10 @@ export const metadata = {
 export default function HowItWorksPage() {
   return (
     <PageContainer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd(FAQ)) }}
+      />
       <PageHeader
         eyebrow="Послуга"
         title="Основні кроки які продляють життя Вашому вінілу"

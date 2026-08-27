@@ -7,7 +7,7 @@ import { CtaSection } from '@/components/common'
 import { CtaLink } from '@/components/ui'
 import { BLOG_ARTICLES } from '@/lib/data/blog/articles'
 import { getBlogArticle, getOtherArticles } from '@/lib/utils/blog-utils'
-import { getArticleJsonLd } from '@/lib/seo/json-ld'
+import { getArticleJsonLd, getBreadcrumbJsonLd } from '@/lib/seo/json-ld'
 
 export function generateStaticParams() {
   return BLOG_ARTICLES.map(({ slug }) => ({ slug }))
@@ -51,6 +51,12 @@ export default async function BlogArticlePage({
     notFound()
   }
 
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: 'Головна', path: '/' },
+    { name: 'Блог', path: '/blog' },
+    { name: article.title, path: `/blog/${slug}` },
+  ])
+
   return (
     <PageContainer>
       <script
@@ -58,6 +64,10 @@ export default async function BlogArticlePage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(getArticleJsonLd(article)),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ArticleHeader
         category={article.category}

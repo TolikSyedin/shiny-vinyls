@@ -4,6 +4,7 @@ import { PageContainer } from '@/components/layout'
 import { PageHeader, Section, SectionHeading } from '@/components/common'
 import { Note } from '@/components/ui'
 import { ReviewsSlider } from '@/components/reviews/reviews-slider'
+import { getReviewsJsonLd } from '@/lib/seo/json-ld'
 
 const LEAD = 'Ми завжди раді бачити коментарі та відгуки від наших клієнтів'
 
@@ -20,9 +21,16 @@ export const dynamic = 'force-dynamic'
 
 export default async function ReviewsPage() {
   const reviews = await listApprovedReviews()
+  const reviewsJsonLd = getReviewsJsonLd(reviews)
 
   return (
     <PageContainer>
+      {reviewsJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
+        />
+      )}
       <PageHeader
         eyebrow="Відгуки"
         title="Нам важлива Ваша думка"
