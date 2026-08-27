@@ -5,8 +5,12 @@ import { PageHeader, Section, SectionHeading } from '@/components/common'
 import { Note } from '@/components/ui'
 import { ReviewsSlider } from '@/components/reviews/reviews-slider'
 
+const LEAD = 'Ми завжди раді бачити коментарі та відгуки від наших клієнтів'
+
 export const metadata = {
   title: 'Відгуки — Shiny Vinyls',
+  description: LEAD,
+  alternates: { canonical: '/reviews' },
 }
 
 // Without this, Next.js would prerender the review list once at build time
@@ -22,7 +26,7 @@ export default async function ReviewsPage() {
       <PageHeader
         eyebrow="Відгуки"
         title="Нам важлива Ваша думка"
-        lead="Ми завжди раді бачити коментарі та відгуки від наших клієнтів"
+        lead={LEAD}
       />
 
       <Section>

@@ -7,6 +7,7 @@ import { CtaSection } from '@/components/common'
 import { CtaLink } from '@/components/ui'
 import { BLOG_ARTICLES } from '@/lib/data/blog/articles'
 import { getBlogArticle, getOtherArticles } from '@/lib/utils/blog-utils'
+import { getArticleJsonLd } from '@/lib/seo/json-ld'
 
 export function generateStaticParams() {
   return BLOG_ARTICLES.map(({ slug }) => ({ slug }))
@@ -14,7 +15,6 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
-// TODO: add canonical/OG tags, JSON-LD, and metadataBase once the domain is purchased
 export async function generateMetadata({
   params,
 }: {
@@ -30,6 +30,12 @@ export async function generateMetadata({
   return {
     title: `${article.metaTitle} — Shiny Vinyls`,
     description: article.metaDescription,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      type: 'article',
+      title: article.metaTitle,
+      description: article.metaDescription,
+    },
   }
 }
 
@@ -47,6 +53,12 @@ export default async function BlogArticlePage({
 
   return (
     <PageContainer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getArticleJsonLd(article)),
+        }}
+      />
       <ArticleHeader
         category={article.category}
         readingTime={article.readingTime}

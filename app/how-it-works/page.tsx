@@ -132,7 +132,14 @@ const FAQ = [
   },
 ]
 
-export const metadata = { title: 'Послуга — Shiny Vinyls' }
+const LEAD =
+  'Кожна платівка мріє про такий SPA салон, в якому її викупають в теплій ванні, помиють, висушать, і відправлять назад радувати своїх власників'
+
+export const metadata = {
+  title: 'Послуга — Shiny Vinyls',
+  description: LEAD,
+  alternates: { canonical: '/how-it-works' },
+}
 
 export default function HowItWorksPage() {
   return (
@@ -140,7 +147,7 @@ export default function HowItWorksPage() {
       <PageHeader
         eyebrow="Послуга"
         title="Основні кроки які продляють життя Вашому вінілу"
-        lead="Кожна платівка мріє про такий SPA салон, в якому її викупають в теплій ванні, помиють, висушать, і відправлять назад радувати своїх власників"
+        lead={LEAD}
       />
 
       <Section>
