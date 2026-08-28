@@ -6,23 +6,37 @@ import type { ApprovedReview } from '@/lib/repositories/reviews'
 
 const BUSINESS_ID = `${SITE.url}/#business`
 
-const DAY_ABBREVIATIONS: Record<string, string> = {
-  Пн: 'Mo',
-  Вт: 'Tu',
-  Ср: 'We',
-  Чт: 'Th',
-  Пт: 'Fr',
-  Сб: 'Sa',
-  Нд: 'Su',
+const WEEK_DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'] as const
+
+const DAY_NAMES: Record<string, string> = {
+  Пн: 'Monday',
+  Вт: 'Tuesday',
+  Ср: 'Wednesday',
+  Чт: 'Thursday',
+  Пт: 'Friday',
+  Сб: 'Saturday',
+  Нд: 'Sunday',
 }
 
-function toOpeningHours() {
+function expandDayRange(days: string) {
+  const [from, to] = days.split('–')
+  if (!to) return [DAY_NAMES[from]]
+  const fromIndex = WEEK_DAYS.indexOf(from as (typeof WEEK_DAYS)[number])
+  const toIndex = WEEK_DAYS.indexOf(to as (typeof WEEK_DAYS)[number])
+  return WEEK_DAYS.slice(fromIndex, toIndex + 1).map((day) => DAY_NAMES[day])
+}
+
+function toOpeningHoursSpecification() {
   return CONTACT_INFO.hours
     .filter(({ time }) => time !== 'зачинено')
     .map(({ days, time }) => {
-      const [from, to] = days.split('–').map((day) => DAY_ABBREVIATIONS[day])
-      const dayPart = to ? `${from}-${to}` : from
-      return `${dayPart} ${time.replace('–', '-')}`
+      const [opens, closes] = time.split('–')
+      return {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: expandDayRange(days),
+        opens,
+        closes,
+      }
     })
 }
 
@@ -31,12 +45,18 @@ function toPriceRange() {
   return `${Math.min(...prices)}–${Math.max(...prices)} ₴`
 }
 
-export function getLocalBusinessJsonLd() {
+function getBusinessBase() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': BUSINESS_ID,
     name: SITE.name,
+  }
+}
+
+export function getLocalBusinessJsonLd() {
+  return {
+    ...getBusinessBase(),
     url: SITE.url,
     image: `${SITE.url}/opengraph-image.jpg`,
     telephone: CONTACT_INFO.phone.raw,
@@ -49,7 +69,7 @@ export function getLocalBusinessJsonLd() {
       addressLocality: CONTACT_INFO.address.city,
       addressCountry: 'UA',
     },
-    openingHours: toOpeningHours(),
+    openingHoursSpecification: toOpeningHoursSpecification(),
   }
 }
 
@@ -102,10 +122,7 @@ export function getReviewsJsonLd(reviews: ApprovedReview[]) {
     reviews.reduce((sum, { rating }) => sum + rating, 0) / reviews.length
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': BUSINESS_ID,
-    name: SITE.name,
+    ...getBusinessBase(),
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: Number(ratingValue.toFixed(1)),
