@@ -13,7 +13,7 @@ export const metadata = {
   description: SITE.description,
   openGraph: {
     siteName: SITE.name,
-    locale: 'uk_UA',
+    locale: SITE.locale,
     type: 'website',
   },
   twitter: {

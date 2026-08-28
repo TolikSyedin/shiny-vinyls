@@ -8,6 +8,7 @@ import { CtaLink } from '@/components/ui'
 import { BLOG_ARTICLES } from '@/lib/data/blog/articles'
 import { getBlogArticle, getOtherArticles } from '@/lib/utils/blog-utils'
 import { getArticleJsonLd, getBreadcrumbJsonLd } from '@/lib/seo/json-ld'
+import { SITE } from '@/lib/data/site/constants'
 
 export function generateStaticParams() {
   return BLOG_ARTICLES.map(({ slug }) => ({ slug }))
@@ -35,8 +36,8 @@ export async function generateMetadata({
       type: 'article',
       title: article.metaTitle,
       description: article.metaDescription,
-      images: ['/opengraph-image.jpg'],
-      locale: 'uk_UA',
+      images: [SITE.ogImagePath],
+      locale: SITE.locale,
     },
   }
 }

@@ -1,29 +1,31 @@
 import { CONTACT_INFO } from '@/lib/data/contact-info/constants'
 import { SITE } from '@/lib/data/site/constants'
-import { PRICE_TIERS } from '@/lib/pricing'
+import { priceRangeLabel } from '@/lib/pricing'
 import type { BlogArticle } from '@/lib/data/blog/articles'
 import type { ApprovedReview } from '@/lib/repositories/reviews'
 
 const BUSINESS_ID = `${SITE.url}/#business`
 
-const WEEK_DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'] as const
-
-const DAY_NAMES: Record<string, string> = {
-  Пн: 'Monday',
-  Вт: 'Tuesday',
-  Ср: 'Wednesday',
-  Чт: 'Thursday',
-  Пт: 'Friday',
-  Сб: 'Saturday',
-  Нд: 'Sunday',
-}
+const WEEK_DAYS = [
+  { short: 'Пн', name: 'Monday' },
+  { short: 'Вт', name: 'Tuesday' },
+  { short: 'Ср', name: 'Wednesday' },
+  { short: 'Чт', name: 'Thursday' },
+  { short: 'Пт', name: 'Friday' },
+  { short: 'Сб', name: 'Saturday' },
+  { short: 'Нд', name: 'Sunday' },
+] as const
 
 function expandDayRange(days: string) {
   const [from, to] = days.split('–')
-  if (!to) return [DAY_NAMES[from]]
-  const fromIndex = WEEK_DAYS.indexOf(from as (typeof WEEK_DAYS)[number])
-  const toIndex = WEEK_DAYS.indexOf(to as (typeof WEEK_DAYS)[number])
-  return WEEK_DAYS.slice(fromIndex, toIndex + 1).map((day) => DAY_NAMES[day])
+  const fromIndex = WEEK_DAYS.findIndex((day) => day.short === from)
+  const toIndex = to
+    ? WEEK_DAYS.findIndex((day) => day.short === to)
+    : fromIndex
+  if (fromIndex === -1 || toIndex === -1) {
+    throw new Error(`Unknown day abbreviation in "${days}"`)
+  }
+  return WEEK_DAYS.slice(fromIndex, toIndex + 1).map((day) => day.name)
 }
 
 function toOpeningHoursSpecification() {
@@ -40,11 +42,6 @@ function toOpeningHoursSpecification() {
     })
 }
 
-function toPriceRange() {
-  const prices = PRICE_TIERS.map(({ pricePerVinyl }) => pricePerVinyl)
-  return `${Math.min(...prices)}–${Math.max(...prices)} ₴`
-}
-
 function getBusinessBase() {
   return {
     '@context': 'https://schema.org',
@@ -58,10 +55,10 @@ export function getLocalBusinessJsonLd() {
   return {
     ...getBusinessBase(),
     url: SITE.url,
-    image: `${SITE.url}/opengraph-image.jpg`,
+    image: `${SITE.url}${SITE.ogImagePath}`,
     telephone: CONTACT_INFO.phone.raw,
     email: CONTACT_INFO.email,
-    priceRange: toPriceRange(),
+    priceRange: priceRangeLabel(),
     sameAs: [CONTACT_INFO.telegram.url],
     address: {
       '@type': 'PostalAddress',
