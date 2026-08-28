@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 24 24" style="color-scheme: light dark">
+  <title>Shiny Vinyls</title>
+  <circle cx="12" cy="12" r="11.7" fill="#2a2730" style="fill: light-dark(#2a2730, #0A090C)"></circle><circle cx="12" cy="12" r="11.1" fill="none" stroke="#d9d8ce" stroke-opacity="0.22" stroke-width="0.3"></circle><circle cx="12" cy="12" r="10.45" fill="#f0ece4"></circle><circle cx="12" cy="12" r="10.2" fill="none" stroke="#5537c0" stroke-width="0.5" style="stroke: light-dark(#5537c0, #8B6BF0)"></circle><g transform="translate(12 12) scale(1.0450) translate(-12 -12)" fill="none" stroke="#5537c0" stroke-width="1.244" style="stroke: light-dark(#5537c0, #8B6BF0)"><line x1="12" y1="2" x2="12" y2="22"></line><path d="M 7.2 7 L 7.2 10 L 12 10" stroke-linecap="square"></path><path d="M 2.2 14 L 7.2 14 L 7.2 17"></path><line x1="17" y1="3.34" x2="17" y2="17"></line></g>
+</svg>
