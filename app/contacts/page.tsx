@@ -73,8 +73,7 @@ export default function ContactsPage() {
             </a>
             <Note>Можна одразу надіслати фото стану платівок</Note>
           </Card>
-          {/* TODO: Add email back when it's ready */}
-          {/* <Card>
+          <Card>
             <Mono tone="stamp">Пошта</Mono>
             <a
               href={`mailto:${CONTACT_INFO.email}`}
@@ -83,7 +82,7 @@ export default function ContactsPage() {
               {CONTACT_INFO.email}
             </a>
             <Note>Для рахунків і великих колекцій</Note>
-          </Card> */}
+          </Card>
         </CardGrid>
       </Section>
 
