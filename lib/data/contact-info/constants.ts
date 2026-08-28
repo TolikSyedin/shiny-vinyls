@@ -1,7 +1,7 @@
 export const CONTACT_INFO = {
   phone: {
-    raw: '+380671480148',
-    display: '+38 067 148 01 48',
+    raw: '+380984233699',
+    display: '+38 098 423 36 99',
   },
   telegram: {
     handle: '@shinyvinyls',
