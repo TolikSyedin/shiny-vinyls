@@ -38,7 +38,7 @@ export function getLocalBusinessJsonLd() {
     '@id': BUSINESS_ID,
     name: SITE.name,
     url: SITE.url,
-    image: `${SITE.url}/opengraph-image`,
+    image: `${SITE.url}/opengraph-image.jpg`,
     telephone: CONTACT_INFO.phone.raw,
     email: CONTACT_INFO.email,
     priceRange: toPriceRange(),
