@@ -7,7 +7,7 @@ export const CONTACT_INFO = {
     handle: '@shinyvinyls',
     url: 'https://t.me/shinyvinyls',
   },
-  email: 'hello@shinyvinyls.com',
+  email: 'info@shinyvinyls.com.ua',
   address: {
     street: 'Львівська площа',
     city: 'Київ',
