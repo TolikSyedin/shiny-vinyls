@@ -36,6 +36,7 @@ export async function generateMetadata({
       title: article.metaTitle,
       description: article.metaDescription,
       images: ['/opengraph-image.jpg'],
+      locale: 'uk_UA',
     },
   }
 }
