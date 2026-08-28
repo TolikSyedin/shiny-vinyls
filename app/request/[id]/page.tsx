@@ -7,6 +7,7 @@ import { CtaLink, Mono } from '@/components/ui'
 
 export const metadata = {
   title: 'Статус замовлення — Shiny Vinyls',
+  robots: { index: false, follow: false },
 }
 
 export default async function RequestStatusPage({

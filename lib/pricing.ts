@@ -40,6 +40,11 @@ export function totalPrice(quantity: number): number {
   return clamped * pricePerVinyl(clamped)
 }
 
+export function priceRangeLabel(): string {
+  const prices = PRICE_TIERS.map(({ pricePerVinyl }) => pricePerVinyl)
+  return `${Math.min(...prices)}–${Math.max(...prices)} ₴`
+}
+
 export type PriceTierRange = {
   rangeLabel: string
   pricePerVinyl: number

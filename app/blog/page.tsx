@@ -8,6 +8,7 @@ export const metadata = {
   title: 'Блог — Shiny Vinyls',
   description:
     'Практичні тексти про догляд за вінілом: як почистити платівку вдома, чим ультразвук відрізняється від вакуумної мийки і звідки береться тріск.',
+  alternates: { canonical: '/blog' },
 }
 
 export default function BlogPage() {

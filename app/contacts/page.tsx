@@ -28,8 +28,13 @@ const MAP_EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
   `${CONTACT_INFO.address.street}, ${CONTACT_INFO.address.city}`,
 )}&output=embed`
 
+const LEAD =
+  'Сервіс ультразвукової мийки вінілових платівок. Приймаємо замовлення по всій Україні. м. Київ. Самовивіз / доставка'
+
 export const metadata = {
   title: 'Контакти — Shiny Vinyls',
+  description: LEAD,
+  alternates: { canonical: '/contacts' },
 }
 
 export default function ContactsPage() {
@@ -38,7 +43,7 @@ export default function ContactsPage() {
       <PageHeader
         eyebrow="Контакти"
         title="Shiny Vinyls"
-        lead="Сервіс ультразвукової мийки вінілових платівок. Приймаємо замовлення по всій Україні. м. Київ. Самовивіз / доставка"
+        lead={LEAD}
       >
         <Note>
           Можна звʼязатися з нами будь-яким зручним способом. Найшвидше — через

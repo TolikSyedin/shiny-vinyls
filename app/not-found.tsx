@@ -4,6 +4,7 @@ import { CtaLink } from '@/components/ui'
 
 export const metadata = {
   title: 'Сторінку не знайдено — Shiny Vinyls',
+  robots: { index: false, follow: false },
 }
 
 export default function NotFound() {

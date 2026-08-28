@@ -7,6 +7,8 @@ import { CtaSection } from '@/components/common'
 import { CtaLink } from '@/components/ui'
 import { BLOG_ARTICLES } from '@/lib/data/blog/articles'
 import { getBlogArticle, getOtherArticles } from '@/lib/utils/blog-utils'
+import { getArticleJsonLd, getBreadcrumbJsonLd } from '@/lib/seo/json-ld'
+import { SITE } from '@/lib/data/site/constants'
 
 export function generateStaticParams() {
   return BLOG_ARTICLES.map(({ slug }) => ({ slug }))
@@ -14,7 +16,6 @@ export function generateStaticParams() {
 
 export const dynamicParams = false
 
-// TODO: add canonical/OG tags, JSON-LD, and metadataBase once the domain is purchased
 export async function generateMetadata({
   params,
 }: {
@@ -30,6 +31,14 @@ export async function generateMetadata({
   return {
     title: `${article.metaTitle} — Shiny Vinyls`,
     description: article.metaDescription,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      type: 'article',
+      title: article.metaTitle,
+      description: article.metaDescription,
+      images: [SITE.ogImagePath],
+      locale: SITE.locale,
+    },
   }
 }
 
@@ -45,8 +54,24 @@ export default async function BlogArticlePage({
     notFound()
   }
 
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: 'Головна', path: '/' },
+    { name: 'Блог', path: '/blog' },
+    { name: article.title, path: `/blog/${slug}` },
+  ])
+
   return (
     <PageContainer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getArticleJsonLd(article)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ArticleHeader
         category={article.category}
         readingTime={article.readingTime}

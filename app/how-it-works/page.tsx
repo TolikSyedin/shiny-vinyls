@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { PageContainer } from '@/components/layout'
+import { getFaqJsonLd } from '@/lib/seo/json-ld'
 import {
   CardGridSection,
   ColumnContentSection,
@@ -132,15 +133,26 @@ const FAQ = [
   },
 ]
 
-export const metadata = { title: 'Послуга — Shiny Vinyls' }
+const LEAD =
+  'Кожна платівка мріє про такий SPA салон, в якому її викупають в теплій ванні, помиють, висушать, і відправлять назад радувати своїх власників'
+
+export const metadata = {
+  title: 'Послуга — Shiny Vinyls',
+  description: LEAD,
+  alternates: { canonical: '/how-it-works' },
+}
 
 export default function HowItWorksPage() {
   return (
     <PageContainer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd(FAQ)) }}
+      />
       <PageHeader
         eyebrow="Послуга"
         title="Основні кроки які продляють життя Вашому вінілу"
-        lead="Кожна платівка мріє про такий SPA салон, в якому її викупають в теплій ванні, помиють, висушать, і відправлять назад радувати своїх власників"
+        lead={LEAD}
       />
 
       <Section>
